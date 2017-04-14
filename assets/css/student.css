@@ -1,0 +1,23 @@
+.form-table tr {
+    border-color: gray;
+    border-spacing: 2px;
+    border-bottom: 1px solid #e5e5e5;
+    border-collapse: collapse;
+    line-height: 1.4em;
+}
+
+.form-table tr:last-child {
+    border-bottom: none;
+}
+
+.form-table th {
+    text-align: right;
+}
+
+.form-table tr input[type="text"] {
+    padding: 5px;
+}
+
+.tablenav .actions {
+    padding: 0px !important;
+}
