@@ -58,9 +58,11 @@ class RPS_Admin_Menu_PremiumAddOns extends RPS_Admin_Menu_MenuAbstract {
                             <?php
                             }
                             else {
+                                $i = 1;
+                                echo "<div class='row'>";
                                 foreach ( $products as $product ) {
                                     ?>
-                                    <div class="col-md-3 col-sm-4 col-xs-1 col-lg-3">
+                                    <div class="<?php echo $i%3 == 0 ? 'col-md-4 col-lg4 col-sm-4' : 'col-md-3 col-lg3 col-sm-3'; ?> col-xs-11">
                                         <div class="card1">
                                             <h6 class="card-header bg-primary text-white"><?php echo str_replace('Easy Student Results : ', '', $product->title); ?></h6>
 
@@ -75,6 +77,14 @@ class RPS_Admin_Menu_PremiumAddOns extends RPS_Admin_Menu_MenuAbstract {
                                         </div>
                                     </div>
                                     <?php
+                                    if ( $i % 3 == 0 ) {
+                                        echo "</div><div class='row'>";
+                                    }
+                                    $i++;
+                                }
+
+                                if ( $i % 3 != 0 ) {
+                                    echo "</div>";
                                 }
                             }
                         ?>

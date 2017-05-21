@@ -10,10 +10,10 @@ require_once dirname(__FILE__) . '/RPS/Helper/Function.php';
 require_once dirname(__FILE__) . '/RPS/Uninstall.php';
 
 
+$options = get_option( RPS_Result_Management::PLUGIN_SLUG . '_basics', array() );
 
 if ( !is_multisite() ) {
     //check options
-    $options = get_option( RPS_Result_Management::PLUGIN_SLUG . '_basics', array() );
     if ( isset($options['delete_data']) && $options['delete_data'] == 'on' ) {
         RPS_Uninstall::getInstance();
     }
@@ -26,7 +26,10 @@ if ( !is_multisite() ) {
     foreach ( $blog_ids as $blog_id ) {
         switch_to_blog( $blog_id );
 
-        RPS_Uninstall::getInstance();
+        //check options
+        if ( isset($options['delete_data']) && $options['delete_data'] == 'on' ) {
+            RPS_Uninstall::getInstance();
+        }
 
         restore_current_blog();
     }

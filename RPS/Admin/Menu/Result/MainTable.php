@@ -43,7 +43,7 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
             //'updated'       => __('Updated', $this->TD),
             'actions'       => __('Actions', $this->TD),
         );
-        return $columns;
+        return apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_result_main_table_cloumns', $columns);
     }
     
     function column_sl($item) {
@@ -126,8 +126,11 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
                 $link2 = wp_nonce_url ( admin_url( sprintf( 'admin.php?page=%s&delete=%d', $this->page,$item->id ) ), 'delete_result_' . $item->id, 'delete_result' );
                 $link .= sprintf('<br><strong><a href="%s" class="button button-default action_button delete_marks exam_record_id_%d" data-exam_name="%s" data-exam_id="%d">%s</a></strong>',$link2, $item->id, $exam_name, $item->id, $delete);
                 return sprintf( '%s', apply_filters(RPS_Result_Management::PLUGIN_SLUG .'_exam_record_list_actions', $link, $this->page, $item->id));
+
+            default:
+                do_action(RPS_Result_Management::PLUGIN_SLUG . '_result_main_table_data', $column_name, $item);
         }
-    } 
+    }
     
     
     function get_sortable_columns() {

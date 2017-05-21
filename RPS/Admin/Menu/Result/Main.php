@@ -112,13 +112,15 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 				$this->messages[] = __( 'Please Select at least one <strong>Course</strong>.', $this->TD );
 			}
 
+			$this->error = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_result_main_error', $this->error, $_POST);
+
 
 			if ( empty( $this->messages ) && empty( $this->error ) ) {
 				$data['added'] = time();
 				$format = array('%d', '%d', '%d', '%d', '%d', '%d', '%d');
 
 
-				if ( $wpdb->insert( $wpdb->rps_exam_record, $data, $format ) ) {
+				if ( $wpdb->insert( $wpdb->rps_exam_record, apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_result_main_data', $data, $_POST), apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_result_main_format', $format, $_POST ) ) ) {
 					//now add result table data
 					$this->delete_cache();
 
@@ -153,8 +155,8 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 
 					} else {
 
-						$wpdb->show_errors();
-						$wpdb->print_error();
+						//$wpdb->show_errors();
+						//$wpdb->print_error();
 
 						$data['student_ids'] = $student_ids;
 						$data['course_ids'] = $course_ids;
@@ -164,8 +166,8 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 				}
 				else {
 
-					$wpdb->show_errors();
-					$wpdb->print_error();
+					//$wpdb->show_errors();
+					//$wpdb->print_error();
 
 					$data['student_ids'] = $student_ids;
 					$data['course_ids'] = $course_ids;
@@ -213,7 +215,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 				$where = array( 'id' => $id );
 				$format_where = array( '%d' );
 
-				$wpdb->update( $wpdb->rps_exam_record, $data, $where, $format, $format_where );
+				$wpdb->update( $wpdb->rps_exam_record, apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_result_main_data', $data, $_POST), $where, apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_result_main_format', $format, $_POST ), $format_where );
 
 				//delete existing records
 
@@ -492,6 +494,8 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 						endif; ?>
 					</td>
 				</tr>
+
+				<?php do_action(RPS_Result_Management::PLUGIN_SLUG . '_result_main_form', $data); ?>
 
 				</tbody>
 			</table>

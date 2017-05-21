@@ -3,9 +3,9 @@ Contributors: zikubd
 Donate link: https://www.nurul.me/product/easy-student-results-needs-support/
 Tags: academic, academic result, student, student result, student result management system, result management system, education, result system, create marksheet online, online marksheet, online marksheet creator, result, easy student result, school, college, university, school result, college result, university result, create marksheet online, emarksheet
 Requires at least: 4.0.0
-Tested up to: 4.7.3
-Stable tag: 1.7
-Version: 1.7
+Tested up to: 4.7.5
+Stable tag: 1.8
+Version: 1.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,7 +14,7 @@ Result Management System for School, College and University. Use [esr_results] t
 
 == Description ==
 
-Fully Featured Result Management System for School, College and University. You can use this plugin for Employee Listing too.
+Fully Featured Result Management System for School, College and University. You can use Student Result plugin for Employee Listing too.
 A free Android Apps is also available for this plugins. With this Android app (Version 4.4.4 and later), you can search students, view results etc.
 Dedicated settings page is available for Apps api. From there you can change your app settings dynamically. Download this
 app from this [link](https://www.nurul.me/product/easy-student-results-android-apps/ "Easy Student Results")
@@ -46,6 +46,7 @@ Roll no (by default) or by Registration no [esr_results2 search_by='reg']. Note 
 = Premium AddOns =
 Premium AddOns are available for this plugin, like private result search, new shortcodes for searching result by exam, year and roll no etc. For more details please visit [here](https://www.nurul.me/shop/ "Easy Student Results Premium AddOns") for more details.
 
+*   [Marks Entry Frontend](https://www.nurul.me/product/marks-entry-frontend/ "Easy Student Results : Marks Entry Frontend")
 *   [Private Result Search](https://www.nurul.me/product/easy-student-results-private-result-search/ "Easy Student Results : Private Result Search")
 *   [Advanced Search Plugin](https://www.nurul.me/product/easy-student-results-advanced-search-plugin/ "Easy Student Results : Advanced Search Plugin")
 *   [List Entry Marks](https://www.nurul.me/product/easy-student-results-list-entry-marks/ "Easy Student Results : List Entry Marks")
@@ -84,6 +85,11 @@ It is hard to continue development and support for this free plugin without cont
 
 == Changelog ==
 
+= 1.8 =
+* Updated Codebase
+* Fixed Some issues for shortcodes
+* Added some hooks
+
 = 1.7 =
 * Fixed [esr_results2] shortcode
 * Now you can edit department
@@ -105,7 +111,7 @@ It is hard to continue development and support for this free plugin without cont
 
 = 1.4 =
 
-* Added uninstall.php file, now you can delete all plugins data while deleting this plugin. A new settings options is added under basic settings section.
+* Added uninstall.php file, now you can delete all plugins data while deleting this plugin. A new settings options is added under General Settings section.
 * Solved a issue with multisite installation.
 * Added Total Obtained Marks for [esr_results] and [esr_results2] shortcode
 * Fixed a PHP notice for [esr_results2] shortcode

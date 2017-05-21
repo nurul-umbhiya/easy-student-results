@@ -221,7 +221,7 @@ final class RPS_Shortcodes_Result2 extends RPS_Shortcodes_Abstract
                         echo "<tr><th>$meta_value</th><td>";
                         echo isset( $semester_info['name'] ) ? esc_attr( $semester_info['name'] ) : '';
 
-                    } elseif (array_key_exists($meta_key, $metadata)) {
+                    } elseif (is_array($metadata) && array_key_exists($meta_key, $metadata)) {
                         echo "<th>{$meta_value}</th><td>{$metadata[ $meta_key ]}";
                     } else {
                         echo "<tr><th>$meta_value</th><td>";

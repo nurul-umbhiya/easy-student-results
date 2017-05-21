@@ -57,7 +57,7 @@ class RPS_Admin_Menu_Settings  {
         $sections = array(
             array(
                 'id' => RPS_Result_Management::PLUGIN_SLUG .'_basics',
-                'title' => __( 'Basic Settings', $this->TD )
+                'title' => __( 'General Settings', $this->TD )
             ),
             array(
                 'id' => RPS_Result_Management::PLUGIN_SLUG . '_students',
@@ -76,7 +76,7 @@ class RPS_Admin_Menu_Settings  {
                 'title' => __( 'License', $this->TD )
             ),
         );
-        return $sections;
+        return apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_settings_section', $sections);
     }
 
     /**
@@ -86,7 +86,7 @@ class RPS_Admin_Menu_Settings  {
      */
     function get_settings_fields() {
         $settings_fields = array(
-            RPS_Result_Management::PLUGIN_SLUG .'_basics' => array(
+            RPS_Result_Management::PLUGIN_SLUG .'_basics' => apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_settings_field_basics', array(
                 array(
                     'name'  => 'user_role',
                     'label' => __( 'Who Can View <em>Student Results</em> Menu', $this->TD ),
@@ -118,9 +118,9 @@ class RPS_Admin_Menu_Settings  {
                     'desc'  => __( 'If you select this option, when you delete this plugin, all plugins data such as custom db table created by this plugin, all students data, all courses data etc will be deleted. Select this option if you want to completely remove this plugin.', $this->TD ),
                     'type'  => 'checkbox'
                 ),
-            ),
+            ) ),
 
-            RPS_Result_Management::PLUGIN_SLUG . '_students' => array(
+            RPS_Result_Management::PLUGIN_SLUG . '_students' => apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_settings_field_students', array(
 
                 array(
                     'name'    => 'department_text',
@@ -180,8 +180,8 @@ class RPS_Admin_Menu_Settings  {
                                  permanent_address, gaurdian_name, gaurdian_address, gaurdian_contact_no, gaurdian_email',
                     'type'    => 'html',
                 ),
-            ),
-            RPS_Result_Management::PLUGIN_SLUG . '_results' => array (
+            ) ),
+            RPS_Result_Management::PLUGIN_SLUG . '_results' => apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_settings_field_results', array (
 
                 array(
                     'name'    => 'exam_text',
@@ -253,7 +253,8 @@ class RPS_Admin_Menu_Settings  {
                     'label'   => __( 'Available Student Fields', $this->TD ),
                     'desc'    => '<strong>name,department, batch, semester, registration_no, roll_no, library_card, f_name,
                                  m_name, dob, email, stu_phone, blood_group, religion, nationality, present_address,
-                                 permanent_address, gaurdian_name, gaurdian_address, gaurdian_contact_no, gaurdian_email</strong>',
+                                 permanent_address, gaurdian_name, gaurdian_address, gaurdian_contact_no, gaurdian_email</strong><br>
+                                 <strong><em>*** </em> You can also use Result Fields data here. eg: total_marks:Total Marks, cgpa:Cgpa, final_result:Final Result etc</strong>',
                     'type'    => 'html',
                 ),
 
@@ -339,9 +340,9 @@ class RPS_Admin_Menu_Settings  {
                     'type'  => 'checkbox',
                 ),
 
-            ),
+            )),
 
-            RPS_Result_Management::PLUGIN_SLUG . '_api' => array (
+            RPS_Result_Management::PLUGIN_SLUG . '_api' => apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_settings_field_api' ,array (
                 array(
                     'name'  => 'enable_api',
                     'label' => __( 'Enable API', $this->TD ),
@@ -451,7 +452,7 @@ class RPS_Admin_Menu_Settings  {
                     'desc'    => '<strong>total_marks, cgpa, final_result, final_grade</strong>',
                     'type'    => 'html',
                 ),
-            ),
+            )),
 
             RPS_Result_Management::PLUGIN_SLUG . '_license' => apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_license_fields', array()),
 
