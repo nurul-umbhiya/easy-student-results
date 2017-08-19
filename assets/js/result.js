@@ -1,5 +1,5 @@
 jQuery(function($) {
-    $('#result_table').on('change', '#department_id', function() {
+    $('#result_table, .rps_promote_students_tbl').on('change', '#department_id', function() {
     //$('#department_id').on('change', function () {
         if( edit_result == true )
             return;
@@ -8,7 +8,7 @@ jQuery(function($) {
 
         // Popupate semester dropdown box
         var i = semesters[id];
-        console.log(i);
+        //console.log(i);
         $('#semester_id option').remove();
 
 
@@ -25,7 +25,7 @@ jQuery(function($) {
 
         //populate batch dropdown box
         var j = batches[id];
-        console.log(j);
+        //console.log(j);
         $('#batch_id option').remove();
 
         // Add option to the select box from list
@@ -76,7 +76,7 @@ jQuery(function($) {
                 }
                 else {
 
-                    alert("Your vote could not be added")
+                    alert("Invalid Request.")
                 }
             }
         })
@@ -108,7 +108,7 @@ jQuery(function($) {
                 }
                 else {
 
-                    alert("Your vote could not be added")
+                    alert("Invalid Request.")
                 }
             }
         })

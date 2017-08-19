@@ -23,11 +23,11 @@ class RPS_Helper_Student {
      * @param int $batch_id
      * @return array
      */
-    private function getStudentData( $department_id, $batch_id, $semester_id = null ) {
+    private function getStudentData( $department_id, $batch_id, $semester_id = null, $post_status = "publish" ) {
         if ( $semester_id === null || !RPS_Helper_Function::is_numeric($semester_id) )
-            $transient = RPS_Result_Management::PLUGIN_SLUG . "_student_list_{$department_id}_{$batch_id}" ;
+            $transient = RPS_Result_Management::PLUGIN_SLUG . "_student_list_{$post_status}_{$department_id}_{$batch_id}" ;
         elseif ( RPS_Helper_Function::is_numeric($semester_id)  )
-            $transient = RPS_Result_Management::PLUGIN_SLUG . "_student_list_{$department_id}_{$batch_id}_{$semester_id}" ;
+            $transient = RPS_Result_Management::PLUGIN_SLUG . "_student_list_{$post_status}_{$department_id}_{$batch_id}_{$semester_id}" ;
 
         //delete_transient($transient);
 
@@ -84,7 +84,13 @@ class RPS_Helper_Student {
                 null
             );
             $post_type = RPS_Result_Management::STUDENT;
-            $query = "SELECT ID, post_title FROM {$wpdb->posts} {$mq_sql['join']} WHERE post_type='{$post_type}' and post_status='publish' {$mq_sql['where']}" ;
+
+            if ( $post_status == 'publish' ) {
+                $query = "SELECT ID, post_title FROM {$wpdb->posts} {$mq_sql['join']} WHERE post_type='{$post_type}' and post_status='publish' {$mq_sql['where']}" ;
+            }
+            else {
+                $query = "SELECT ID, post_title FROM {$wpdb->posts} {$mq_sql['join']} WHERE post_type='{$post_type}' and (post_status='publish' or post_status='promoted' ){$mq_sql['where']}" ;
+            }
             $results = $wpdb->get_results($query,ARRAY_A);
             
             if( ! empty( $results ) ) :
@@ -181,16 +187,16 @@ class RPS_Helper_Student {
     }
 
 
-    public function getStudentDetails( $department_id, $batch_id, $semester_id = null ) {
+    public function getStudentDetails( $department_id, $batch_id, $semester_id = null, $post_status = 'publish' ) {
         $data = array();
 
         if ( RPS_Helper_Function::is_numeric( $department_id ) && RPS_Helper_Function::is_numeric( $batch_id ) && RPS_Helper_Function::is_numeric( $semester_id ) ) {
 
-            $data = $this->getStudentData( $department_id, $batch_id, $semester_id );
+            $data = $this->getStudentData( $department_id, $batch_id, $semester_id, $post_status );
 
         } elseif ( RPS_Helper_Function::is_numeric( $department_id ) && RPS_Helper_Function::is_numeric( $batch_id ) ) {
 
-            $data = $this->getStudentData( $department_id, $batch_id );
+            $data = $this->getStudentData( $department_id, $batch_id, null, $post_status );
 
         } else {
             return new \WP_Error('Invalid Argument',__("Given arguments are invalid. Please provide valid argument.", RPS_Result_Management::TD ));
@@ -208,13 +214,13 @@ class RPS_Helper_Student {
      * @param int $semester_id
      * @return array
      */
-    public function getSutdentInfo( $department_id, $batch_id, $student_id, $semester_id = null ) {
+    public function getSutdentInfo( $department_id, $batch_id, $student_id, $semester_id = null, $post_status='all' ) {
 
         if ( RPS_Helper_Function::is_numeric( $department_id ) && RPS_Helper_Function::is_numeric( $batch_id ) && RPS_Helper_Function::is_numeric( $semester_id ) ) {
-            $data = $this->getStudentData( $department_id, $batch_id );
+            $data = $this->getStudentData( $department_id, $batch_id, $semester_id, $post_status );
 
         } elseif ( RPS_Helper_Function::is_numeric( $department_id ) && RPS_Helper_Function::is_numeric( $batch_id ) ) {
-            $data = $this->getStudentData( $department_id, $batch_id );
+            $data = $this->getStudentData( $department_id, $batch_id, null, $post_status );
 
         } else {
             return new \WP_Error('Invalid Argument',__("Given arguments are invalid. Please provide valid arguments.",RPS_Result_Management::TD));
@@ -276,6 +282,14 @@ class RPS_Helper_Student {
             if(!empty($personal_info)) $tmp = array_merge ($tmp,$personal_info);
             if(!empty($contact_info)) $tmp = array_merge ($tmp,$contact_info);
 
+            //get featured image
+            if (has_post_thumbnail( $student_id ) ):
+                $image = wp_get_attachment_image_src( get_post_thumbnail_id( $student_id ) );
+                $tmp['image'] = $image[0];
+            else:
+                $tmp['image'] = '';
+            endif;
+
             $tmp['ID'] = $student_id;
             return $tmp;
             
@@ -285,9 +299,9 @@ class RPS_Helper_Student {
         }
     }
 
-    public function getStudentByRoll($department_id, $batch_id, $semester_id, $student_roll) {
+    public function getStudentByRoll($department_id, $batch_id, $semester_id, $student_roll, $post_status='all') {
 
-        $data = $this->getStudentDetails($department_id, $batch_id, $semester_id);
+        $data = $this->getStudentDetails($department_id, $batch_id, $semester_id, $post_status);
 
         if ( !is_wp_error($data) && is_array($data) && !empty($data) ) {
 
@@ -303,9 +317,9 @@ class RPS_Helper_Student {
         return new \WP_Error('No Student',__("No student found.", RPS_Result_Management::TD));
     }
 
-    public function getStudentByRegNo($department_id, $batch_id, $semester_id, $registration_no) {
+    public function getStudentByRegNo($department_id, $batch_id, $semester_id, $registration_no, $post_status='all') {
 
-        $data = $this->getStudentDetails($department_id, $batch_id, $semester_id);
+        $data = $this->getStudentDetails($department_id, $batch_id, $semester_id, $post_status);
 
         if ( !is_wp_error($data) && is_array($data) && !empty($data) ) {
 

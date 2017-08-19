@@ -223,7 +223,7 @@ class RPS_Helper_Result {
 
 		$ret = array();
 		foreach ( $student_list as $student_id ) {
-			$ret[ $student_id ] = $student->getSutdentInfo( $department_id, $batch_id, $student_id, $semester_id  );
+			$ret[ $student_id ] = $student->getStudentInfo2( $student_id );
 			$ret[ $student_id ]['image'] = ($ret[ $student_id ]['image'] != "" ? $ret[ $student_id ]['image'] : ( $ret[ $student_id ]['gender'] === "Male" ?  RPS_Result_Management::URL() . '/assets/img/user_male.png' : RPS_Result_Management::URL() . '/assets/img/user_female.png' ) );
 		}
 

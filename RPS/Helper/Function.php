@@ -97,9 +97,9 @@ class RPS_Helper_Function {
     }
 
     public static function delete_transient() {
-        if ( ! defined( RPS_Result_Management::PLUGIN_SLUG . '_delete_transient' ) )
-            return;
-
+        //if ( ! defined( RPS_Result_Management::PLUGIN_SLUG . '_delete_transient' ) )
+            //return;
+        /*
         $transient_keys = get_option( 'rps_result_transient_keys', array() );
 
         if ( !empty( $transient_keys ) ) {
@@ -108,6 +108,10 @@ class RPS_Helper_Function {
             }
             update_option( 'rps_result_transient_keys', array() );
         }
+        */
+        global $wpdb;
+        $query = "delete FROM `{$wpdb->options}` where option_name like '%_rps_result_%'";
+        $wpdb->query($query);
 
     }
 

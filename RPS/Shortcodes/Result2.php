@@ -176,7 +176,7 @@ final class RPS_Shortcodes_Result2 extends RPS_Shortcodes_Abstract
                 if ( is_wp_error($semester_info) )
                     $semester_info = array();
 
-                $student_info = $this->student->getSutdentInfo( $exam_record_data->department_id, $exam_record_data->batch_id, $student_info['id'], $exam_record_data->semester_id );
+                $student_info = $this->student->getStudentInfo2( $student_info['id'] );
             }
 
         } else {

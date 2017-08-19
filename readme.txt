@@ -85,6 +85,12 @@ It is hard to continue development and support for this free plugin without cont
 
 == Changelog ==
 
+= 1.9 =
+* Plan is to add promote feature
+* Add percentage feature to result
+
+
+
 = 1.8 =
 * Updated Codebase
 * Fixed Some issues for shortcodes

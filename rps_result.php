@@ -4,7 +4,7 @@ Plugin Name: Easy Student Results
 Plugin URI: https://www.nurul.me/
 Description: Result Management System for School, College and University. Use [esr_results] to display result and [esr_students] to display student list.
 Text Domain: easy-student-results
-Version: 1.8
+Version: 1.9
 Author: Nurul Umbhiya
 Author URI: https://www.nurul.me/
 */
@@ -138,7 +138,7 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
             //delete tables after blog is deleted
             add_filter( 'wpmu_drop_tables', array($this, 'onDeleteBlog'), 10, 2 );
 
-            if ( is_admin() && !defined('DOING_AJAX') ) {
+            if ( is_admin() ) {
                 //register and localize all script/stylesheet for admin panel
                 add_action( 'admin_enqueue_scripts', array( $this, 'adminRegisterScripts' ) , 1 );
                 add_action( 'admin_enqueue_scripts', array( $this, 'adminRegisterStyles' ) , 1 );
@@ -185,6 +185,24 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
             if ( defined('DOING_AJAX') && DOING_AJAX ) {
                 RPS_Helper_Ajax::getInstance();
             }
+
+            add_action( 'init', array($this, 'custom_post_status'), 0 );
+
+        }
+
+        // Register Custom Status
+        public function custom_post_status() {
+
+            $args = array(
+                'label'                     => _x( 'Promote', 'Status General Name', 'easy-student-results' ),
+                'label_count'               => _n_noop( 'Promote (%s)',  'Promoted (%s)', 'easy-student-results' ),
+                'public'                    => false,
+                'show_in_admin_all_list'    => false,
+                'show_in_admin_status_list' => false,
+                'exclude_from_search'       => true,
+            );
+            register_post_status( 'promoted', $args );
+
         }
 
         public function api() {

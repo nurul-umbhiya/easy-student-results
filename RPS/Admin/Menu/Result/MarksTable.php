@@ -28,7 +28,7 @@ class RPS_Admin_Menu_Result_MarksTable extends \WP_List_Table {
 
         $this->student = new RPS_Helper_Student();
 
-        $this->student_meta = $this->student->getStudentDetails($this->department_id, $this->batch_id, $this->semester_id);
+        $this->student_meta = $this->student->getStudentDetails($this->department_id, $this->batch_id, $this->semester_id, 'all');
 
 
         //Set parent defaults

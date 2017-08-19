@@ -219,11 +219,6 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
                                 echo "<option value='{$key}' ".selected($batch_id, $key, false).">{$name}</option>";
                             endforeach;
                         }
-                    } else {
-                        $batch = $batches[ $dept_ids[0] ];
-                        foreach ($batch as $key => $name):
-                            echo "<option value='{$key}' ".selected($batch_id, $key, false).">{$name}</option>";
-                        endforeach;
                     }
                     ?>
                 </select>
@@ -242,11 +237,6 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
                                     echo "<option value='{$id}' ".selected($semester_id, $id, false).">{$name}</option>";
                                 endforeach;
                             }
-                        } else {
-                            $semester = $semesters[$dept_ids[0]];
-                            foreach ($semester as $id => $name):
-                                echo "<option value='{$id}' ".selected($semester_id, $id, false).">{$name}</option>";
-                            endforeach;
                         }
                         ?>
                     </select>

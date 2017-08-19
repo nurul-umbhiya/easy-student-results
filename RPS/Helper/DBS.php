@@ -39,7 +39,7 @@ class RPS_Helper_DBS {
         }
         //echo "<pre>"; print_r($ret); echo '</pre>';
         return $ret;
-    }//end of getDepartmentList()
+    }//end of getDepartmentData()
     
     /**
      * 
@@ -80,7 +80,7 @@ class RPS_Helper_DBS {
                         $ret[$dept_id] = $department['name'];
                     }
                 } else {
-                    if($department['active'] === '0') {
+                    if($department['active'] === '2') {
                         $ret[$dept_id] = $department['name'];
                     }
                 }
@@ -308,7 +308,7 @@ class RPS_Helper_DBS {
         }
     }
     
-    public function getAllBatchListByDepartment($department_id = null) {
+    public function getAllBatchListByDepartment($department_id = null, $active = null) {
         if(RPS_Helper_Function::is_numeric($department_id)) {
             $list = $this->getBatchData($department_id);
             if( $list === '' || $list === NULL  || empty($list)) {
@@ -316,7 +316,20 @@ class RPS_Helper_DBS {
             } else {
                 $ret = array();
                 foreach ($list as $id => $row):
-                    $ret[$id] = $row['name'];
+                    if (null === $active) {
+                        $ret[$id] = $row['name'];
+                    }
+                    elseif($active == true) {
+                        if ( $row['active'] === '1' ) {
+                            $ret[$id] = $row['name'];
+                        }
+                    }
+                    elseif ( $active == false ) {
+                        if ( $row['active'] === '2' ) {
+                            $ret[$id] = $row['name'];
+                        }
+                    }
+
                 endforeach;
                 return $ret;
             }

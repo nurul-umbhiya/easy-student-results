@@ -410,7 +410,7 @@ class RPS_API extends WP_REST_Controller {
             if ( !empty( $dept_ids ) ) :
                 foreach ( $dept_ids as $id ):
                     //get batch
-                    $batch_data = $this->dbs->getAllBatchListByDepartment( $id );
+                    $batch_data = $this->dbs->getAllBatchListByDepartment( $id, true );
                     $batches[$id] = is_wp_error($batch_data) ? array() : $batch_data;
                     //get semester
                     $sem = $this->dbs->getSemesterList($id);

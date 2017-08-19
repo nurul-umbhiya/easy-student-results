@@ -351,7 +351,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 			if ( !empty( $dept_ids ) ) :
 				foreach ( $dept_ids as $id ):
 					//get batch
-					$batch_data = $this->dbs->getAllBatchListByDepartment( $id );
+					$batch_data = $this->dbs->getAllBatchListByDepartment( $id, true );
 					$batches[$id] = is_wp_error($batch_data) ? array() : $batch_data;
 					//get semester
 					$sem = $this->dbs->getSemesterList($id);
@@ -531,13 +531,12 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 											<td><?php echo __( '<strong>Course Name:</strong> ', $this->TD)  . $course_data['name'];  ?></td>
 										</tr>
 									<?php } ?>
-									</tbody>
-									</table>
 
 								<?php	} else { ?>
 									<tr><td colspan="2"><?php _e('No course found.', $this->TD); ?></td></tr>
 								<?php } ?>
-
+                                </tbody>
+									</table>
 							</div>
 							<?php
 						}

@@ -335,7 +335,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
                     <td>
                         <select name="active" id="program" class="postform">
                             <option value='1' <?php selected($data['active'], "1"); ?>><?php _e('Active', $this->TD) ?></option>
-                            <option value='0' <?php selected($data['active'], "2");  ?>><?php _e('In-active', $this->TD) ?></option>
+                            <option value='2' <?php selected($data['active'], "2");  ?>><?php _e('In-active', $this->TD) ?></option>
                         </select>
                         <p><?php _e('Enable this Batch ?', $this->TD) ?></p>
                         <?php if(isset($this->error['active'])) echo '<p style="color:red;"><strong>' . $this->error['active'] . '</strong></p>';  ?>

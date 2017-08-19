@@ -326,7 +326,7 @@ EOD;
         if ( is_wp_error($semester_info) )
             $semester_info = array();
 
-        $student_info = $this->student->getSutdentInfo( $this->department_id, $this->batch_id, $this->student_id, $this->semester_id );
+        $student_info = $this->student->getStudentInfo2( $this->student_id );
 
 
     ?>

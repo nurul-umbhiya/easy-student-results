@@ -66,7 +66,7 @@ class RPS_Admin_Menu_PremiumAddOns extends RPS_Admin_Menu_MenuAbstract {
                                         <div class="card1">
                                             <h6 class="card-header bg-primary text-white"><?php echo str_replace('Easy Student Results : ', '', $product->title); ?></h6>
 
-                                            <div class="card-block">
+                                            <div class="card-block" style="min-height: 180px;">
                                                 <p class="card-text text-justify"><?php echo $product->excerpt; ?></p>
                                             </div>
 

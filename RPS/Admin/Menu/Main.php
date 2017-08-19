@@ -57,10 +57,7 @@ class RPS_Admin_Menu_Main {
         add_action('admin_menu',array($this,'gradeMenu'),14);
         add_action('admin_menu',array($this,'examsMenu'),15);
         add_action('admin_menu',array($this,'resultsMenu'),16);
-        //add_action('admin_menu', array($this, 'promoteMenu'), 17);
         add_action('admin_menu', array($this, 'premiumMenu'), 1000);
-
-
     }
 
     public function adminMenu() {
@@ -108,13 +105,6 @@ class RPS_Admin_Menu_Main {
         add_action('load-' . $this->slug['results'] , array($this,'loadResults'));
 
         $this->page_hook['results'] = RPS_Result_Management::PLUGIN_SLUG . '_results';
-    }
-
-    public function promoteMenu() {
-        $this->slug['promote'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Promote Students", $this->TD), __("Promote Students", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_promote',array($this,'promoteStudents'));
-        add_action('load-' . $this->slug['promote'] , array($this,'loadPromoteStudents'));
-
-        $this->page_hook['promote'] = RPS_Result_Management::PLUGIN_SLUG . '_promote';
     }
 
     public function premiumMenu() {
@@ -194,16 +184,6 @@ class RPS_Admin_Menu_Main {
 
     public function results() {
         $obj = RPS_Admin_Menu_Result_Main::getInstance($this->page_hook['results']);
-        $obj->mainDiv();
-    }
-
-    public function LoadPromoteStudents() {
-        $obj = RPS_Admin_Menu_PromoteStudents::getInstance($this->page_hook['promote']);
-        $obj->onLoadPage();
-    }
-
-    public function promoteStudents() {
-        $obj = RPS_Admin_Menu_PromoteStudents::getInstance($this->page_hook['promote']);
         $obj->mainDiv();
     }
 

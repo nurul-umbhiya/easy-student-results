@@ -120,7 +120,7 @@ final class RPS_Admin_Init_Metaboxes_Student {
             if ( !empty( $dept_ids ) ) :
                 foreach ( $dept_ids as $id ):
                     //get batch
-                    $batch_data = $this->dbs->getAllBatchListByDepartment( $id );
+                    $batch_data = $this->dbs->getAllBatchListByDepartment( $id, true );
                     $batches[$id] = is_wp_error($batch_data) ? array() : $batch_data;
                     //get semester
                     $sem = $this->dbs->getSemesterList($id);
