@@ -121,6 +121,7 @@ class RPS_InstallDb {
                     subject_id bigint(20) unsigned NOT NULL,
                     grade_id bigint(20) unsigned NOT NULL,
                     marks_obtained numeric (5,2) NOT NULL DEFAULT '0.0',
+                    percentage numeric (5,2) NOT NULL DEFAULT '0.0',
                     display tinyint(1) unsigned NOT NULL DEFAULT '1',
                     active tinyint(1) unsigned NOT NULL DEFAULT '1',
                     added int(10) unsigned NOT NULL,

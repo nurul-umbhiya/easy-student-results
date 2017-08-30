@@ -40,7 +40,7 @@ class RPS_Admin_Menu_PremiumAddOns extends RPS_Admin_Menu_MenuAbstract {
         <div class="wrap">
             <div class="rps_result">
                 <div class="container-fluid">
-                    <div class="row" style="margin: 0 auto;">
+                    <div class="row">
                         <?php
                             if ( is_object($products) ) {
                                 //error
@@ -114,7 +114,7 @@ class RPS_Admin_Menu_PremiumAddOns extends RPS_Admin_Menu_MenuAbstract {
     }
 
     public function loadJs() {
-        //wp_enqueue_script('rps_bootstrap');
+        wp_enqueue_script('rps_bootstrap4');
         //wp_enqueue_script('fluidvids');
     }
 

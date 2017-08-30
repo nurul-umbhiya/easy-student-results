@@ -536,8 +536,10 @@ class WeDevs_Settings_API {
                 $('.group').hide();
                 var activetab = '';
                 if (typeof(localStorage) != 'undefined' ) {
+                    console.log(localStorage);
                     activetab = localStorage.getItem("activetab");
                 }
+                //console.log(activetab);
                 if (activetab != '' && $(activetab).length ) {
                     $(activetab).fadeIn();
                 } else {

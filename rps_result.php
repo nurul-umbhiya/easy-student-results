@@ -19,7 +19,7 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
         private static $instance;
         private $dir, $url;
 
-        const VER = 1.3;
+        const VER = 1.9;
 
         //do not change below constant
         const DS = '/';
@@ -188,6 +188,36 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
 
             add_action( 'init', array($this, 'custom_post_status'), 0 );
 
+            if ( is_admin() ) {
+	            //check for updates
+	            $this->check_for_updates();
+            }
+        }
+
+        private function check_for_updates() {
+            $version = get_option( self::PLUGIN_SLUG . '_version', '' );
+
+            if ( $version == '' ) {
+                //delete cache
+                RPS_Helper_Function::delete_transient();
+
+                //this is version 1.8, run db updates
+	            $db_class = RPS_InstallDb::getInstance();
+	            $db_class->createDB();
+
+	            //set default options
+                $general_option = get_option(RPS_Result_Management::PLUGIN_SLUG .'_basics');
+                if ( !array_key_exists('marks_js', $general_option) ) {
+                    $general_option['marks_js'] = 'on';
+                }
+	            if ( !array_key_exists('percentage_js', $general_option) ) {
+		            $general_option['percentage_js'] = 'on';
+	            }
+	            update_option(RPS_Result_Management::PLUGIN_SLUG .'_basics', $general_option);
+
+                //update current version
+	            update_option(self::PLUGIN_SLUG . '_version', self::VER);
+            }
         }
 
         // Register Custom Status
@@ -308,6 +338,7 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
         public function adminRegisterStyles() {
             wp_register_style( 'jquery-ui',         $this->url .'/assets/jquery-ui/jquery-ui-1.10.4.custom.min.css', array(), '1.10.4' );
             wp_register_style( 'rps_bootstrap',     $this->url . '/assets/bootstrap-3.3.5/css/bootstrap.css', array(), '3.3.5' );
+	        wp_register_style( 'rps_bootstrap4',     $this->url . '/assets/bootstrap-4/css/bootstrap.min.css', array(), '4.0' );
 
             wp_register_style( 'rps_sc_student_list',  $this->url . '/assets/css/sc_student_list.css', null, self::VER);
 
@@ -315,10 +346,23 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
         }
 
         public function adminRegisterScripts() {
-            wp_register_script( 'rps_bootstrap',    $this->url . '/assets/bootstrap-3.3.5/js/bootstrap.min.js', array( 'jquery' ), '3.3.5');
-            wp_register_script( 'rps_sc_student_list', $this->url . '/assets/js/sc_student_list.js', array('jquery'), self::VER);
-            wp_register_script( 'rps_sc_result',    $this->url . '/assets/js/sc_result.js', array('jquery'), self::VER);
-            wp_register_script( 'rps_sc_result2',    $this->url . '/assets/js/sc_result2.js', array('jquery'), self::VER);
+            //register bootstrap
+            wp_register_script( 'rps_bootstrap',    $this->url . '/assets/bootstrap-3.3.5/js/bootstrap.min.js', array( 'jquery' ), '3.3.5', true);
+
+            //register sortcode script
+            wp_register_script( 'rps_sc_student_list', $this->url . '/assets/js/sc_student_list.js', array('jquery'), self::VER, true);
+            wp_register_script( 'rps_sc_result',    $this->url . '/assets/js/sc_result.js', array('jquery'), self::VER, true);
+            wp_register_script( 'rps_sc_result2',    $this->url . '/assets/js/sc_result2.js', array('jquery'), self::VER, true);
+
+
+            //register admin scripts
+            wp_register_script( 'rps_marks',    $this->url . '/assets/js/marks.js', array('jquery'), self::VER, true);
+	        wp_register_script( 'rps_percentage',    $this->url . '/assets/js/percentage.js', array('jquery'), self::VER, true);
+	        wp_register_script( 'rps_result', $this->url . '/assets/js/result.js', array('jquery'), self::VER, true );
+
+            //bootstrap 4
+	        wp_register_script( 'rps_popper_js',    $this->url . '/assets/bootstrap-4/js/popper.min.js', array( 'jquery' ), '1.11.0');
+	        wp_register_script( 'rps_bootstrap4',    $this->url . '/assets/bootstrap-4/js/bootstrap.min.js', array( 'jquery', 'rps_popper_js' ), '4.0', true);
 
             wp_localize_script(
                 'rps_sc_result', "result",
@@ -328,7 +372,8 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
                 )
             );
 
-            wp_register_script( 'jquery_print',    $this->url . '/assets/js/jQuery.print.js', array('jquery'), '1.3.3');
+            wp_register_script( 'jquery_print',    $this->url . '/assets/js/jQuery.print.js', array('jquery'), '1.5.1', true);
+
 
 
         }

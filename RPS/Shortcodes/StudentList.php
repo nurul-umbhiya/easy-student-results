@@ -29,7 +29,7 @@ final class RPS_Shortcodes_StudentList extends RPS_Shortcodes_Abstract {
 
         $this->department_id  = isset( $_REQUEST['department_id'] )   ? intval( $_REQUEST['department_id'] ) : '';
         $this->batch_id       = isset( $_REQUEST['batch_id'] )        ? intval( $_REQUEST['batch_id'] ) : '';
-        $this->semester_id    = isset( $_REQUEST['semester_id'] )     ? intval( $_REQUEST['semester_id'] ) : '';
+        $this->semester_id    = isset( $_REQUEST['semester_id'] )     ? intval( $_REQUEST['semester_id'] ) : null;
 
         $this->options = get_option( RPS_Result_Management::PLUGIN_SLUG . '_students', array() );
 
@@ -185,22 +185,16 @@ final class RPS_Shortcodes_StudentList extends RPS_Shortcodes_Abstract {
         $batch_info = array();
         $semester_info = array();
 
-        if( RPS_Helper_Function::is_numeric($this->department_id) && RPS_Helper_Function::is_numeric($this->batch_id) &&
-            RPS_Helper_Function::is_numeric($this->semester_id) ) {
+        if( RPS_Helper_Function::is_numeric($this->department_id) && RPS_Helper_Function::is_numeric($this->batch_id) ) {
 
-            $student_list = $this->student->getStudentDetails( $this->department_id, $this->batch_id, $this->semester_id );
+            $student_list = $this->student->getStudentDetails( $this->department_id, $this->batch_id, $this->semester_id, 'all' );
 
             //get department, batch and semester
             $department_info = $this->dbs->getDepartmentInfo( $this->department_id );
             $batch_info = $this->dbs->getBatchInfo( $this->department_id, $this->batch_id );
-            $semester_info = $this->dbs->getSemesterInfo( $this->department_id, $this->semester_id );
-
-        } elseif ( RPS_Helper_Function::is_numeric($this->department_id) && RPS_Helper_Function::is_numeric($this->batch_id) ) {
-
-            $student_list = $this->student->getStudentDetails( $this->department_id, $this->batch_id, $this->semester_id );
-            $department_info = $this->dbs->getDepartmentInfo( $this->department_id );
-            $batch_info = $this->dbs->getBatchInfo( $this->department_id, $this->batch_id );
-
+            if ( RPS_Helper_Function::is_numeric($this->semester_id) ) {
+	            $semester_info = $this->dbs->getSemesterInfo( $this->department_id, $this->semester_id );
+            }
         } else {
             //invalid request
             echo '<div class="alert alert-danger" role="alert">' . __('Invalid Request', $this->TD) .'</div>';

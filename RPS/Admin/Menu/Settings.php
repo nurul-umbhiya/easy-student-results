@@ -112,6 +112,20 @@ class RPS_Admin_Menu_Settings  {
                     'desc'  => __( 'Disable Bootstrap JS on Frontend', $this->TD ),
                     'type'  => 'checkbox'
                 ),
+	            array(
+		            'name'  => 'marks_js',
+		            'label' => __( 'Disable Auto-Calculating Total Marks?', $this->TD ),
+		            'desc'  => __( 'If you want to disable auto-calculating Total Marks value in marks window, uncheck this button', $this->TD ),
+		            'type'  => 'checkbox',
+		            'default' => 'on'
+	            ),
+	            array(
+		            'name'  => 'percentage_js',
+		            'label' => __( 'Disable Auto-Calculating Percentage?', $this->TD ),
+		            'desc'  => __( 'If you want to disable auto-calculating percentage value in marks window, uncheck this button', $this->TD ),
+		            'type'  => 'checkbox',
+		            'default' => 'on'
+	            ),
                 array(
                     'name'  => 'delete_data',
                     'label' => __( 'Delete All Plugins Data', $this->TD ),
@@ -269,7 +283,7 @@ class RPS_Admin_Menu_Settings  {
                 array(
                     'name'    => 'help_html_subject',
                     'label'   => __( 'Available Subject Fields', $this->TD ),
-                    'desc'    => '<strong>name, course_code, total_marks, marks_obtained, grade, grade_point</strong>',
+                    'desc'    => '<strong>name, course_code, total_marks, marks_obtained, grade, grade_point, percentage</strong>',
                     'type'    => 'html',
                 ),
 
@@ -284,7 +298,7 @@ class RPS_Admin_Menu_Settings  {
                 array(
                     'name'    => 'help_html_result',
                     'label'   => __( 'Available Result Fields', $this->TD ),
-                    'desc'    => '<strong>total_marks, cgpa, final_result, final_grade, total_marks_obtained</strong>',
+                    'desc'    => '<strong>total_marks, cgpa, final_result, final_grade, total_marks_obtained, total_percentage</strong>',
                     'type'    => 'html',
                 ),
 
