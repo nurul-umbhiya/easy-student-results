@@ -171,30 +171,36 @@ final class RPS_Admin_Menu_Result_Marks {
 		if ( ! empty( $_POST ) && check_admin_referer( 'update_student_marks_nonce_' . $exam_record_id . '_' . $student_id, 'update_student_marks' ) ) {
 			//update result
 			$result_data = isset( $_POST['results'] ) ? $_POST['results'] : array();
-
-			//metadata
-			$total_marks = isset( $_POST['total_marks'] ) ? floatval( $_POST['total_marks'] ) : '0.00';
-			$cgpa = isset( $_POST['cgpa'] ) ? floatval( $_POST['cgpa'] ) : '0.00';
-			$final_result = isset( $_POST['final_result'] ) ? stripslashes( $_POST['final_result'] ) : '';
-			$final_grade = isset ( $_POST['final_grade'] ) ?  intval( $_POST['final_grade'] ) : '';
-			$total_marks_obtained = isset( $_POST['total_marks_obtained'] ) ? floatval( $_POST['total_marks_obtained'] ) : '';
+			$metadata = isset( $_POST['metadata']) ? $_POST['metadata'] : array();
 
 			//update result table by single sql query
 			$result_ids = implode( ',', array_keys( $result_data ) );
 			$marks_obtained_data = array();
 			$grade_data = array();
+			$percentage_data = array();
 
 			foreach ( $result_data  as $key => $val  ) {
 				$marks_obtained_data[ $key ] = floatval( $val['marks_obtained'] );
 				$grade_data[ $key ] = intval( $val['grade'] );
+				$percentage_data[ $key ] = floatval( $val['percentage'] );
 			}
 
 			$sql = "UPDATE `{$wpdb->rps_marks}` SET `marks_obtained` = CASE `id` ";
+
+			//marks_obtained
 			foreach ($marks_obtained_data as $id => $ordinal) {
 				$sql .= sprintf("WHEN %d THEN %f ", $id, $ordinal);
 			}
 
+			$sql .= "END, `percentage` = CASE `id` ";
+
+			//percentage
+			foreach ($percentage_data as $id => $ordinal) {
+				$sql .= sprintf("WHEN %d THEN %f ", $id, $ordinal);
+			}
+
 			$sql .= "END, `grade_id` = CASE `id` ";
+
 
 			foreach ($grade_data as $id => $ordinal) {
 				$sql .= sprintf("WHEN %d THEN %d ", $id, $ordinal);
@@ -205,207 +211,82 @@ final class RPS_Admin_Menu_Result_Marks {
 
 			$wpdb->query( $sql );
 
-			//update metadata
-			$this->result->update_exam_record_meta( $exam_record_id, $student_id, 'total_marks', $total_marks );
-			$this->result->update_exam_record_meta( $exam_record_id, $student_id, 'cgpa', $cgpa );
-			$this->result->update_exam_record_meta( $exam_record_id, $student_id, 'final_result', $final_result );
-			$this->result->update_exam_record_meta( $exam_record_id, $student_id, 'final_grade', $final_grade );
-			$this->result->update_exam_record_meta( $exam_record_id, $student_id, 'total_marks_obtained', $total_marks_obtained );
+			do_action(RPS_Result_Management::PLUGIN_SLUG . '_marks_table_data_saved', $_POST);
 
+			//update metadata
+            if ( !empty($metadata) ) {
+
+	            foreach ( $metadata as $meta_key => $meta_value ) {
+	                switch ($meta_key) {
+                        case 'total_marks':
+	                        $total_marks = $meta_value != '' ? floatval( $meta_value ) : '0.00';
+	                        $this->result->update_exam_record_meta( $exam_record_id, $student_id, 'total_marks', $total_marks );
+                            break;
+
+		                case 'cgpa':
+			                $cgpa = $meta_value != '' ? floatval( $meta_value ) : '0.00';
+			                $this->result->update_exam_record_meta( $exam_record_id, $student_id, 'cgpa', $cgpa );
+			                break;
+
+		                case 'final_result':
+			                $final_result = $meta_value != '' ? strip_tags( trim($meta_value) ) : '';
+			                $this->result->update_exam_record_meta( $exam_record_id, $student_id, 'final_result', $final_result );
+			                break;
+
+		                case 'final_grade':
+			                $final_grade = $meta_value != '' ?  intval( $meta_value ) : '';
+			                $this->result->update_exam_record_meta( $exam_record_id, $student_id, 'final_grade', $final_grade );
+			                break;
+
+		                case 'total_marks_obtained':
+			                $total_marks_obtained = $meta_value != '' ? floatval( $meta_value ) : '';
+			                $this->result->update_exam_record_meta( $exam_record_id, $student_id, 'total_marks_obtained', $total_marks_obtained );
+			                break;
+
+		                default:
+                            $value = $meta_value != '' ? strip_tags( trim($meta_value) ) : '';
+			                $this->result->update_exam_record_meta( $exam_record_id, $student_id, $meta_key, $value );
+			                break;
+                    }
+
+                }
+            }
+            
 			//marks=1&student_id=6
 			$url = esc_url_raw( add_query_arg( array( 'page' => $this->page, 'updated' => '1', 'marks' => $exam_record_id, 'student_id' => $student_id  ), 'admin.php?' ) );
 			RPS_Helper_Function::javascript_redirect($url);
 
 		} else {
-			$query = $wpdb->prepare( "SELECT * FROM `{$wpdb->rps_marks}` WHERE `exam_record_id` = %d AND `student_id` = %d", array( $exam_record_id, $student_id )  );
-			$data = $wpdb->get_results( $query, ARRAY_A );
 
-			//getmetadata
-			$metadata = $this->result->get_exam_record_meta( $exam_record_id, $student_id );
+			$html = "";
+			$nonce = wp_nonce_field( 'update_student_marks_nonce_' . $exam_record_id . '_' . $student_id , 'update_student_marks', true, false );
 
-			$this->student_marks_html($data, $metadata, $exam_record_id, $student_id);
+			try {
+				$marks_obj = new RPS_Helper_Marks($exam_record_id, $student_id, $this->plugin_slug, $this->page);
 
-		}
-
-
-	}
-
-	private function student_marks_html( $data, $metadata, $exam_record_id = null, $student_id = null ) {
-
-		//Table Headings
-		$lbl_sl             = __('SL', $this->TD);
-		$lbl_course_name    = __('Subject Name', $this->TD);
-		$lbl_course_code    = __('Subject Code', $this->TD);
-		$lbl_total_marks    = __('Total Marks', $this->TD);
-		$lbl_marks_obtained = __('Marks Obtained', $this->TD);
-		$lbl_grade          = __('Grade', $this->TD);
-		$lbl_grade_point    = __('Grade Point', $this->TD);
-
-		//labels
-		$lbl_final_grade = __('Final Grade', $this->TD);
-		$lbl_cgpa = __( 'CGPA', $this->TD );
-		$lbl_result = __( 'Final Result', $this->TD );
-		$lbl_update = __( 'Update', $this->TD );
-		$lbl_back = __( 'Back', $this->TD );
-		$lbl_total_marks_obtained = __( 'Marks Obtained', $this->TD );
-
-		//metadata
-		$total_marks = isset( $metadata['total_marks'] ) ? floatval($metadata['total_marks']) : 0.00;
-		$cgpa = isset( $metadata['cgpa'] ) ? floatval($metadata['cgpa']) : "";
-		$result = isset( $metadata['final_result'] ) ? esc_attr($metadata['final_result']) : "";
-		$final_grade = isset( $metadata['final_grade'] ) ? intval($metadata['final_grade']) : "";
-		$total_marks_obtained = isset( $metadata['total_marks_obtained'] ) ? floatval( $metadata['total_marks_obtained'] ) : '';
-
-
-		$back_url = esc_url_raw( add_query_arg( array( 'page' => $this->page, 'marks' => $exam_record_id ), 'admin.php' ) );
-
-		$grades = $this->result->getGradeList();
-
-		$grade_options = "";
-
-		if( !is_wp_error( $grades ) ) {
-			foreach ( $grades as $grade_id => $grade ) {
-				$grade_options .= "<option value='{$grade_id}'";
-				if( $final_grade == $grade_id ) {
-					$grade_options .= " selected='selected'";
-				}
-				$grade_options .= ">{$grade}</option>";
+			} catch (Exception $ex) {
+				die($ex->getMessage());
 			}
+
+			ob_start();?>
+            <div class='rps_result'>
+                <div class='container-fluid'>
+                    <?php $marks_obj->exam_table_html(); ?>
+                    <form method="post">
+                        <?php echo $nonce; ?>
+                        <?php $marks_obj->get_marks_html(); ?>
+                    </form>
+			    </div>
+            </div>
+            <?php
+			$html = ob_get_clean();
+			echo $html;
+
+            $marks_obj->get_js();
+
+
+
+
 		}
-
-		$nonce = wp_nonce_field( 'update_student_marks_nonce_' . $exam_record_id . '_' . $student_id , 'update_student_marks', true, false );
-
-		//get student meta
-
-
-		$thead = <<<EOD
-		<form method="post">
-		{$nonce}
-<table class="wp-list-table widefat fixed striped" id="marks_table">
-	<thead>
-		<tr>
-			<th scope="col" class="manage-column column-sl" style="width:50px;">{$lbl_sl}</th>
-			<th scope="col" class="manage-column column-course_name" style="">{$lbl_course_name}</th>
-			<th scope="col" class="manage-column column-course_code" style="">{$lbl_course_code}</th>
-			<th scope="col" class="manage-column column-total_marks" style="">{$lbl_total_marks}</th>
-			<th scope="col" class="manage-column column-marks_obtained" style="">{$lbl_marks_obtained}</th>
-			<th scope="col" class="manage-column column-grade" style="">{$lbl_grade}</th>
-			<th scope="col" class="manage-column column-grade_point" style="">{$lbl_grade_point}</th>
-		</tr>
-	</thead>
-EOD;
-
-		$calculate_total_marks = 0;
-
-		ob_start();
-
-		if( is_array( $data ) && !empty( $data ) ) {
-
-			$department_id  = isset($this->exam_record['department_id']) ? $this->exam_record['department_id'] : 0;
-			$batch_id       = isset($this->exam_record['batch_id']) ? $this->exam_record['batch_id'] : 0;
-			$semester_id    = isset($this->exam_record['semester_id']) ? $this->exam_record['semester_id'] : 0;
-			$i = 0;
-			foreach ( $data as $row ) {
-				//print_r($row);
-				$course_info = $this->course->getCourseDetails( $department_id, $row['subject_id'], $semester_id );
-				if( is_wp_error($course_info) ) {
-					$course_info = $this->course->getCourseInfo( $row['subject_id'] );
-				}
-
-				$i++;
-
-				$course_name = isset ( $course_info['name'] ) ? $course_info['name'] : '';
-				$course_code = isset ( $course_info['course_code'] ) && $course_info['course_code'] != '' ? $course_info['course_code'] : 'N/A';
-				$total = isset ( $course_info['total_marks'] ) && $course_info['total_marks'] != '' ? $course_info['total_marks'] : 'N/A';
-
-				if ( isset ( $course_info['total_marks'] ) && $course_info['total_marks'] != '' ) {
-					$calculate_total_marks += floatval( $course_info['total_marks'] );
-				}
-
-				$grade_options = "";
-
-				if( !is_wp_error( $grades ) ) {
-					foreach ( $grades as $grade_id => $grade ) {
-						$grade_options .= "<option value='{$grade_id}'";
-						if( $row['grade_id'] == $grade_id ) {
-							$grade_options .= " selected='selected'";
-						}
-						$grade_options .= ">{$grade}</option>";
-					}
-				}
-
-
-
-				echo "<tr>
-	<td><strong>{$i}</strong></td>
-	<td>{$course_name}</td>
-	<td>{$course_code}</td>
-	<td>{$total}</td>
-	<td><input type='text' name='results[{$row['id']}][marks_obtained]' class='small-text rps_marks' value='{$row['marks_obtained']}'></td>
-	<td><select class='grades' name='results[{$row['id']}][grade]'>{$grade_options}</select></td>
-	<td><input type='text' readonly='readonly' class='small-text rps_grade'></td>
-</tr>";
-
-
-			}
-		} else {
-			$text = __( 'No Row found.', $this->TD );
-			echo "<tr><td colspan='7'>{$text}</td></tr>";
-		}
-
-
-		$tbody = ob_get_clean();
-
-		if ( $total_marks == '' || $total_marks == 0 || floatval($total_marks) < floatval($calculate_total_marks) ) {
-			$total_marks = $calculate_total_marks;
-		}
-
-		$tfoot = <<<EOD
-	<tfoot>
-		<tr>
-			<th scope="col" class="manage-column column-sl" style="text-align:right;" colspan="7">
-				<label for="total_marks"><strong>{$lbl_total_marks}</strong>:</label>
-				<input  id="total_marks" type="text" placeholder="{$lbl_total_marks}" class="small-text" name="total_marks" value="{$total_marks}" style="padding:2px;" />&nbsp;
-
-				<label for="total_marks_obtained"><strong>{$lbl_total_marks_obtained}</strong>:</label>
-				<input  id="total_marks_obtained" type="text" placeholder="{$lbl_total_marks_obtained}" class="small-text" name="total_marks_obtained" value="{$total_marks_obtained}" style="padding:2px;" />&nbsp;
-
-				<label for="final_grade"><strong>{$lbl_final_grade}</strong>:</label>
-				<select name="final_grade" id="final_grade" style="padding: 2px;">{$grade_options}</select>
-
-				<label for="cgpa"><strong>{$lbl_cgpa}</strong>:</label>
-				<input type="text" placeholder="eg: 3.16" name="cgpa" value="{$cgpa}" id="cgpa" class="small-text" style="padding: 2px;" />&nbsp;
-
-				<label for="final_result"><strong>{$lbl_result}</strong>:</label>
-				<input type="text" placeholder="eg: passed" name="final_result" value="{$result}" id="final_result" class="" style="padding: 2px;" />&nbsp;
-
-				<input type="submit" class="button button-primary" value="{$lbl_update}" />
-				<a href="{$back_url}" class="button button-secondary">{$lbl_back}</a>
-
-			</th>
-		</tr>
-	</tfoot>
-</table>
-</form>
-EOD;
-
-		ob_start();
-		$grade_points = $this->result->getGradePointList();
-		if( !is_wp_error($grade_points) ) {
-			$grade_points = json_encode( $grade_points );
-		} else {
-			$grade_points = json_encode( array() );
-		}
-
-		echo <<<EOD
-		<script type="text/javascript">
-			var grade_points = $grade_points;
-		</script>
-EOD;
-		$js = ob_get_clean();
-
-		echo $thead . $tbody . $tfoot . $js;
-
 	}
-
 }

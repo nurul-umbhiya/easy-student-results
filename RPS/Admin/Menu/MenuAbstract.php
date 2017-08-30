@@ -10,6 +10,7 @@ abstract class RPS_Admin_Menu_MenuAbstract {
 	protected $helper, $page, $dbs, $plugin_slug;
 	protected $DIR, $URL, $VER;
 	protected $student, $result, $course;
+	protected $option_general;
 
 	protected function __construct() {
 		$this->helper = new RPS_Helper_Function();
@@ -21,6 +22,7 @@ abstract class RPS_Admin_Menu_MenuAbstract {
 		$this->DIR = RPS_Result_Management::DIR();
 		$this->URL = RPS_Result_Management::URL();
 		$this->VER = RPS_Result_Management::VER;
+		$this->option_general = get_option(RPS_Result_Management::PLUGIN_SLUG .'_basics');
 
 		$this->error = array();
 		$this->messages = array();

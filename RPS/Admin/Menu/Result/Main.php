@@ -691,18 +691,21 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 	}
 
 	public function load_scripts() {
-		wp_register_script( $this->plugin_slug . '_result', $this->URL . '/assets/js/result.js', array('jquery'), $this->VER, true );
+		if( isset($_REQUEST['student_id'], $_REQUEST['marks']) || (isset($_REQUEST['extends']) && $_REQUEST['extends'] == '1' ) ) {
 
-		// Localize Scripts
-		wp_localize_script(
-			$this->plugin_slug . '_result', "result",
-			array (
-				'nonce' => wp_create_nonce('rps_result_load_data'),
-				'ajaxurl' => admin_url( 'admin-ajax.php' )
-			)
-		);
+		}
+		elseif( !isset($_REQUEST['extends']) ) {
+		    wp_enqueue_script( 'rps_result' );
+	        // Localize Scripts
+            wp_localize_script(
+                'rps_result', "result",
+                array (
+                    'nonce' => wp_create_nonce('rps_result_load_data'),
+                    'ajaxurl' => admin_url( 'admin-ajax.php' )
+                )
+            );
+		}
 
-		wp_enqueue_script( $this->plugin_slug . '_result' );
 	}
 
 	public function load_styles() {

@@ -212,32 +212,37 @@ class RPS_Helper_Student {
      * @param int $batch_id
      * @param int $student_id
      * @param int $semester_id
+     * @param string $post_status
      * @return array
      */
     public function getSutdentInfo( $department_id, $batch_id, $student_id, $semester_id = null, $post_status='all' ) {
-
-        if ( RPS_Helper_Function::is_numeric( $department_id ) && RPS_Helper_Function::is_numeric( $batch_id ) && RPS_Helper_Function::is_numeric( $semester_id ) ) {
-            $data = $this->getStudentData( $department_id, $batch_id, $semester_id, $post_status );
-
-        } elseif ( RPS_Helper_Function::is_numeric( $department_id ) && RPS_Helper_Function::is_numeric( $batch_id ) ) {
-            $data = $this->getStudentData( $department_id, $batch_id, null, $post_status );
-
-        } else {
-            return new \WP_Error('Invalid Argument',__("Given arguments are invalid. Please provide valid arguments.",RPS_Result_Management::TD));
-
-        }
-
-        if ( !is_wp_error( $data ) && RPS_Helper_Function::is_numeric( $student_id ) &&  array_key_exists( $student_id, $data ) ) {
-            return $data[$student_id];
-
-        } elseif ( is_wp_error( $data ) ) {
-            return $data;
-
-        } elseif ( !RPS_Helper_Function::is_numeric( $student_id ) )  {
-            return new \WP_Error('Invalid Student ID',__("Student ID is invalid. Please provide a valid Student ID.",RPS_Result_Management::TD));
-
-        }
+	    $this->getStudentInfo( $department_id, $batch_id, $semester_id, $semester_id, $post_status );
     }
+
+	public function getStudentInfo( $department_id, $batch_id, $semester_id = null, $student_id,  $post_status='all' ) {
+
+		if ( RPS_Helper_Function::is_numeric( $department_id ) && RPS_Helper_Function::is_numeric( $batch_id ) && RPS_Helper_Function::is_numeric( $semester_id ) ) {
+			$data = $this->getStudentData( $department_id, $batch_id, $semester_id, $post_status );
+
+		} elseif ( RPS_Helper_Function::is_numeric( $department_id ) && RPS_Helper_Function::is_numeric( $batch_id ) ) {
+			$data = $this->getStudentData( $department_id, $batch_id, null, $post_status );
+
+		} else {
+			return new \WP_Error('Invalid Argument',__("Given arguments are invalid. Please provide valid arguments.",RPS_Result_Management::TD));
+
+		}
+
+		if ( !is_wp_error( $data ) && RPS_Helper_Function::is_numeric( $student_id ) &&  array_key_exists( $student_id, $data ) ) {
+			return $data[$student_id];
+
+		} elseif ( is_wp_error( $data ) ) {
+			return $data;
+
+		} elseif ( !RPS_Helper_Function::is_numeric( $student_id ) )  {
+			return new \WP_Error('Invalid Student ID',__("Student ID is invalid. Please provide a valid Student ID.",RPS_Result_Management::TD));
+
+		}
+	}
     
     /**
      * This function will return a particular student information

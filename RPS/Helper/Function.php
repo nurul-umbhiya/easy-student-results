@@ -8,6 +8,19 @@ class RPS_Helper_Function {
         //nothing here
     }
 
+	public static function javascript_back_button( $echo = true ) {
+		ob_start(); ?>
+        <button type="button" class="btn btn-primary" onclick="window.location='<?php echo get_permalink(); ?>'"><?php _e('Back', RPS_Result_Management::TD); ?></button>
+		<?php
+		$data = ob_get_clean();
+		if ( $echo ) {
+			echo $data;
+		}
+		else {
+			return $data;
+		}
+	}
+
     public static function array_insert(&$array, $position, $insert)
     {
         if (is_int($position)) {

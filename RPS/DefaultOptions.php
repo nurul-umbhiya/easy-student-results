@@ -28,6 +28,8 @@ class RPS_DefaultOptions {
 			'user_role'			=> 'manage_options',
 			'bootstrap_css'     => '',
 			'bootstrap_js'      => '',
+			'marks_js'          => 'on',
+			'percentage_js'     => 'on',
 			'delete_data'		=> ''
 		);
 
