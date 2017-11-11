@@ -3,9 +3,9 @@ Contributors: zikubd
 Donate link: https://www.nurul.me/product/easy-student-results-needs-support/
 Tags: academic, academic result, student, student result, student result management system, result management system, education, result system, create marksheet online, online marksheet, online marksheet creator, result, easy student result, school, college, university, school result, college result, university result, create marksheet online, emarksheet
 Requires at least: 4.0.0
-Tested up to: 4.7.5
-Stable tag: 1.9
-Version: 1.9
+Tested up to: 4.8.2
+Stable tag: 2.0
+Version: 2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -46,10 +46,24 @@ Roll no (by default) or by Registration no [esr_results2 search_by='reg']. Note 
 = Premium AddOns =
 Premium AddOns are available for this plugin, like private result search, new shortcodes for searching result by exam, year and roll no etc. For more details please visit [here](https://www.nurul.me/shop/ "Easy Student Results Premium AddOns") for more details.
 
+*   [Result Fields](https://www.nurul.me/product/esr-premium-result-fields/ "Easy Student Results : Result Fields")
+    By this plugin, you can add extra fields under result window. You can add fields under Subject section ie: beside Marks Obtained, or under Result section, ie: beside Total Marks Obtained section. Existing ESR Premium plugins are 100% compatible with this plugin.
+
+*   [Promote Students](https://www.nurul.me/product/esr-premium-promote-students/ "Easy Student Results : Promote Students")
+    By this plugin, you can promote students to next class / semester. All previous results will be kept and students can view their old results too. Existing ESR Premium plugins are 100% compatible with this plugin.
+
 *   [Marks Entry Frontend](https://www.nurul.me/product/marks-entry-frontend/ "Easy Student Results : Marks Entry Frontend")
+    Now Teachers’ / Faculty Members can enter marks from front end. Faculty Members / Teachers’ can only view the list of results assigned to them from admin panel. One Faculty Member / Teacher can’t view or edit another Faculty Members / Teacher’s assigned result.
+
 *   [Private Result Search](https://www.nurul.me/product/easy-student-results-private-result-search/ "Easy Student Results : Private Result Search")
+    Now your students can search their results privately. After login Students only can view their results. They can't see each other results.
+
 *   [Advanced Search Plugin](https://www.nurul.me/product/easy-student-results-advanced-search-plugin/ "Easy Student Results : Advanced Search Plugin")
+    By Installing Advanced Search Plugin students can search their results by entering Exam Name, Exam Year and their Roll or Registration Number.
+
 *   [List Entry Marks](https://www.nurul.me/product/easy-student-results-list-entry-marks/ "Easy Student Results : List Entry Marks")
+    Tried of entering result one by one ? Well good news for you. By this addOns you can enter marks at once :)
+
 
 = Feature Request =
 
@@ -84,6 +98,14 @@ It is hard to continue development and support for this free plugin without cont
 
 
 == Changelog ==
+
+= 2.0 =
+* Added feature where you can display student image in result display window. Check Student Results --> Settings --> Shortcode Result --> Show Student Image section
+* Fixed a bug where total obtained marks wasn't stored properly
+* Added Delete feature everywhere
+* Updated some internal functions
+* Now when you add new results, courses will be automatically selected
+* Updated Codebase
 
 = 1.9 =
 * Fixed a bug on result window

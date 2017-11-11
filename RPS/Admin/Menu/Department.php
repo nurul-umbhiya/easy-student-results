@@ -49,17 +49,84 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
      */
     public function onLoadPage() {
         //die('called');
-        $this->loadCss();
-        $this->loadJs();
+	    wp_register_style( 'rps_bootstrap',     RPS_Result_Management::URL() . '/assets/bootstrap-3.3.5/css/bootstrap.css', array(), '3.3.5' );
+	    wp_register_script( 'rps_bootstrap',    RPS_Result_Management::URL() . '/assets/bootstrap-3.3.5/js/bootstrap.min.js', array( 'jquery' ), '3.3.5', true);
+	    $this->loadCss();
+	    $this->loadJs();
     }
     
     private function loadCss() {
-        
+	    wp_enqueue_style( 'rps_bootstrap' );
+	    add_action('admin_footer', array( $this, 'wpFooter' ));
     }
     
     private function loadJs() {
-        
+	    wp_enqueue_script('rps_bootstrap');
     }
+
+	public function wpFooter() {
+
+		?>
+        <style type="text/css" rel="stylesheet">
+            .wp-list-table th#sl {
+                width: 50px;
+            }
+            a.action_button {
+                margin-bottom: 5px !important;
+            }
+            @media (min-width: 768px) {
+                .modal-dialog {
+                    margin: 5% auto !important;
+                }
+            }
+
+            .modal-dialog {
+                margin: 5% auto !important;
+            }
+
+        </style>
+        <script type="application/javascript">
+            jQuery(function($){
+                var department_id = 0;
+
+                $('.delete_department').click(function() {
+                    var th = $(this);
+                    department_id = th.data('department_id');
+                    var str = 'Are you sure you want to delete department: <strong>' + th.data('department_name') +'</strong> ?'
+                    $('#deleteResultModalBody').html(str);
+                    $('#deleteResultModal').modal('show');
+
+                    return false;
+                });
+                $('#deleteResultModal').on('click', '#confirmDeleteResult', function() {
+                    var url = $('a.department_id_'+ department_id).first().attr('href');
+                    batch_id = null;
+                    window.location = url;
+                    //console.log(url);
+                });
+            });
+        </script>
+        <div class="rps_result">
+            <div class="modal fade" tabindex="-1" role="dialog" id="deleteResultModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title">Delete Department</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p id="deleteResultModalBody"></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" id="confirmDeleteResult">Delete</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </div>
+		<?php
+	}
     
     private function add_new() {
         $data = array();
@@ -85,13 +152,14 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
             // http://codex.wordpress.org/Function_Reference/register_taxonomy#Reserved_Terms
             $reserved_terms = array (
                     'attachment', 'attachment_id', 'author', 'author_name', 'calendar', 'cat', 'category', 'category__and',
-                    'category__in', 'category__not_in', 'category_name', 'comments_per_page', 'comments_popup', 'cpage', 'day',
+                    'category__in', 'category__not_in', 'category_name', 'comments_per_page', 'comments_popup', 'cpage',
+                    'customize_messenger_channel', 'customized', 'day',
                     'debug', 'error', 'exact', 'feed', 'hour', 'link_category', 'm', 'minute', 'monthnum', 'more', 'name',
-                    'nav_menu', 'nopaging', 'offset', 'order', 'orderby', 'p', 'page', 'page_id', 'paged', 'pagename', 'pb', 'perm',
+                    'nav_menu', 'nonce', 'nopaging', 'offset', 'order', 'orderby', 'p', 'page', 'page_id', 'paged', 'pagename', 'pb', 'perm',
                     'post', 'post__in', 'post__not_in', 'post_format', 'post_mime_type', 'post_status', 'post_tag', 'post_type',
                     'posts', 'posts_per_archive_page', 'posts_per_page', 'preview', 'robots', 's', 'search', 'second', 'sentence',
                     'showposts', 'static', 'subpost', 'subpost_id', 'tag', 'tag__and', 'tag__in', 'tag__not_in', 'tag_id',
-                    'tag_slug__and', 'tag_slug__in', 'taxonomy', 'tb', 'term', 'type', 'w', 'withcomments', 'withoutcomments', 'year',
+                    'tag_slug__and', 'tag_slug__in', 'taxonomy', 'tb', 'term', 'theme', 'type', 'w', 'withcomments', 'withoutcomments', 'year',
             );
 
             // Error checking
@@ -231,24 +299,111 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
     
     private function delete () {
         $department_id = isset($_GET['delete']) ? intval( $_GET['delete'] ) : 0;
-        if ( isset($_GET['delete_department']) && wp_verify_nonce($_GET['delete_department'], 'delete_department_' . $department_id)) {
+	    $option = get_option( RPS_Result_Management::PLUGIN_SLUG . '_basics', array() );
+	    if ( isset($option['user_role']) && $option['user_role'] != ''
+	         && in_array($option['user_role'], array('manage_options','edit_pages','publish_posts','edit_posts','read')) ) {
+		    $role = $option['user_role'];
+	    } else {
+		    $role = 'manage_options';
+	    }
+
+        if ( current_user_can($role) && isset($_GET['delete_department']) && wp_verify_nonce($_GET['delete_department'], 'delete_department_' . $department_id)) {
             global $wpdb;
+            $error = false;
             //check department id is used in batch
             $query = $wpdb->prepare("SELECT count(*) as cnt FROM `{$wpdb->rps_batch}` WHERE department_id=%d", array($department_id));
             $row = $wpdb->get_row($query, ARRAY_A);
             if ( is_array($row) && !empty($row) && intval( $row['cnt'] ) != 0) {
-                wp_die(__('You can\'t delete this department. Department is assigned to batch. Please delete batch first to delete this department'));
+                $error = true;
+                $this->errors[] = __('You can\'t delete this department. Department is assigned to batch. Please delete batch first to delete this department', $this->TD);
             }
+
             //check department id is used with any student
+            if ( !$error ) {
+	            $query_args['meta_query'][] = array(
+		            'key'     => '_department_id',
+		            'value'   => $department_id,
+		            'compare' => '=',
+	            );
+	            $meta_query                 = new \WP_Meta_Query();
+	            $meta_query->parse_query_vars( $query_args );
+
+	            $mq_sql    = $meta_query->get_sql(
+		            'post',
+		            $wpdb->posts,
+		            'ID',
+		            null
+	            );
+	            $post_type = RPS_Result_Management::STUDENT;
+	            $query     = "SELECT ID FROM {$wpdb->posts} {$mq_sql['join']} WHERE post_type='{$post_type}' and (post_status='publish' or post_status='promoted' ){$mq_sql['where']} LIMIT 1";
+	            $result    = $wpdb->get_row( $query, ARRAY_A );
+
+	            if ( is_array( $result ) && ! empty( $result ) ) {
+		            $error          = true;
+		            $this->errors[] = __( 'You can\'t delete this department. Department is assigned to Students. Please delete assigned Students or reassign Students to another department first to delete this department', $this->TD );
+	            }
+            }
 
             //check department id is used with any course
+            if ( !$error ) {
+	            $query_args['meta_query'][] = array(
+		            'key'     => '_department_id',
+		            'value'   => $department_id,
+		            'compare' => '=',
+	            );
+	            $meta_query                 = new \WP_Meta_Query();
+	            $meta_query->parse_query_vars( $query_args );
 
-            //check department id is used with any result
+	            $mq_sql = $meta_query->get_sql(
+		            'post',
+		            $wpdb->posts,
+		            'ID',
+		            null
+	            );
 
-            //delete all the semester associated with this department
+	            $post_type = RPS_Result_Management::COURSE;
+
+	            $query  = "SELECT ID FROM {$wpdb->posts} {$mq_sql['join']} WHERE post_type='{$post_type}' and post_status='publish' {$mq_sql['where']} LIMIT 1";
+	            $result = $wpdb->get_row( $query, ARRAY_A );
+	            if ( is_array( $result ) && ! empty( $result ) ) {
+		            $error          = true;
+		            $this->errors[] = __( 'You can\'t delete this department. Department is assigned to Courses. Please delete assigned Courses or reassign Courses to another department first to delete this department', $this->TD );
+	            }
+            }
+
+	        //check department id is used with any result
+            if ( !$error ) {
+	            $query  = $wpdb->prepare( "SELECT id FROM {$wpdb->rps_exam_record} WHERE department_id = %d LIMIT 1", array( $department_id ) );
+	            $result = $wpdb->get_row( $query, ARRAY_A );
+	            if ( is_array( $result ) && ! empty( $result ) ) {
+		            $error          = true;
+		            $this->errors[] = __( 'You can\'t delete this department. Department is assigned to Exams. Please delete assigned Exams or reassign Exams to another department first to delete this department', $this->TD );
+	            }
+            }
+
 
             //finally delete the department
+            if ( !$error ) {
+	            $row = $wpdb->get_row($wpdb->prepare("SELECT slug FROM `{$wpdb->rps_department}` WHERE id=%d", array($department_id)),ARRAY_A);
+	            if ( is_array($row) && !empty($row) ) {
+		            //drop taxonomy table, ie: delete all the semester associated with this department
+		            $taxonomy = RPS_Result_Management::PLUGIN_SLUG . '_' . $row['slug'];
+		            RPS_Helper_Function::delete_taxonomy( $taxonomy );
 
+		            //delete department record
+		            $wpdb->delete( $wpdb->rps_department, array( 'id' => $department_id ), array( '%d' ) );
+
+		            //delete transient cache
+		            define(RPS_Result_Management::PLUGIN_SLUG . '_delete_transient', true);
+		            RPS_Helper_Function::delete_transient();
+
+		            $this->messages[] = __('Department/Class deleted successfully.', $this->TD);
+
+	            }
+            }
+
+	        $this->right();
+	        $this->left();
         }
     }
     
@@ -381,7 +536,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
                                 foreach($departments as $department):
                                     $slug = RPS_Result_Management::PLUGIN_SLUG . '_' . $department['slug'];
                                     $dept_url = esc_url_raw( add_query_arg(array( 'page' => $this->page, 'edit' => $department['id']),  admin_url('admin.php?')) );
-                                    $del_url = esc_url_raw( add_query_arg(array( 'page' => $this->page, 'delete' => $department['id']),  admin_url('admin.php?')) );
+                                    $del_url = esc_url_raw( add_query_arg(array( 'page' => $this->page, 'delete' => $department['id'], 'action'=>'delete'),  admin_url('admin.php?')) );
                                     $del_url = wp_nonce_url ( $del_url, 'delete_department_' . $department['id'], 'delete_department' );
                         ?>
                              <tr>
@@ -389,7 +544,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
                                      <?php echo "<a href='$dept_url'>" . $department['name'] . '</a>'; ?>
                                      <div class="row-actions">
                                          <span class="edit"><a href="<?php echo $dept_url; ?>"><?php _e('Edit', $this->TD) ?></a></span>
-                                         <span class="delete"><a class="delete" href="<?php echo $del_url; ?>"><?php _e('Delete', $this->TD) ?></a></span>
+                                         <span class="delete"><a href="<?php echo $del_url; ?>" data-department_id="<?php echo $department['id']; ?>" data-department_name="<?php echo $department['name']; ?>" class="delete delete_department department_id_<?php echo $department['id']; ?>"><?php _e('Delete', $this->TD) ?></a></span>
                                      </div>
                                  </td>
                                  
@@ -454,13 +609,26 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
         $str .= '</h2><br class="clear">';
         $str .= '<div id="col-container">';
         
-        if(!empty($this->messages)){
-            $str .= "<div id='message' class='updated fade'>";
+        if(!empty($this->messages)) {
             foreach ($this->messages as $key => $msg):
+	            $str .= "<div id='message' class='updated notice is-dismissible fade'>";
                 $str .= "<p>$msg</p>";
+                $str .= '<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>';
+	            $str .= "</div>";
             endforeach;
-            $str .= "</div>";
+
         }
+
+	    if(!empty($this->errors)) {
+		    foreach ($this->errors as $key => $msg):
+			    $str .= "<div id='message' class='error notice is-dismissible fade'>";
+			    $str .= "<p>$msg</p>";
+			    $str .= '<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>';
+			    $str .= "</div>";
+		    endforeach;
+
+	    }
+
         if(isset($_REQUEST['updated'])){
             echo '<div id="message" class="updated fade"><p>' . __('Updated', $this->TD) . '</p></div>';
         }

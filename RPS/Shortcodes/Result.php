@@ -30,7 +30,7 @@ final class RPS_Shortcodes_Result extends RPS_Shortcodes_Abstract
         $this->exam_record_id = isset($_REQUEST['exam_record_id']) ? intval($_REQUEST['exam_record_id']) : '';
         $this->department_id = isset($_REQUEST['department_id']) ? intval($_REQUEST['department_id']) : '';
         $this->batch_id = isset($_REQUEST['batch_id']) ? intval($_REQUEST['batch_id']) : '';
-        $this->semester_id = isset($_REQUEST['semester_id']) ? intval($_REQUEST['semester_id']) : '';
+        $this->semester_id = isset($_REQUEST['semester_id']) ? intval($_REQUEST['semester_id']) : null;
         $this->student_id = isset($_REQUEST['student_id']) ? intval($_REQUEST['student_id']) : '';
         $this->options = get_option( RPS_Result_Management::PLUGIN_SLUG . '_results', array() );
 

@@ -74,7 +74,7 @@ class RPS_Admin_Init_Taxonomi {
                 add_action( 'created_' . $slug, array($this,'save_form_fields'),10,2);
 
                 //remove trash link
-                add_filter( $slug . '_row_actions',     array( $this, 'remove_trash_link' ), 10, 2  );
+                //add_filter( $slug . '_row_actions',     array( $this, 'remove_trash_link' ), 10, 2  );
                 
                 
             endforeach;
@@ -98,20 +98,76 @@ class RPS_Admin_Init_Taxonomi {
         global $wpdb;
         $taxonomy = $wpdb->get_var( $wpdb->prepare( "SELECT taxonomy FROM $wpdb->term_taxonomy WHERE term_taxonomy_id = %d", $tt_id) );
 
-        global $wpdb;
-        $query = "SELECT slug FROM `{$wpdb->rps_department}`";
-
-        $taxonomies = $wpdb->get_col($query);
-
         if ( in_array($taxonomy, $this->taxonomy) ) {
-            wp_die(__("You are not authorized to delete this semester 1.", RPS_Result_Management::TD ) );
+            $error = false;
+	        //check this semester exist on student,
+	        if ( !$error ) {
+		        $query_args['meta_query'][] = array(
+			        'key'     => '_semester_id',
+			        'value'   => $tt_id,
+			        'compare' => '=',
+		        );
+		        $meta_query = new \WP_Meta_Query();
+		        $meta_query->parse_query_vars( $query_args );
+
+		        $mq_sql    = $meta_query->get_sql(
+			        'post',
+			        $wpdb->posts,
+			        'ID',
+			        null
+		        );
+		        $post_type = RPS_Result_Management::STUDENT;
+		        $query     = "SELECT ID FROM {$wpdb->posts} {$mq_sql['join']} WHERE post_type='{$post_type}' and (post_status='publish' or post_status='promoted' ){$mq_sql['where']} LIMIT 1";
+
+		        $result    = $wpdb->get_row( $query, ARRAY_A );
+
+		        if ( is_array( $result ) && ! empty( $result ) ) {
+			        $error = true;
+			        //$this->errors[] = __( 'You can\'t delete this department. Department is assigned to Students. Please delete assigned Students or reassign Students to another department first to delete this department', $this->TD );
+		        }
+	        }
+
+            //check this semester exist on course
+	        if ( !$error ) {
+		        $query_args['meta_query'][] = array(
+			        'key'     => '_semester_id',
+			        'value'   => $tt_id,
+			        'compare' => '=',
+		        );
+		        $meta_query                 = new \WP_Meta_Query();
+		        $meta_query->parse_query_vars( $query_args );
+
+		        $mq_sql = $meta_query->get_sql(
+			        'post',
+			        $wpdb->posts,
+			        'ID',
+			        null
+		        );
+
+		        $post_type = RPS_Result_Management::COURSE;
+
+		        $query  = "SELECT ID FROM {$wpdb->posts} {$mq_sql['join']} WHERE post_type='{$post_type}' and post_status='publish' {$mq_sql['where']} LIMIT 1";
+		        $result = $wpdb->get_row( $query, ARRAY_A );
+		        if ( is_array( $result ) && ! empty( $result ) ) {
+			        $error          = true;
+			        //$this->errors[] = __( 'You can\'t delete this department. Department is assigned to Courses. Please delete assigned Courses or reassign Courses to another department first to delete this department', $this->TD );
+		        }
+	        }
+
+            //check this semester exist on result table
+	        if ( !$error ) {
+		        $query  = $wpdb->prepare( "SELECT id FROM {$wpdb->rps_exam_record} WHERE semester_id = %d LIMIT 1", array( $tt_id ) );
+		        $result = $wpdb->get_row( $query, ARRAY_A );
+		        if ( is_array( $result ) && ! empty( $result ) ) {
+			        $error = true;
+			        //$this->errors[] = __( 'You can\'t delete this department. Department is assigned to Exams. Please delete assigned Exams or reassign Exans to another department first to delete this department', $this->TD );
+		        }
+	        }
+
+	        if ( $error ) {
+	            die();
+            }
         }
-
-        if ( in_array($taxonomy, $taxonomies) ) {
-            wp_die(__("You are not authorized to delete this semester 2.", RPS_Result_Management::TD ) );
-        }
-
-
     }
 
     public function save_form_fields( $term_id, $tt_id ) {

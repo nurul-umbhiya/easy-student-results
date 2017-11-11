@@ -401,11 +401,6 @@ class RPS_Helper_Result {
 
 			$meta_cache = $tmp;
 
-			//add total_marks_obtained meta data
-			if ( !array_key_exists('total_marks_obtained', $meta_cache) ) {
-				$meta_cache['total_marks_obtained'] = 0;
-			}
-
 			set_transient( $transient, $meta_cache, 12 * DAY_IN_SECONDS );
 
 			$transient_keys = get_option( 'rps_result_transient_keys', array() );

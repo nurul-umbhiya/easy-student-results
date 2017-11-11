@@ -211,8 +211,6 @@ final class RPS_Admin_Menu_Result_Marks {
 
 			$wpdb->query( $sql );
 
-			do_action(RPS_Result_Management::PLUGIN_SLUG . '_marks_table_data_saved', $_POST);
-
 			//update metadata
             if ( !empty($metadata) ) {
 
@@ -251,6 +249,8 @@ final class RPS_Admin_Menu_Result_Marks {
 
                 }
             }
+
+			do_action(RPS_Result_Management::PLUGIN_SLUG . '_marks_table_data_saved', $_POST, $exam_record_id);
             
 			//marks=1&student_id=6
 			$url = esc_url_raw( add_query_arg( array( 'page' => $this->page, 'updated' => '1', 'marks' => $exam_record_id, 'student_id' => $student_id  ), 'admin.php?' ) );

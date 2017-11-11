@@ -85,6 +85,11 @@ class RPS_Admin_Menu_Settings  {
      * @return array settings fields
      */
     function get_settings_fields() {
+    	$image_sizes = get_intermediate_image_sizes();
+    	$thumbnail_image_sizes = array();
+    	foreach ($image_sizes as $size) {
+    		$thumbnail_image_sizes[ $size ] = ucfirst($size);
+	    }
         $settings_fields = array(
             RPS_Result_Management::PLUGIN_SLUG .'_basics' => apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_settings_field_basics', array(
                 array(
@@ -353,6 +358,20 @@ class RPS_Admin_Menu_Settings  {
                     'desc'  => __( 'If you want to hide search fields while displaying result, you can tick this checkbox', $this->TD ),
                     'type'  => 'checkbox',
                 ),
+	            array(
+		            'name'  => 'show_picture',
+		            'label' => __( 'Show Student Image', $this->TD ),
+		            'desc'  => __( 'If you want to display Student Image on Result Page, tick this checkbox.', $this->TD ),
+		            'type'  => 'checkbox',
+		            'default' => 'off'
+	            ),
+	            array(
+		            'name'  => 'image_size',
+		            'label' => __( 'Image Size', $this->TD ),
+		            'desc'  => __( 'Select image size for student image.', $this->TD ),
+		            'type'  => 'select',
+		            'options' => $thumbnail_image_sizes
+	            ),
 
             )),
 

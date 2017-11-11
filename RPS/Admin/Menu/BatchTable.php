@@ -48,9 +48,10 @@ class RPS_Admin_Menu_BatchTable extends \WP_List_Table {
         switch($column_name){
             case 'title':
                 //Build row actions
+	            $delete = wp_nonce_url ( admin_url( sprintf( 'admin.php?page=%s&delete=%s', $this->page,$item->id ) ), 'delete_batch_' . $item->id, 'delete_batch' );
                 $actions = array(
                     'edit'      => sprintf(__('<a href="?page=%s&edit=%s" class="edit">Edit</a>', $this->TD), $this->page, $item->id),
-                    //'delete'    => sprintf(__('<a href="?page=%s&delete=%s" class="delete">Delete</a>', $this->TD), $this->page, $item->id),
+                    'delete'    => sprintf(__('<a href="%s" data-batch_id="%d" data-batch_name="%s" class="delete delete_batch batch_id_%s">Delete</a>', $this->TD),$delete, $item->id, $item->name, $item->id),
                 );
 
                 $edit_link = esc_url_raw( add_query_arg( array('page' => $this->page, 'edit' => $item->id), 'admin.php' ) );

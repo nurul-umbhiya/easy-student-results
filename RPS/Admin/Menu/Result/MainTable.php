@@ -135,7 +135,7 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
     
     function get_sortable_columns() {
         $sortable_columns = array(
-            'grade'     => array('grade',false),     //true means it's already sorted
+            'id'     => array('id',false),     //true means it's already sorted
         );
         return $sortable_columns;
     }
@@ -354,6 +354,8 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
             $query .= implode(' AND ', $where);
         }
 
+	    $query .= ' ORDER BY id DESC';
+
 
         /* -- Pagination parameters -- */
 
@@ -366,7 +368,7 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
                 $offset=($paged-1)*$perpage;
             $query.=' LIMIT '.(int)$offset.','.(int)$perpage;
         }
-        
+
 
         /* -- Register the Columns -- */
 
@@ -374,7 +376,7 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
         $hidden = array();
         $sortable = $this->get_sortable_columns();
         $this->_column_headers = array($columns, $hidden, $sortable);
-        
+
 	    /* -- Register the pagination -- */
         $this->set_pagination_args( array(
                 "total_items" => $totalitems,

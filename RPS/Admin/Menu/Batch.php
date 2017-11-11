@@ -191,7 +191,73 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
     }
     
     private function delete() {
-        
+        $option = get_option( RPS_Result_Management::PLUGIN_SLUG . '_basics', array() );
+        if ( isset($option['user_role']) && $option['user_role'] != ''
+            && in_array($option['user_role'], array('manage_options','edit_pages','publish_posts','edit_posts','read')) ) {
+            $role = $option['user_role'];
+        } else {
+            $role = 'manage_options';
+        }
+
+        $batch_id = isset($_GET['delete']) ? intval( $_GET['delete'] ) : 0;
+        global $wpdb;
+
+		if ( current_user_can($role) && isset($_GET['delete_batch']) && wp_verify_nonce($_GET['delete_batch'], 'delete_batch_' . $batch_id)) {
+		    $error = false;
+
+			//check batch id is used with any student
+            if ( !$error ) {
+	            $query_args['meta_query'][] = array(
+		            'key'     => '_batch_id',
+		            'value'   => $batch_id,
+		            'compare' => '=',
+	            );
+	            $meta_query                 = new \WP_Meta_Query();
+	            $meta_query->parse_query_vars( $query_args );
+
+	            $mq_sql    = $meta_query->get_sql(
+		            'post',
+		            $wpdb->posts,
+		            'ID',
+		            null
+	            );
+	            $post_type = RPS_Result_Management::STUDENT;
+	            $query     = "SELECT ID FROM {$wpdb->posts} {$mq_sql['join']} WHERE post_type='{$post_type}' and (post_status='publish' or post_status='promoted' ){$mq_sql['where']} LIMIT 1";
+	            $result    = $wpdb->get_row( $query, ARRAY_A );
+
+	            if ( is_array( $result ) && ! empty( $result ) ) {
+		            $error          = true;
+		            $this->errors[] = __( 'You can\'t delete this Batch. Batch is assigned to Students. Please delete assigned Students or reassign Students to another batch first to delete this batch.', $this->TD );
+	            }
+            }
+
+	        //check department id is used with any result
+            if ( !$error ) {
+	            $query  = $wpdb->prepare( "SELECT id FROM {$wpdb->rps_exam_record} WHERE batch_id = %d LIMIT 1", array( $batch_id ) );
+	            $result = $wpdb->get_row( $query, ARRAY_A );
+	            if ( is_array( $result ) && ! empty( $result ) ) {
+		            $error          = true;
+		            $this->errors[] = __( 'You can\'t delete this batch. Batch is assigned to Exams. Please delete assigned Exams or reassign Exams to another batch first to delete this batch', $this->TD );
+	            }
+            }
+
+
+            //finally delete the batch
+            if ( !$error ) {
+
+	            //delete department record
+		        $wpdb->delete( $wpdb->rps_batch, array( 'id' => $batch_id ), array( '%d' ) );
+
+		        //delete transient cache
+		        define(RPS_Result_Management::PLUGIN_SLUG . '_delete_transient', true);
+		        RPS_Helper_Function::delete_transient();
+
+                $this->messages[] = __('Batch deleted successfully.', $this->TD);
+            }
+
+            $this->listTable();
+
+		}
     }
     
     private function addEdit($data = array(), $department_id = null) {
@@ -416,13 +482,27 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
         
         $str = '';
         if(!empty($this->messages)) {
-            $str .= '<div id="message" class="updated fade">';
             foreach ($this->messages as $key => $msg):
-                $str .= "$msg <br>";
+	            $str .= "<div id='message' class='updated notice is-dismissible fade'>";
+                $str .= "<p>$msg</p>";
+                $str .= '<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>';
+	            $str .= "</div>";
             endforeach;
-            $str .= "</div>";
-            echo $str;
         }
+
+        if(!empty($this->errors)) {
+		    foreach ($this->errors as $key => $msg):
+			    $str .= "<div id='message' class='error notice is-dismissible fade'>";
+			    $str .= "<p>$msg</p>";
+			    $str .= '<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button>';
+			    $str .= "</div>";
+		    endforeach;
+	    }
+
+	    if ( $str != '' ) {
+            echo $str;
+	    }
+
         if(isset($_REQUEST['updated'])) {
             if($_REQUEST['updated']==1) {
                 echo '<div id="message" class="updated fade">' . __('Batch Added Successfully.', $this->TD) . '</div>';
@@ -433,7 +513,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
         }
     }
     
-    private function get_footer(){
+    private function get_footer() {
         return '</div>';
 
     }
@@ -443,26 +523,82 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
      */
     public function onLoadPage() {
         //die('called');
+        wp_register_style( 'rps_bootstrap',     RPS_Result_Management::URL() . '/assets/bootstrap-3.3.5/css/bootstrap.css', array(), '3.3.5' );
+        wp_register_script( 'rps_bootstrap',    RPS_Result_Management::URL() . '/assets/bootstrap-3.3.5/js/bootstrap.min.js', array( 'jquery' ), '3.3.5', true);
         $this->loadCss();
         $this->loadJs();
     }
     
     private function loadCss() {
+        wp_enqueue_style( 'rps_bootstrap' );
         add_action('admin_footer', array( $this, 'wpFooter' ));
     }
     
     private function loadJs() {
-        
+        wp_enqueue_script('rps_bootstrap');
     }
 
     public function wpFooter() {
 
         ?>
-        <style type="text/css">
+        <style type="text/css" rel="stylesheet">
             .wp-list-table th#sl {
                 width: 50px;
             }
+            a.action_button {
+            	margin-bottom: 5px !important;
+            }
+            @media (min-width: 768px) {
+            	.modal-dialog {
+            		margin: 5% auto !important;
+            	}
+            }
+
+            .modal-dialog {
+            	margin: 5% auto !important;
+            }
+
         </style>
+        <script type="application/javascript">
+        	jQuery(function($){
+        		var batch_id = 0;
+
+				$('.delete_batch').click(function() {
+					var th = $(this);
+					batch_id = th.data('batch_id');
+					var str = 'Are you sure you want to delete batch: <strong>' + th.data('batch_name') +'</strong> ?'
+					$('#deleteResultModalBody').html(str);
+					$('#deleteResultModal').modal('show');
+
+					return false;
+				});
+				$('#deleteResultModal').on('click', '#confirmDeleteResult', function() {
+					var url = $('a.batch_id_'+ batch_id).first().attr('href');
+					batch_id = null;
+					window.location = url;
+					//console.log(url);
+				});
+        	});
+		</script>
+		<div class="rps_result">
+			<div class="modal fade" tabindex="-1" role="dialog" id="deleteResultModal">
+			  <div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Delete Batch</h4>
+				  </div>
+				  <div class="modal-body">
+					<p id="deleteResultModalBody"></p>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="confirmDeleteResult">Delete</button>
+				  </div>
+				</div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+		</div>
         <?php
     }
 }

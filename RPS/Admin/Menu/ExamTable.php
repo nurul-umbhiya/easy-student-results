@@ -51,9 +51,12 @@ class RPS_Admin_Menu_ExamTable extends \WP_List_Table {
             case 'name':
                 $edit_link = esc_url_raw( add_query_arg(array( 'page' => $this->page, 'edit' => $item->id ), 'admin.php') );
                 $name = "<a href='$edit_link'>{$item->name}</a>";
+                $delete = wp_nonce_url ( admin_url( sprintf( 'admin.php?page=%s&delete=%s', $this->page,$item->id ) ), 'delete_exam_' . $item->id, 'delete_exam' );
                 $actions = array (
                     'edit'      => sprintf(__('<a href="?page=%s&edit=%s" class="edit">Edit</a>', $this->TD),$_REQUEST['page'],$item->id),
+                    'delete'      => sprintf(__('<a href="%s" data-exam_id="%d" data-exam_name="%s" class="delete delete_exam exam_id_%s">Delete</a>', $this->TD),$delete, $item->id, $item->name, $item->id),
                 );
+
                 return sprintf('%1$s %2$s',
                     /*$1%s*/ $name,
                     /*$2%s*/ $this->row_actions($actions)
@@ -128,7 +131,9 @@ class RPS_Admin_Menu_ExamTable extends \WP_List_Table {
         /* -- Preparing your query -- */
         $query = "SELECT * FROM $wpdb->rps_exam ";
         
-        
+
+        $query .= ' ORDER BY id DESC';
+
         /* -- Pagination parameters -- */
         $totalitems = $wpdb->query($query); //return the total number of affected rows
         $perpage = 20;

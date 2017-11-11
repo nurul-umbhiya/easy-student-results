@@ -28,7 +28,7 @@ class RPS_Admin_Init_PostType {
         add_action('before_delete_post',    array( $this, 'restrict_post_deletion' ), 10, 1);
 
         //remove trash link
-        add_filter( 'post_row_actions',     array( $this, 'remove_trash_link' ), 10, 2  );
+        //add_filter( 'post_row_actions',     array( $this, 'remove_trash_link' ), 10, 2  );
 
         //remove Move to Trash link from post edit page
         //add_action( 'post_submitbox_start', array( $this, 'remove_delete_link' ) );

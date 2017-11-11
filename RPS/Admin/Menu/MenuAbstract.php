@@ -6,7 +6,7 @@ if( !defined( 'WPINC' ) ) {
 
 abstract class RPS_Admin_Menu_MenuAbstract {
 	protected static $instance;
-	protected $pagehook, $error, $messages, $TD;
+	protected $pagehook, $error, $messages, $TD, $errors;
 	protected $helper, $page, $dbs, $plugin_slug;
 	protected $DIR, $URL, $VER;
 	protected $student, $result, $course;

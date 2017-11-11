@@ -24,12 +24,14 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 			throw new Exception(__('Please Check Constructor values', $this->TD) );
 		}
 
-		if ( null !== $semester_id || '' !== $semester_id ) {
+		/*
+		if ( null !== $semester_id ) {
 		    if ( !RPS_Helper_Function::is_numeric( $semester_id ) ) {
-			    throw new Exception(__('Please Check Constructor values', $this->TD) );
+			    throw new Exception(__('Please Check Constructor Values', $this->TD) );
             }
 
 		}
+		*/
 
 		parent::__construct();
 
@@ -94,7 +96,13 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 				$this->metadata['final_grade'] = $grade[ $this->metadata['final_grade'] ];
 			}
 		}
+		//fix highest_marks
+        $this->metadata['highest_marks'] = 0.00;
 
+		//fix total_marks_obtained meta data
+		if ( !array_key_exists('total_marks_obtained', $this->metadata) ) {
+			$this->metadata['total_marks_obtained'] = 0;
+		}
 	}
 
 	public function get_student_info() {
@@ -147,10 +155,33 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 				);
 
 			} elseif (is_array($this->metadata) && array_key_exists($meta_key, $this->metadata)) {
-				$this->student_section_data[] = array(
-					'key' => $meta_value,
-					'value' => $this->metadata[ $meta_key ]
-				);
+				if ( $meta_key == 'total_percentage' ) {
+					$this->student_section_data[] = array(
+						'key' => $meta_value,
+						'value' => $this->metadata[ $meta_key ] . '%'
+					);
+				}
+                elseif ( $meta_key == 'highest_marks' ) {
+					global $wpdb;
+					$query = $wpdb->prepare("SELECT highest_total_marks FROM `{$wpdb->rps_exam_record}` WHERE id=%d LIMIT 1", array($this->exam_record_id));
+					$res = $wpdb->get_row($query, ARRAY_A);
+					if ( is_array($res) && !empty($res) ) {
+						$this->student_section_data[] = array(
+							'key' => $meta_value,
+							'value' => $res['highest_total_marks']
+						);
+					}
+
+				}
+				else {
+					$this->student_section_data[] = array(
+						'key' => $meta_value,
+						'value' => $this->metadata[ $meta_key ]
+					);
+                }
+
+
+
 
 			} elseif ( is_array( $this->student_info ) && array_key_exists( $meta_key, $this->student_info ) ) {
 				$this->student_section_data[] = array(
@@ -306,6 +337,18 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 						    'value' => $this->metadata[ $result_keys[ $i ] ] . '%'
 					    );
                     }
+                    elseif ( $result_keys[ $i ] == 'highest_marks' ) {
+					    global $wpdb;
+					    $query = $wpdb->prepare("SELECT highest_total_marks FROM `{$wpdb->rps_exam_record}` WHERE id=%d LIMIT 1", array($this->exam_record_id));
+					    $res = $wpdb->get_row($query, ARRAY_A);
+					    if ( is_array($res) && !empty($res) ) {
+						    $this->result_section_data[] = array(
+							    'key' => $result_values[$i],
+							    'value' => $res['highest_total_marks']
+						    );
+					    }
+
+				    }
 					else {
 						$this->result_section_data[] = array(
 							'key' => $result_values[$i],
@@ -410,6 +453,14 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 
 		$this->get_student_info_section_data();
 		if ( is_array( $this->student_section_data ) && !empty( $this->student_section_data ) ):
+            //add student picture here
+            if ( isset($this->options['show_picture']) && $this->options['show_picture'] == 'on'
+                 && isset( $this->student_info['image']) && $this->student_info['image'] != '' ) {
+	            $featured_img_url = esc_url(get_the_post_thumbnail_url($this->student_info['id'], $this->options['image_size']));
+		        echo "<p><img class='img-rounded img-responsive' src='{$featured_img_url}' style='display: block; margin: 0 auto;'></p>";
+            }
+
+
 			//student section starts here
 			?>
 			<table class="table">

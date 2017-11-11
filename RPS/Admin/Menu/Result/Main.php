@@ -289,7 +289,14 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 
 	private function delete() {
 		$exam_record_id = isset($_GET['delete']) ? intval( $_GET['delete'] ) : 0;
-		if ( isset($_GET['delete_result']) && wp_verify_nonce($_GET['delete_result'], 'delete_result_' . $exam_record_id)) {
+		$option = get_option( RPS_Result_Management::PLUGIN_SLUG . '_basics', array() );
+        if ( isset($option['user_role']) && $option['user_role'] != ''
+            && in_array($option['user_role'], array('manage_options','edit_pages','publish_posts','edit_posts','read')) ) {
+            $role = $option['user_role'];
+        } else {
+            $role = 'manage_options';
+        }
+		if ( current_user_can($role) && isset($_GET['delete_result']) && wp_verify_nonce($_GET['delete_result'], 'delete_result_' . $exam_record_id)) {
 			global $wpdb;
 			//first delete all metadata for this exam id
 			$query = $wpdb->prepare("DELETE FROM `{$wpdb->rps_exam_record_meta}` WHERE `exam_record_id` = %d", array($exam_record_id));
@@ -302,6 +309,10 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 			//then delete result table data
 			$query = $wpdb->prepare("DELETE FROM `{$wpdb->rps_exam_record}` WHERE id = %d LIMIT 1", array($exam_record_id));
 			$wpdb->query($query);
+
+			//delete transient cache
+		    define(RPS_Result_Management::PLUGIN_SLUG . '_delete_transient', true);
+		    RPS_Helper_Function::delete_transient();
 
 			$url = esc_url_raw( add_query_arg( array( 'page' => $this->page, 'deleted' => $exam_record_id ),  admin_url('admin.php?')) );
 

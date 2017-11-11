@@ -276,7 +276,15 @@ class RPS_Admin_Menu_Grade extends  RPS_Admin_Menu_MenuAbstract {
             return;
         }
 
-        if ( ! empty( $_POST ) && check_admin_referer( 'delete_grade_nonce_' . $id, 'delete_grade' ) ) {
+        $option = get_option( RPS_Result_Management::PLUGIN_SLUG . '_basics', array() );
+        if ( isset($option['user_role']) && $option['user_role'] != ''
+            && in_array($option['user_role'], array('manage_options','edit_pages','publish_posts','edit_posts','read')) ) {
+            $role = $option['user_role'];
+        } else {
+            $role = 'manage_options';
+        }
+
+        if ( current_user_can($role) && ! empty( $_POST ) && check_admin_referer( 'delete_grade_nonce_' . $id, 'delete_grade' ) ) {
             $where = array( 'id' => $id );
             $where_format = array('%d');
 

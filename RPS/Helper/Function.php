@@ -128,6 +128,14 @@ class RPS_Helper_Function {
 
     }
 
+    public static function delete_taxonomy( $taxonomy ) {
+        global $wpdb;
+
+	    $wpdb->get_results( $wpdb->prepare( "DELETE t.*, tt.* FROM $wpdb->terms AS t INNER JOIN $wpdb->term_taxonomy AS tt ON t.term_id = tt.term_id WHERE tt.taxonomy IN ('%s')", $taxonomy ) );
+	    // Delete Taxonomy
+	    $wpdb->delete( $wpdb->term_taxonomy, array( 'taxonomy' => $taxonomy ), array( '%s' ) );
+    }
+
     public static function getCourseType( $course_type_id ) {
         $course_type = array(
             '1' => __('Theory',             RPS_Result_Management::TD),

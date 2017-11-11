@@ -62,7 +62,7 @@ class RPS_DefaultOptions {
 			'semester_error_text'   => __('Please Select a Semester From List.', $this->TD),
 			'student_meta'      => 'name:Name, roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Department, batch:Batch, semester:Semester',
 			'subject_meta'      => 'course_name:Subject Name, course_code:Subject Code, total_marks:Total Makrs, marks_obtained:Marks Obtained, grade:Grade',
-			'result_meta'       => 'total_marks:Total Marks, total_marks_obtained:Marks Obtained, cgpa:Cgpa, final_result:Final Result',
+			'result_meta'       => 'total_marks:Total Marks, total_marks_obtained:Marks Obtained, cgpa:Cgpa, final_result:Final Result, (highest_marks, class_position --> if you use Result Fields AddOns)',
 			'print_button'		=> 'on',
 			'print_button_text' => __('Print Result', $this->TD),
 			'print_header' => '',
@@ -70,6 +70,8 @@ class RPS_DefaultOptions {
 			'custom_css' => '#rps_result{}',
 			'show_header_footer' => '',
 			'hide_search_fields' => '',
+			'show_picture'		=> 'off',
+			'image_size'        => 'thumbnail'
 		);
 
 		if( get_option( RPS_Result_Management::PLUGIN_SLUG . '_results', '') == '') {

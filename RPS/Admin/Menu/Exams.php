@@ -147,7 +147,50 @@ class RPS_Admin_Menu_Exams extends RPS_Admin_Menu_MenuAbstract {
 	}
 
 	private function delete() {
+        $exam_id = isset($_GET['delete']) ? intval( $_GET['delete'] ) : 0;
+        global $wpdb;
 
+        $option = get_option( RPS_Result_Management::PLUGIN_SLUG . '_basics', array() );
+        if ( isset($option['user_role']) && $option['user_role'] != ''
+            && in_array($option['user_role'], array('manage_options','edit_pages','publish_posts','edit_posts','read')) ) {
+            $role = $option['user_role'];
+        } else {
+            $role = 'manage_options';
+        }
+
+		if ( current_user_can($role) && isset($_GET['delete_exam']) && wp_verify_nonce($_GET['delete_exam'], 'delete_exam_' . $exam_id)) {
+			//get all exam record id associated with this exam_id
+			$query = $wpdb->prepare("SELECT id FROM `{$wpdb->rps_exam_record}` WHERE exam_id=%d", array($exam_id));
+			$exam_record_ids = $wpdb->get_col($query, 0);
+
+			if ( is_array($exam_record_ids) && !empty($exam_record_ids) ) {
+			    $exam_record_ids_string = implode(', ', $exam_record_ids);
+			    //first delete all metadata for this exam id
+                $query = "DELETE FROM `{$wpdb->rps_exam_record_meta}` WHERE `exam_record_id` in ($exam_record_ids_string)";
+                $wpdb->query($query);
+
+                //then delete all the marks table data
+                $query = "DELETE FROM `{$wpdb->rps_marks}` WHERE `exam_record_id` in ($exam_record_ids_string)";
+                $wpdb->query($query);
+
+                //then delete exam_record table data
+                $query = "DELETE FROM `{$wpdb->rps_exam_record}` WHERE id in ($exam_record_ids_string) LIMIT 1";
+                $wpdb->query($query);
+			}
+
+			//now delete exam entry
+            $query = $wpdb->prepare("DELETE FROM `{$wpdb->rps_exam}` WHERE id = %d LIMIT 1", array($exam_id));
+			$wpdb->query($query);
+
+			//delete transient cache
+		    define(RPS_Result_Management::PLUGIN_SLUG . '_delete_transient', true);
+		    RPS_Helper_Function::delete_transient();
+
+			$url = esc_url_raw( add_query_arg( array( 'page' => $this->page, 'deleted' => $exam_id ),  admin_url('admin.php?')) );
+
+			RPS_Helper_Function::javascript_redirect($url);
+
+		}
 	}
 
 	private function formTable($data = array() ) {
@@ -327,6 +370,11 @@ class RPS_Admin_Menu_Exams extends RPS_Admin_Menu_MenuAbstract {
 		if(isset($_REQUEST['updated'])){
 			echo "<div id='message' class='updated fade'><p>" . __('Updated', $this->TD) . "</p></div>";
 		}
+		if( isset($_REQUEST['deleted']) ) {
+			echo '<div id="message" class="updated notice notice-success is-dismissible below-h2">';
+			echo __('<p>Exam Deleted Successfully.</p>', $this->TD);
+			echo '<button type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></button></div>';
+		}
 		?>
 
 		<?php
@@ -334,6 +382,48 @@ class RPS_Admin_Menu_Exams extends RPS_Admin_Menu_MenuAbstract {
 
 	private function getFooter(){
 		echo "</div>";
+		?>
+		<script type="application/javascript">
+        	jQuery(function($){
+        		var exam_id = 0;
+
+				$('.delete_exam').click(function() {
+					var th = $(this);
+					exam_id = th.data('exam_id');
+					var str = 'Are you sure you want to delete <strong>' + th.data('exam_name') +'</strong> ? All result data associated with this exam will be deleted too and all data will be permanently lost.'
+					$('#deleteResultModalBody').html(str);
+					$('#deleteResultModal').modal('show');
+
+					return false;
+				});
+				$('#deleteResultModal').on('click', '#confirmDeleteResult', function() {
+					var url = $('a.exam_id_'+ exam_id).first().attr('href');
+					exam_id = null;
+					window.location = url;
+					//console.log(url);
+				});
+        	});
+		</script>
+		<div class="rps_result">
+			<div class="modal fade" tabindex="-1" role="dialog" id="deleteResultModal">
+			  <div class="modal-dialog" role="document">
+				<div class="modal-content">
+				  <div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Delete Exam</h4>
+				  </div>
+				  <div class="modal-body">
+					<p id="deleteResultModalBody"></p>
+				  </div>
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" id="confirmDeleteResult">Delete</button>
+				  </div>
+				</div><!-- /.modal-content -->
+			  </div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+		</div>
+		<?php
 	}
 
 	/**
@@ -341,25 +431,41 @@ class RPS_Admin_Menu_Exams extends RPS_Admin_Menu_MenuAbstract {
      */
     public function onLoadPage() {
         //die('called');
+        wp_register_style( 'rps_bootstrap',     RPS_Result_Management::URL() . '/assets/bootstrap-3.3.5/css/bootstrap.css', array(), '3.3.5' );
+        wp_register_script( 'rps_bootstrap',    RPS_Result_Management::URL() . '/assets/bootstrap-3.3.5/js/bootstrap.min.js', array( 'jquery' ), '3.3.5', true);
         $this->loadCss();
         $this->loadJs();
     }
 
     private function loadCss() {
+        wp_enqueue_style( 'rps_bootstrap' );
         add_action('admin_footer', array( $this, 'wpFooter' ));
     }
 
     private function loadJs() {
-
+        wp_enqueue_script('rps_bootstrap');
     }
 
     public function wpFooter() {
 
         ?>
-        <style type="text/css">
+        <style type="text/css" rel="stylesheet">
             .wp-list-table th#sl {
                 width: 50px;
             }
+            a.action_button {
+            	margin-bottom: 5px !important;
+            }
+            @media (min-width: 768px) {
+            	.modal-dialog {
+            		margin: 5% auto !important;
+            	}
+            }
+
+            .modal-dialog {
+            	margin: 5% auto !important;
+            }
+
         </style>
         <?php
     }

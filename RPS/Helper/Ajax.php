@@ -74,7 +74,7 @@ class RPS_Helper_Ajax {
                             <?php foreach ( $course_list as $course_id => $course_data ) { ?>
                                 <tr>
                                     <td>
-                                        <input type="checkbox" name="course_id[student_<?php echo $student_id; ?>][]" value="<?php echo $course_id; ?>" />
+                                        <input type="checkbox" name="course_id[student_<?php echo $student_id; ?>][]" value="<?php echo $course_id; ?>" checked="checked"/>
                                     </td>
                                     <td><?php echo __( '<strong>Course Code:</strong> ', $this->TD ) . $course_data['course_code']; ?></td>
                                     <td><?php echo __( '<strong>Course Name:</strong> ', $this->TD)  . $course_data['name'];  ?></td>
