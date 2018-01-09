@@ -175,7 +175,7 @@ class RPS_Helper_Result {
 		} elseif ( $exam_id && $department_id && $batch_id ) {
 			$query = $wpdb->prepare(
 				"SELECT * FROM `{$wpdb->rps_exam_record}` WHERE `exam_id`=%d AND `department_id` = %d AND `batch_id` = %d ",
-				array ( $exam_id, $department_id, $batch_id, $semester_id )
+				array ( $exam_id, $department_id, $batch_id )
 			);
 		}
 

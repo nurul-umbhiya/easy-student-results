@@ -216,7 +216,7 @@ class RPS_Helper_Student {
      * @return array
      */
     public function getSutdentInfo( $department_id, $batch_id, $student_id, $semester_id = null, $post_status='all' ) {
-	    $this->getStudentInfo( $department_id, $batch_id, $semester_id, $semester_id, $post_status );
+	    $this->getStudentInfo( $department_id, $batch_id, $semester_id, $student_id, $post_status );
     }
 
 	public function getStudentInfo( $department_id, $batch_id, $semester_id = null, $student_id,  $post_status='all' ) {

@@ -4,8 +4,8 @@ Donate link: https://www.nurul.me/product/easy-student-results-needs-support/
 Tags: academic, academic result, student, student result, student result management system, result management system, education, result system, create marksheet online, online marksheet, online marksheet creator, result, easy student result, school, college, university, school result, college result, university result, create marksheet online, emarksheet
 Requires at least: 4.0.0
 Tested up to: 4.8.2
-Stable tag: 2.0
-Version: 2.0
+Stable tag: 2.1
+Version: 2.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,9 @@ Roll no (by default) or by Registration no [esr_results2 search_by='reg']. Note 
 
 = Premium AddOns =
 Premium AddOns are available for this plugin, like private result search, new shortcodes for searching result by exam, year and roll no etc. For more details please visit [here](https://www.nurul.me/shop/ "Easy Student Results Premium AddOns") for more details.
+
+*   [Result By Pin](https://www.nurul.me/product/easy-student-results-search-result-by-pin/ "Easy Student Results : Search Result By PIN")
+    By Installing Search Result By PIN Plugin students can search their results by a PIN assigned by admin. You can also put restriction on pin use, assign new pins, temporary disable pins etc....
 
 *   [Result Fields](https://www.nurul.me/product/esr-premium-result-fields/ "Easy Student Results : Result Fields")
     By this plugin, you can add extra fields under result window. You can add fields under Subject section ie: beside Marks Obtained, or under Result section, ie: beside Total Marks Obtained section. Existing ESR Premium plugins are 100% compatible with this plugin.
@@ -98,6 +101,11 @@ It is hard to continue development and support for this free plugin without cont
 
 
 == Changelog ==
+
+= 2.1 =
+* Codebase Updated
+* Added two new hooks
+* Added keys for mysql tables for faster queries
 
 = 2.0 =
 * Added feature where you can display student image in result display window. Check Student Results --> Settings --> Shortcode Result --> Show Student Image section

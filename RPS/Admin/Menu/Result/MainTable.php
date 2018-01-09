@@ -66,6 +66,8 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
                     //'add_marks' => sprintf(__('<a href="?page=%s&marks=%s" class="edit">Add Marks</a>', $this->TD),$this->page,$item->id),
                 );
 
+                $actions = apply_filters(RPS_Result_Management::PLUGIN_SLUG .'_exam_record_row_actions', $actions, $this->page, $item->id);
+
                 //return sprintf( '%s', $exam_name );
 
                 return sprintf('%1$s %2$s',

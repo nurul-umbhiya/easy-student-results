@@ -67,7 +67,8 @@ class RPS_InstallDb {
                     session_year year(4) NOT NULL,
                     active tinyint(1) unsigned NOT NULL DEFAULT '1',
                     added int(10) unsigned NOT NULL,
-                    updated timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                    updated timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                    KEY department_id (department_id)
                   ) $charset_collate ;";
 
         $sqls[] = "CREATE TABLE {$rps_grade} (
@@ -103,7 +104,10 @@ class RPS_InstallDb {
                     display tinyint(1) unsigned NOT NULL DEFAULT '1',
                     active tinyint(1) unsigned NOT NULL DEFAULT '1',
                     added int(10) unsigned NOT NULL,
-                    updated timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+                    updated timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  					KEY exam_id (exam_id,department_id,batch_id,semester_id),
+  					KEY exam_id_3 (exam_id),
+  					KEY exam_id_2 (exam_id,department_id,batch_id)
                   ) $charset_collate;";
 
         $sqls[] = "CREATE TABLE {$rps_exam_record_meta} (
@@ -111,7 +115,9 @@ class RPS_InstallDb {
                     exam_record_id bigint(20) unsigned NOT NULL,
                     student_id bigint(20) unsigned NOT NULL,
                     meta_key varchar(255) NOT NULL,
-                    meta_value longtext NOT NULL
+                    meta_value longtext NOT NULL,
+                    KEY exam_record_id (exam_record_id),
+  					KEY meta_key (meta_key(191))
                   ) $charset_collate;";
 
         $sqls[] = "CREATE TABLE {$rps_marks} (
@@ -126,6 +132,8 @@ class RPS_InstallDb {
                     active tinyint(1) unsigned NOT NULL DEFAULT '1',
                     added int(10) unsigned NOT NULL,
                     updated timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                    KEY exam_record_id (exam_record_id),
+                    KEY exam_record_id_2 (exam_record_id,student_id),
                     UNIQUE KEY student (exam_record_id,student_id,subject_id)
                   ) $charset_collate;";
 

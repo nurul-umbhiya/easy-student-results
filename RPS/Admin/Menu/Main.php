@@ -5,14 +5,14 @@ if(!defined('WPINC')) {
 }
 
 class RPS_Admin_Menu_Main {
-    private static $instance;
-    private $slug, $TD, $page_hook;
+    private static $instance, $slug = array(), $page_hook;
+    private $TD;
     private $role;
 
     public static function getInstance() {
         if(self::$instance==null){
             self::$instance = new self;
-            self::$instance->slug = array();
+            self::$slug = array();
             self::$instance->TD = RPS_Result_Management::TD;
             self::$instance->actions();
         }
@@ -23,18 +23,18 @@ class RPS_Admin_Menu_Main {
     private function __construct() {
         ;
     }
-    
+
     public static function getSlug($slug) {
-        if( isset( self::$instance->slug[$slug] ) ) {
-            return self::$instance->slug[$slug];
+        if( isset( self::$slug[$slug] ) ) {
+            return self::$slug[$slug];
         } else {
             return '';
         }
     }
 
     public static function getPage($page) {
-        if( isset( self::$instance->page_hook[$page] ) ) {
-            return self::$instance->page_hook[$page];
+        if( isset( self::$page_hook[$page] ) ) {
+            return self::$page_hook[$page];
         } else {
             return '';
         }
@@ -61,129 +61,129 @@ class RPS_Admin_Menu_Main {
     }
 
     public function adminMenu() {
-        //$this->slug['main'] = add_menu_page( __('Easy Student Results', $this->TD), __('Student Results', $this->TD), "administrator", RPS_Result_Management::PLUGIN_SLUG, array($this,'dashboard'),'dashicons-book-alt' );
+        //self::$slug['main'] = add_menu_page( __('Easy Student Results', $this->TD), __('Student Results', $this->TD), "administrator", RPS_Result_Management::PLUGIN_SLUG, array($this,'dashboard'),'dashicons-book-alt' );
 
-        //$this->slug['dashboard'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Dashboard", $this->TD), __("Dashboard", $this->TD), 'administrator', RPS_Result_Management::PLUGIN_SLUG, array($this,'dashboard'));
-        //add_action('load-' . $this->slug['dashboard'] , array($this,'loadDashboard'));
+        //self::$slug['dashboard'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Dashboard", $this->TD), __("Dashboard", $this->TD), 'administrator', RPS_Result_Management::PLUGIN_SLUG, array($this,'dashboard'));
+        //add_action('load-' . self::$slug['dashboard'] , array($this,'loadDashboard'));
 
-        //$this->page_hook['main'] = $this->page_hook['dashboard'] = RPS_Result_Management::PLUGIN_SLUG;
+        //self::$page_hook['main'] = self::$page_hook['dashboard'] = RPS_Result_Management::PLUGIN_SLUG;
 
-        $this->slug['main'] = add_menu_page( __('Easy Student Results', $this->TD), __('Student Results', $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG, array($this,'department'),'dashicons-book-alt' );
+        self::$slug['main'] = add_menu_page( __('Easy Student Results', $this->TD), __('Student Results', $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG, array($this,'department'),'dashicons-book-alt' );
     }
 
     public function departmentMenu() {
-        $this->slug['department'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Department", $this->TD), __("Department", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG, array($this,'department'));
-        add_action('load-' . $this->slug['department'] , array($this,'loadDepartment'));
+        self::$slug['department'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Department", $this->TD), __("Department", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG, array($this,'department'));
+        add_action('load-' . self::$slug['department'] , array($this,'loadDepartment'));
 
-        //$this->page_hook['department'] = RPS_Result_Management::PLUGIN_SLUG . '_department';
-        $this->page_hook['department'] = RPS_Result_Management::PLUGIN_SLUG;
+        //self::$page_hook['department'] = RPS_Result_Management::PLUGIN_SLUG . '_department';
+        self::$page_hook['department'] = RPS_Result_Management::PLUGIN_SLUG;
     }
 
     public function batchMenu() {
-        $this->slug['batch'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Batch", $this->TD), __("Batch", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_batch',array($this,'batch'));
-        add_action('load-' . $this->slug['batch'] , array($this,'loadBatch'));
+        self::$slug['batch'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Batch", $this->TD), __("Batch", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_batch',array($this,'batch'));
+        add_action('load-' . self::$slug['batch'] , array($this,'loadBatch'));
 
-        $this->page_hook['batch'] = RPS_Result_Management::PLUGIN_SLUG . '_batch';
+        self::$page_hook['batch'] = RPS_Result_Management::PLUGIN_SLUG . '_batch';
     }
 
     public function gradeMenu() {
-        $this->slug['grade'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Grade / Division", $this->TD), __("Grade", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_grade',array($this,'grade'));
-        add_action('load-' . $this->slug['grade'] , array($this,'loadGrade'));
+        self::$slug['grade'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Grade / Division", $this->TD), __("Grade", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_grade',array($this,'grade'));
+        add_action('load-' . self::$slug['grade'] , array($this,'loadGrade'));
 
-        $this->page_hook['grade'] = RPS_Result_Management::PLUGIN_SLUG . '_grade';
+        self::$page_hook['grade'] = RPS_Result_Management::PLUGIN_SLUG . '_grade';
     }
 
     public function examsMenu() {
-        $this->slug['exams'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Exams", $this->TD), __("Exams", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_exams',array($this,'exams'));
-        add_action('load-' . $this->slug['exams'] , array($this,'loadExams'));
+        self::$slug['exams'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Exams", $this->TD), __("Exams", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_exams',array($this,'exams'));
+        add_action('load-' . self::$slug['exams'] , array($this,'loadExams'));
 
-        $this->page_hook['exams'] = RPS_Result_Management::PLUGIN_SLUG . '_exams';
+        self::$page_hook['exams'] = RPS_Result_Management::PLUGIN_SLUG . '_exams';
     }
 
     public function resultsMenu() {
-        $this->slug['results'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Results", $this->TD), __("Results", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_results',array($this,'results'));
-        add_action('load-' . $this->slug['results'] , array($this,'loadResults'));
+        self::$slug['results'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Results", $this->TD), __("Results", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_results',array($this,'results'));
+        add_action('load-' . self::$slug['results'] , array($this,'loadResults'));
 
-        $this->page_hook['results'] = RPS_Result_Management::PLUGIN_SLUG . '_results';
+        self::$page_hook['results'] = RPS_Result_Management::PLUGIN_SLUG . '_results';
     }
 
     public function premiumMenu() {
-        $this->slug['premium'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Premium AddOns", $this->TD), __("Premium AddOns", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_premium',array($this,'premiumAddons'));
-        add_action('load-' . $this->slug['premium'] , array($this,'loadPremiumAddons'));
+        self::$slug['premium'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Premium AddOns", $this->TD), __("Premium AddOns", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_premium',array($this,'premiumAddons'));
+        add_action('load-' . self::$slug['premium'] , array($this,'loadPremiumAddons'));
 
-        $this->page_hook['premium'] = RPS_Result_Management::PLUGIN_SLUG . '_premium';
+        self::$page_hook['premium'] = RPS_Result_Management::PLUGIN_SLUG . '_premium';
     }
 
 
     /* Main Dashboard Menu Functions */
     
     public function loadDashboard() {
-        $obj = RPS_Admin_Menu_Dashboard::getInstance($this->page_hook['dashboard']);
+        $obj = RPS_Admin_Menu_Dashboard::getInstance(self::$page_hook['dashboard']);
         $obj->onLoadPage();
     }
     
     public function dashboard() {
-        $obj = RPS_Admin_Menu_Dashboard::getInstance($this->page_hook['dashboard']);
+        $obj = RPS_Admin_Menu_Dashboard::getInstance(self::$page_hook['dashboard']);
         $obj->mainDiv();
     }
     
     /* Department Menu Functions */
     
     public function loadDepartment() {
-        $obj = RPS_Admin_Menu_Department::getInstance($this->page_hook['department']);
+        $obj = RPS_Admin_Menu_Department::getInstance(self::$page_hook['department']);
         $obj->onLoadPage();
     }
     
     public function department() {
-        $obj = RPS_Admin_Menu_Department::getInstance($this->page_hook['department']);
+        $obj = RPS_Admin_Menu_Department::getInstance(self::$page_hook['department']);
         $obj->mainDiv();
     }
     
     /* Batch Menu Functions */
     
     public function loadBatch() {
-        $obj = RPS_Admin_Menu_Batch::getInstance($this->page_hook['batch']);
+        $obj = RPS_Admin_Menu_Batch::getInstance(self::$page_hook['batch']);
         $obj->onLoadPage();
     }
     
     public function batch() {
-        $obj = RPS_Admin_Menu_Batch::getInstance($this->page_hook['batch']);
+        $obj = RPS_Admin_Menu_Batch::getInstance(self::$page_hook['batch']);
         $obj->mainDiv();
     }
 
     /* Exams Menu Functions */
 
     public function loadExams() {
-        $obj = RPS_Admin_Menu_Exams::getInstance($this->page_hook['exams']);
+        $obj = RPS_Admin_Menu_Exams::getInstance(self::$page_hook['exams']);
         $obj->onLoadPage();
     }
 
     public function exams() {
-        $obj = RPS_Admin_Menu_Exams::getInstance($this->page_hook['exams']);
+        $obj = RPS_Admin_Menu_Exams::getInstance(self::$page_hook['exams']);
         $obj->mainDiv();
     }
 
     /* Grade Menu Functions */
 
     public function loadGrade() {
-        $obj = RPS_Admin_Menu_Grade::getInstance($this->page_hook['grade']);
+        $obj = RPS_Admin_Menu_Grade::getInstance(self::$page_hook['grade']);
         $obj->onLoadPage();
     }
 
     public function grade() {
-        $obj = RPS_Admin_Menu_Grade::getInstance($this->page_hook['grade']);
+        $obj = RPS_Admin_Menu_Grade::getInstance(self::$page_hook['grade']);
         $obj->mainDiv();
     }
 
     /* Results Menu Functions */
 
     public function loadResults() {
-        $obj = RPS_Admin_Menu_Result_Main::getInstance($this->page_hook['results']);
+        $obj = RPS_Admin_Menu_Result_Main::getInstance(self::$page_hook['results']);
         $obj->onLoadPage();
     }
 
     public function results() {
-        $obj = RPS_Admin_Menu_Result_Main::getInstance($this->page_hook['results']);
+        $obj = RPS_Admin_Menu_Result_Main::getInstance(self::$page_hook['results']);
         $obj->mainDiv();
     }
 
@@ -191,12 +191,12 @@ class RPS_Admin_Menu_Main {
     Premium Addons
     */
     public function LoadPremiumAddons() {
-        $obj = RPS_Admin_Menu_PremiumAddOns::getInstance($this->page_hook['premium']);
+        $obj = RPS_Admin_Menu_PremiumAddOns::getInstance(self::$page_hook['premium']);
         $obj->onLoadPage();
     }
 
     public function premiumAddons() {
-        $obj = RPS_Admin_Menu_PremiumAddOns::getInstance($this->page_hook['premium']);
+        $obj = RPS_Admin_Menu_PremiumAddOns::getInstance(self::$page_hook['premium']);
         $obj->mainDiv();
     }
 
