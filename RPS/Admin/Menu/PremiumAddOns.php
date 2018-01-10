@@ -88,7 +88,7 @@ class RPS_Admin_Menu_PremiumAddOns extends RPS_Admin_Menu_MenuAbstract {
                                 );
                                 echo "<div class='row'>";
                                 foreach ( $products as $product ) {
-                                    if ( $i == 1 || $i % 4 == 0 ) {
+                                    if ( $i == 1 ) {
                                         echo '<div class="card-deck" style="margin: 0 20px 0 0 !important;">';
                                     }
                                     ?>
@@ -108,6 +108,7 @@ class RPS_Admin_Menu_PremiumAddOns extends RPS_Admin_Menu_MenuAbstract {
                                     <?php
                                     if ( $i % 3 == 0 ) {
                                         echo "</div>";
+                                        $i = 0;
                                     }
                                     $i++;
                                 }
