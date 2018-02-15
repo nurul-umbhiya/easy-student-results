@@ -89,6 +89,15 @@ class RPS_Helper_DBS {
             return $ret;
         endif;
     }
+
+    public function getAllDepartments() {
+	    $list = $this->getDepartmentData();
+	    if( $list === '' || $list === NULL  || empty($list) ):
+		    return new \WP_Error(__('Empty Results', $this->TD),__("No department found.", $this->TD));
+	    else:
+		    return $list;
+	    endif;
+    }
     
     //#####   Semester   ####//
     

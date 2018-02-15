@@ -7,7 +7,7 @@ class RPS_Admin_Init_Metaboxes_Course {
     private static $instance;
     private $dbs,$TD;
     
-    public static function getInstance(){
+    public static function getInstance() {
         if(self::$instance==null){
             self::$instance = new self;
             self::$instance->dbs = new RPS_Helper_DBS();
@@ -247,7 +247,7 @@ class RPS_Admin_Init_Metaboxes_Course {
             
             <tr valign="top">
                 <th scope="row">
-                    <label for="pre_requisist"><?php _e('Pre-requisist Subject',$this->TD); ?></label>
+                    <label for="pre_requisist"><?php _e('Prerequisite Subject',$this->TD); ?></label>
                 </th>
                 <td>
                     <input type="text" name="course_details_meta[pre_requisist]" id="pre_requisist" value="<?php echo $data['pre_requisist']; ?>" class="regular-text">

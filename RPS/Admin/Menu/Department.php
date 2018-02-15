@@ -538,13 +538,19 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
                                     $dept_url = esc_url_raw( add_query_arg(array( 'page' => $this->page, 'edit' => $department['id']),  admin_url('admin.php?')) );
                                     $del_url = esc_url_raw( add_query_arg(array( 'page' => $this->page, 'delete' => $department['id'], 'action'=>'delete'),  admin_url('admin.php?')) );
                                     $del_url = wp_nonce_url ( $del_url, 'delete_department_' . $department['id'], 'delete_department' );
+
+                                    $action_links = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_department_action_buttons', array(
+                                        'edit' => '<span class="edit"><a href="' . $dept_url . '">' . __('Edit', $this->TD) . '</a></span>',
+                                        'delete' => '<span class="delete"><a href="' . $del_url .'" data-department_id="' . $department['id'] . '" data-department_name="' . $department['name'] . '" class="delete delete_department department_id_' . $department['id'] .'">' . __('Delete', $this->TD) . '</a></span>'
+                                    ), $department['id']);
                         ?>
                              <tr>
                                  <td>
                                      <?php echo "<a href='$dept_url'>" . $department['name'] . '</a>'; ?>
                                      <div class="row-actions">
-                                         <span class="edit"><a href="<?php echo $dept_url; ?>"><?php _e('Edit', $this->TD) ?></a></span>
-                                         <span class="delete"><a href="<?php echo $del_url; ?>" data-department_id="<?php echo $department['id']; ?>" data-department_name="<?php echo $department['name']; ?>" class="delete delete_department department_id_<?php echo $department['id']; ?>"><?php _e('Delete', $this->TD) ?></a></span>
+                                         <?php if ( !empty($action_links) ) {
+                                             echo implode(' | ', $action_links);
+                                         } ?>
                                      </div>
                                  </td>
                                  
@@ -604,9 +610,12 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
     }
 
     private function get_header() {
-        $str = '<div class="wrap"><h2><i class="dashicons dashicons-admin-page" style="line-height: 1.5em;"></i> ';
-        $str .= __('Department/Class List', $this->TD);
-        $str .= '</h2><br class="clear">';
+        $department_header_h2 = '<i class="dashicons dashicons-admin-page" style="line-height: 1.5em;"></i>';
+        $department_header_h2 .= __('Department/Class List', $this->TD);
+        $department_header_h2 = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_department_h2', $department_header_h2);
+
+        $str = '<div class="wrap"><h2>' . $department_header_h2 . '</h2>';
+        $str .= '<br class="clear">';
         $str .= '<div id="col-container">';
         
         if(!empty($this->messages)) {
