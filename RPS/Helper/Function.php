@@ -270,6 +270,8 @@ class RPS_Helper_Function {
             '3' => __('Project / Thesis',   RPS_Result_Management::TD),
         );
 
+        $course_type_id = intval($course_type_id);
+
         if ( array_key_exists($course_type_id, $course_type) ) {
             return $course_type[ $course_type_id ];
         } else {
@@ -293,6 +295,22 @@ class RPS_Helper_Function {
         $taxonomy = str_replace(array(' ', '_'), '-', $taxonomy); // Replace spaces and underscores.
 
         return $taxonomy;
+    }
+
+    public static function reserved_terms() {
+	    $reserved_terms = array (
+		    'attachment', 'attachment_id', 'author', 'author_name', 'calendar', 'cat', 'category', 'category__and',
+		    'category__in', 'category__not_in', 'category_name', 'comments_per_page', 'comments_popup', 'cpage',
+		    'customize_messenger_channel', 'customized', 'day',
+		    'debug', 'error', 'exact', 'feed', 'hour', 'link_category', 'm', 'minute', 'monthnum', 'more', 'name',
+		    'nav_menu', 'nonce', 'nopaging', 'offset', 'order', 'orderby', 'p', 'page', 'page_id', 'paged', 'pagename', 'pb', 'perm',
+		    'post', 'post__in', 'post__not_in', 'post_format', 'post_mime_type', 'post_status', 'post_tag', 'post_type',
+		    'posts', 'posts_per_archive_page', 'posts_per_page', 'preview', 'robots', 's', 'search', 'second', 'sentence',
+		    'showposts', 'static', 'subpost', 'subpost_id', 'tag', 'tag__and', 'tag__in', 'tag__not_in', 'tag_id',
+		    'tag_slug__and', 'tag_slug__in', 'taxonomy', 'tb', 'term', 'theme', 'type', 'w', 'withcomments', 'withoutcomments', 'year',
+	    );
+
+	    return apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_reserved_terms', $reserved_terms);
     }
 
     public static function javascript_redirect($location) {

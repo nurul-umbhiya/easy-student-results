@@ -3,9 +3,9 @@ Contributors: zikubd
 Donate link: https://www.nurul.me/product/easy-student-results-needs-support/
 Tags: academic, academic result, student, student result, student result management system, result management system, education, result system, create marksheet online, online marksheet, online marksheet creator, result, easy student result, school, college, university, school result, college result, university result, create marksheet online, emarksheet
 Requires at least: 4.0.0
-Tested up to: 4.9.1
-Stable tag: 2.1
-Version: 2.1
+Tested up to: 4.9.4
+Stable tag: 2.2
+Version: 2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -40,11 +40,14 @@ Roll no (by default) or by Registration no [esr_results2 search_by='reg']. Note 
 *	Bootstrap Templates for Students and Result shortcode
 *   Plugin is translation ready
 *   Used WordPress Transients API for complex mysql queries
-*   WordPress Multisite support
+*   WordPress Multi site support
 
 
 = Premium AddOns =
 Premium AddOns are available for this plugin, like private result search, new shortcodes for searching result by exam, year and roll no etc. For more details please visit [here](https://www.nurul.me/shop/ "Easy Student Results Premium AddOns") for more details.
+
+*   [Import Export CSV](https://www.nurul.me/product/easy-student-results-import-export-csv/ "Easy Student Results : Import Export CSV")
+    By Installing Import Export CSV Plugin, admin can Import/Export data of Easy Student Results plugin. Note that: existing addOns are 100% compatible with this addOns.
 
 *   [Result By Pin](https://www.nurul.me/product/easy-student-results-search-result-by-pin/ "Easy Student Results : Search Result By PIN")
     By Installing Search Result By PIN Plugin students can search their results by a PIN assigned by admin. You can also put restriction on pin use, assign new pins, temporary disable pins etc....
@@ -101,6 +104,10 @@ It is hard to continue development and support for this free plugin without cont
 
 
 == Changelog ==
+
+= 2.2 =
+* Codebase Updated
+* Added couple of new hooks
 
 = 2.1 =
 * Codebase Updated

@@ -4,7 +4,7 @@ Plugin Name: Easy Student Results
 Plugin URI: https://www.nurul.me/
 Description: Result Management System for School, College and University. Use [esr_results] to display result and [esr_students] to display student list.
 Text Domain: easy-student-results
-Version: 2.1.1
+Version: 2.2
 Author: Nurul Umbhiya
 Author URI: https://www.nurul.me/
 */
@@ -19,7 +19,7 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
         private static $instance;
         private $dir, $url;
 
-        const VER = 2.1;
+        const VER = 2.2;
 
         //do not change below constant
         const DS = '/';

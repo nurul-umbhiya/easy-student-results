@@ -637,7 +637,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 			$title = __("Add New Exam Record", $this->TD);
 
 		} elseif ( isset( $_REQUEST['edit'] ) && $_REQUEST['edit'] != "") {
-			$title = __("Edit Exam Record", $this->TD) . $link;
+			$title = __("Edit Exam Record", $this->TD);
 
 		} elseif ( isset($_REQUEST['marks'], $_REQUEST['student_id']) && RPS_Helper_Function::is_numeric($_REQUEST['marks']) && RPS_Helper_Function::is_numeric($_REQUEST['student_id']) ) {
 			$title = __('Add Marks', $this->TD);

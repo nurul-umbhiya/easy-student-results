@@ -29,7 +29,7 @@ class RPS_Admin_Menu_GradeTable extends \WP_List_Table {
     
     function get_columns() {
         $columns = array(
-            'sl'            =>  __('SL', $this->TD), //Render a checkbox instead of text
+            'grade_id'      =>  __('Grade ID', $this->TD), //Render a checkbox instead of text
             'grade'         => __('Alphabetic Grade', $this->TD),
             'marks'         => __('Marks', $this->TD),
             'grade_point'   => __('Grade Point', $this->TD),
@@ -40,10 +40,10 @@ class RPS_Admin_Menu_GradeTable extends \WP_List_Table {
         return $columns;
     }
     
-    function column_sl($item) {
+    function column_grade_id($item) {
         //echo $item['id'];
         //echo $column_name;
-        return sprintf( '<strong>%d</strong>', $this->sl++ );
+        return sprintf( '<strong>%d</strong>', $item->id );
     }
     
     function column_default( $item, $column_name ) {

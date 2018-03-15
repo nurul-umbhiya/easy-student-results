@@ -150,17 +150,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
 
             // Forbidden attribute names
             // http://codex.wordpress.org/Function_Reference/register_taxonomy#Reserved_Terms
-            $reserved_terms = array (
-                    'attachment', 'attachment_id', 'author', 'author_name', 'calendar', 'cat', 'category', 'category__and',
-                    'category__in', 'category__not_in', 'category_name', 'comments_per_page', 'comments_popup', 'cpage',
-                    'customize_messenger_channel', 'customized', 'day',
-                    'debug', 'error', 'exact', 'feed', 'hour', 'link_category', 'm', 'minute', 'monthnum', 'more', 'name',
-                    'nav_menu', 'nonce', 'nopaging', 'offset', 'order', 'orderby', 'p', 'page', 'page_id', 'paged', 'pagename', 'pb', 'perm',
-                    'post', 'post__in', 'post__not_in', 'post_format', 'post_mime_type', 'post_status', 'post_tag', 'post_type',
-                    'posts', 'posts_per_archive_page', 'posts_per_page', 'preview', 'robots', 's', 'search', 'second', 'sentence',
-                    'showposts', 'static', 'subpost', 'subpost_id', 'tag', 'tag__and', 'tag__in', 'tag__not_in', 'tag_id',
-                    'tag_slug__and', 'tag_slug__in', 'taxonomy', 'tb', 'term', 'theme', 'type', 'w', 'withcomments', 'withoutcomments', 'year',
-            );
+            $reserved_terms = RPS_Helper_Function::reserved_terms();
 
             // Error checking
             if( !$name ) {
@@ -186,7 +176,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
                 }
             }
             if( !$full_name ) {
-                $this->error['full_name'] = __("Please specify department full name.", $this->TD);
+                //$this->error['full_name'] = __("Please specify department full name.", $this->TD);
             }
             
             $data = array (
@@ -229,15 +219,30 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
     
     private function edit() {
         global $wpdb;
-        if ( ! empty( $_POST ) && check_admin_referer( 'edit_department_nonce', 'edit_department' ) ) {
+	    $department_id = isset($_REQUEST['edit']) ? intval($_REQUEST['edit']) : 0;
+
+        if ( ! empty( $_POST ) && check_admin_referer( 'edit_department_nonce_' . $department_id, 'edit_department' ) ) {
             // Grab the submitted data
             $name   = ( isset( $_POST['name'] ) )   ? (string) stripslashes( $_POST['name'] ) : '';
-            $slug    = ( isset( $_POST['slug'] ) )    ? $this->helper->sanitize_taxonomy_name( stripslashes( (string) $_POST['slug'] ) ) : '';
+	        $slug    = ( isset( $_POST['slug'] ) )    ? $this->helper->sanitize_taxonomy_name( stripslashes( (string) $_POST['slug'] ) ) : '';
             $description    = ( isset( $_POST['description'] ) )    ? (string) stripslashes( $_POST['description'] ) : '';
             $full_name = ( isset( $_POST['full_name'] ) ) ? (string) stripslashes( $_POST['full_name'] ) : '';
             $active = ( isset( $_POST['active'] ) ) ? (int) $_POST['active'] : 1;
             $credit = ( isset( $_POST['credit'] ) ) ? floatval( $_POST['credit'] ) : 0.00;
-            
+
+	        // Error checking
+	        if ( $name == '' ) {
+		        $this->error['name'] = __("Please specify a department name.", $this->TD);
+	        } else {
+		        $query = $wpdb->prepare("SELECT count(*) FROM `{$wpdb->rps_department}` WHERE name=%s AND id != %d",
+			        array($name, $department_id)
+		        );
+		        $count = $wpdb->get_var($query);
+
+		        if( 0 !== intval($count) ) {
+			        $this->error['name'] = __("Department name already exists in database.", $this->TD);
+		        }
+	        }
 
             if(empty($this->error)):
             
@@ -410,7 +415,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
     private function left($data = array()) {
         //print_r($data);
         if(isset($_REQUEST['edit']) && $_REQUEST['edit'] != "") {
-            $nonce = wp_nonce_field( 'edit_department_nonce' , 'edit_department', true, false ); 
+            $nonce = wp_nonce_field( 'edit_department_nonce_' . intval($_REQUEST['edit']) , 'edit_department', true, false );
             $readonly = "readonly='readonly'";
             $hidden_field = "";
         }
@@ -442,14 +447,14 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
                         <?php echo $nonce; echo $hidden_field; ?>
 
                         <div class="form-field form-required">
-                            <label for="name"><?php _e( 'Department/Class Name', $this->TD) ?></label>
+                            <label for="name"><?php _e( 'Department/Class Name', $this->TD) ?> (*)</label>
                             <input name="name" id="name" type="text" size="40" aria-required="true" value="<?php echo $data['name'];   ?>" />
                             <p><?php _e( 'The short name of department or class, use Uppercase letters with no space. eg CSE', $this->TD ) ?></p>
                             <?php if(isset($this->error['name'])) echo '<p style="color:red;"><strong>' . $this->error['name'] . '</strong></p>';  ?>
                         </div>
                 
                         <div class="form-field">
-                            <label for="slug"><?php _e('Department/Class Slug', $this->TD ) ?></label>
+                            <label for="slug"><?php _e('Department/Class Slug', $this->TD ) ?> (*)</label>
                             <input name="slug" id="slug" type="text" size="40" aria-required="false" value="<?php echo $data['slug'];   ?>" <?php echo $readonly; ?> />
                             <p><?php _e('The "slug" is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and underscore. <strong>Leave blank for lowercase version of your department name.</strong> eg. cse', $this->TD ) ?></p>
                             <?php if(isset($this->error['slug'])) echo '<p style="color:red;"><strong>' . $this->error['slug'] . '</strong></p>';  ?>
@@ -479,7 +484,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
                             <label for="active">Active</label>
                             <select name="active" id="program" class="postform">
                                 <option value='1' <?php selected($data['active'], "1"); ?>><?php _e('Active', $this->TD) ?></option>
-                                <option value='0' <?php selected($data['active'], "2");  ?>><?php _e('In-active', $this->TD) ?></option>
+                                <option value='2' <?php selected($data['active'], "2");  ?>><?php _e('In-active', $this->TD) ?></option>
                             </select>
                             <p><?php _e('Enable this department?', $this->TD) ?></p>
                             <?php if(isset($this->error['active'])) echo '<p style="color:red;"><strong>' . $this->error['active'] . '</strong></p>';  ?>

@@ -210,7 +210,7 @@ final class RPS_Admin_Init_Metaboxes_Student {
             <!-- Semester Select Box -->
             <tr valign="top">
                 <th scope="row">
-                    <label for="semester_id"><?php _e('Semester',$this->TD); ?></label>
+                    <label for="semester_id"><?php _e('Semester/Section',$this->TD); ?></label>
                 </th>
                 <td>
                     <?php if(!empty($semesters)): ?>
@@ -452,37 +452,37 @@ final class RPS_Admin_Init_Metaboxes_Student {
             
             <tr valign="top">
                 <th scope="row">
-                    <label for="gaurdian_name"><?php _e('Local Gaurdian Name',$this->TD); ?></label>
+                    <label for="guardian_name"><?php _e('Local Guardian Name',$this->TD); ?></label>
                 </th>
                 <td>
-                    <input type="text" name="student_contact_meta[gaurdian_name]" id="gaurdian_name" value="<?php echo $data['gaurdian_name']; ?>" class="large-text">
+                    <input type="text" name="student_contact_meta[gaurdian_name]" id="guardian_name" value="<?php echo $data['gaurdian_name']; ?>" class="large-text">
                 </td>
             </tr>
             
             <tr valign="top">
                 <th scope="row">
-                    <label for="gaurdian_address"><?php _e('Gaurdian Address',$this->TD); ?></label>
+                    <label for="guardian_address"><?php _e('Guardian Address',$this->TD); ?></label>
                 </th>
                 <td>
-                    <textarea name="student_contact_meta[gaurdian_address]" id="gaurdian_address" class="large-text" rows="4"><?php echo $data['gaurdian_address']; ?></textarea>
+                    <textarea name="student_contact_meta[gaurdian_address]" id="guardian_address" class="large-text" rows="4"><?php echo $data['gaurdian_address']; ?></textarea>
                 </td>
             </tr>
             
             <tr valign="top">
                 <th scope="row">
-                    <label for="gaurdian_contact_no"><?php _e('Gaurdian Contact No',$this->TD); ?></label>
+                    <label for="guardian_contact_no"><?php _e('Guardian Contact No',$this->TD); ?></label>
                 </th>
                 <td>
-                    <input type="text" name="student_contact_meta[gaurdian_contact_no]" id="gaurdian_contact_no" value="<?php echo $data['gaurdian_contact_no']; ?>" class="large-text">
+                    <input type="text" name="student_contact_meta[gaurdian_contact_no]" id="guardian_contact_no" value="<?php echo $data['gaurdian_contact_no']; ?>" class="large-text">
                 </td>
             </tr>
             
             <tr valign="top">
                 <th scope="row">
-                    <label for="gaurdian_email"><?php _e('Gaurdian Email Address',$this->TD); ?></label>
+                    <label for="guardian_email"><?php _e('Guardian Email Address',$this->TD); ?></label>
                 </th>
                 <td>
-                    <input type="email" name="student_contact_meta[gaurdian_email]" id="gaurdian_email" value="<?php echo $data['gaurdian_email']; ?>" class="large-text">
+                    <input type="email" name="student_contact_meta[gaurdian_email]" id="guardian_email" value="<?php echo $data['gaurdian_email']; ?>" class="large-text">
                 </td>
             </tr>
             

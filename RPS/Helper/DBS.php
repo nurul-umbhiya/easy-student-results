@@ -98,6 +98,15 @@ class RPS_Helper_DBS {
 		    return $list;
 	    endif;
     }
+
+	public function getDepartmentByName($name = "") {
+		if($name !== "") {
+			global $wpdb;
+			$query = $wpdb->prepare("SELECT * FROM `{$wpdb->rps_department}` WHERE name=%s LIMIT 1", array($name));
+			return $wpdb->get_row($query, ARRAY_A);
+		}
+		return NULL;
+	}
     
     //#####   Semester   ####//
     

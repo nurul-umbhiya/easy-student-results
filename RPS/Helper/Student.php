@@ -322,6 +322,24 @@ class RPS_Helper_Student {
         return new \WP_Error('No Student',__("No student found.", RPS_Result_Management::TD));
     }
 
+	public function getStudentByRollAndReg($department_id, $batch_id, $semester_id, $student_roll, $student_reg, $post_status='all') {
+
+		$data = $this->getStudentDetails($department_id, $batch_id, $semester_id, $post_status);
+
+		if ( !is_wp_error($data) && is_array($data) && !empty($data) ) {
+
+			foreach ( $data as $stu) {
+				if ( ( array_key_exists('roll_no', $stu) && $stu['roll_no'] == $student_roll ) && ( array_key_exists('registration_no', $stu) && $stu['registration_no'] == $student_reg ) ) {
+					return $stu;
+					break;
+				}
+			}
+
+		}
+
+		return new \WP_Error('No Student',__("No student found.", RPS_Result_Management::TD));
+	}
+
     public function getStudentByRegNo($department_id, $batch_id, $semester_id, $registration_no, $post_status='all') {
 
         $data = $this->getStudentDetails($department_id, $batch_id, $semester_id, $post_status);

@@ -190,9 +190,12 @@ class RPS_Helper_Course {
 	 * @param int $course_id
 	 */
 	public function getCourseInfo( $course_id ) {
-		$ret = array();
 		if ( RPS_Helper_Function::is_numeric( $course_id ) ):
+			$ret = array();
 			$course = get_post( $course_id );
+			if ( null === $course )
+				return new \WP_Error('Invalid Course ID',__("Given post ID is invalid. Please provide a valid Course ID.", RPS_Result_Management::TD));
+
 			$data   = get_post_custom( $course_id );
 
 			$course_code     = $data['_course_code'][0];
@@ -204,7 +207,6 @@ class RPS_Helper_Course {
 				'name'            => $course->post_title,
 				'course_code'     => $course_code,
 				'department_id'   => $department_id,
-
 				'semester_id'     => $semester_id,
 				'total_marks'     => $details['total_marks'],
 				'credit'          => $details['credit'],
@@ -212,9 +214,11 @@ class RPS_Helper_Course {
 				'pre_requisist'   => $details['pre_requisist'],
 				'related_subject' => $details['related_subject'],
 			);
-		endif;
+			return $ret;
 
-		return $ret;
+		else:
+			return new \WP_Error('Invalid Argument',__("Given argument is invalid. Please provide a valid Course ID.", RPS_Result_Management::TD));
+		endif;
 	}
 
 

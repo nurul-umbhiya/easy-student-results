@@ -68,6 +68,7 @@ class RPS_InstallDb {
                     active tinyint(1) unsigned NOT NULL DEFAULT '1',
                     added int(10) unsigned NOT NULL,
                     updated timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                    UNIQUE KEY department_id_2 (department_id,name),
                     KEY department_id (department_id)
                   ) $charset_collate ;";
 

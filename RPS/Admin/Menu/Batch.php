@@ -88,7 +88,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
                     array($data['name'], $data['department_id'])
                 );
                 
-                $count = $wpdb->get_var($query,ARRAY_A);
+                $count = $wpdb->get_var($query);
 
                 if( 0 !== intval($count) ) {
                     $this->error['name'] = __('Batch name already exists in database. Please enter another name.', $this->TD);
@@ -461,16 +461,16 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
     
     
     private function get_header() {
-        if(isset($_REQUEST['add_new']) && $_REQUEST['add_new'] != ""){
+        if(isset($_REQUEST['add_new']) && $_REQUEST['add_new'] != "") {
             $title = __("Add New Batch", $this->TD);
             
         }
-        elseif(isset ($_REQUEST['edit']) && $_REQUEST['edit'] != ""){
+        elseif(isset ($_REQUEST['edit']) && $_REQUEST['edit'] != "") {
             $title = __("Edit Batch", $this->TD);
         }
         else {
             $link = ' <a href="' . esc_url_raw( add_query_arg(array('add_new'=>'1', 'page'=> $this->page),  admin_url('admin.php?')) ) .'" class="add-new-h2">' . __('Add New', $this->TD) . '</a>';
-            $title = __("Batch List", $this->TD) . $link ;
+            $title = __("Batch List", $this->TD) . apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_batch_h2', $link) ;
             
         }
     ?>

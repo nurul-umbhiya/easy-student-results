@@ -356,7 +356,7 @@ class RPS_Admin_Menu_Grade extends  RPS_Admin_Menu_MenuAbstract {
             $title = __( 'Delete Grade', $this->TD );
         } else {
             $link = '<a href="' . esc_url_raw( add_query_arg( array('add_new' => '1', 'page' => $this->page ),  admin_url('admin.php?') ) ) .'" class="add-new-h2">' . __('Add New', $this->TD) . '</a>';
-            $title = __("Grade Lists ", $this->TD) . $link ;
+            $title = __("Grade Lists ", $this->TD) . apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_grade_h2', $link) ;
         }
         ?>
         <div class="wrap">
