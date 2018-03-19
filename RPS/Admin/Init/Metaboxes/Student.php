@@ -29,7 +29,7 @@ final class RPS_Admin_Init_Metaboxes_Student {
 
 
     public function metaBoxes( $post ) {
-        add_meta_box('faculty-info', __('Faculty Information',$this->TD), array($this,'facultyMeta'));
+        add_meta_box('faculty-info', __('Student Information',$this->TD), array($this,'facultyMeta'));
         add_meta_box('personal-info', __('Personal Details',$this->TD), array($this,'personalMeta'));
         add_meta_box('contact-info', __('Contact Information',$this->TD), array($this,'contactMeta'));
     }
@@ -142,7 +142,7 @@ final class RPS_Admin_Init_Metaboxes_Student {
         <table class="form-table" id="student_faculty_meta">
             <tr valign="top">
                 <th scope="row">
-                    <label for="reg_no"><?php _e('Registration No',$this->TD); ?> * </label>
+                    <label for="reg_no"><?php _e('Student ID',$this->TD); ?> * </label>
                 </th>
                 <td>
                     <input type="text" name="student_faculty_meta[reg_no]" id="reg_no" value="<?php echo $reg_no; ?>" class="">
@@ -151,7 +151,7 @@ final class RPS_Admin_Init_Metaboxes_Student {
             
             <tr valign="top">
                 <th scope="row">
-                    <label for="roll_no"><?php _e('Class Roll No',$this->TD); ?> * </label>
+                    <label for="roll_no"><?php _e('Index No',$this->TD); ?> * </label>
                 </th>
                 <td>
                     <input type="text" name="student_faculty_meta[roll_no]" id="roll_no" value="<?php echo $roll_no; ?>" class="">
@@ -160,7 +160,7 @@ final class RPS_Admin_Init_Metaboxes_Student {
             
             <tr valign="top">
                 <th scope="row">
-                    <label for="department_id"><?php _e('Department/Class',$this->TD); ?> * </label>
+                    <label for="department_id"><?php _e('Class',$this->TD); ?> * </label>
                 </th>
                 <td>
                     <?php if( !is_wp_error($departments) && is_array($departments) && !empty($departments) ): ?>
@@ -210,7 +210,7 @@ final class RPS_Admin_Init_Metaboxes_Student {
             <!-- Semester Select Box -->
             <tr valign="top">
                 <th scope="row">
-                    <label for="semester_id"><?php _e('Semester/Section',$this->TD); ?></label>
+                    <label for="semester_id"><?php _e('Term',$this->TD); ?></label>
                 </th>
                 <td>
                     <?php if(!empty($semesters)): ?>
@@ -296,20 +296,29 @@ final class RPS_Admin_Init_Metaboxes_Student {
     
     public function personalMeta($post) {
         $data = maybe_unserialize(get_post_meta($post->ID,'_student_personal_info',true));
-        
-        if(empty($data) || $data == "") {
-            $data = array(
-                'f_name' => "",
-                'm_name' => "",
-                'gender' => "",
-                'dob' => "",
-                'email' => "",
-                'stu_phone' => "",
-                'blood_group' => "",
-                'religion' => "",
-                'nationality' => "",
-            );
-        }
+
+	    if(empty($data) || $data == "") {
+		    $data = array(
+			    'f_name' => "",
+			    'm_name' => "",
+			    'gender' => "",
+			    'dob' => "",
+			    'email' => "",
+			    'stu_phone' => "",
+			    'shift' => "",
+			    'religion' => "",
+			    'nationality' => "",
+			    "special_need_child" => ''
+		    );
+	    }
+	    else {
+		    if ( !array_key_exists('special_need_child', $data) ) {
+			    $data['special_need_child'] = '';
+		    }
+		    if ( !array_key_exists('shift', $data) ) {
+			    $data['shift'] = 'Morning Shift';
+		    }
+	    }
         
         
     ?>
@@ -372,19 +381,22 @@ final class RPS_Admin_Init_Metaboxes_Student {
                     <input type="text" name="student_personal_meta[stu_phone]" id="stu_phone" value="<?php echo $data['stu_phone']; ?>" class="regular-text">
                 </td>
             </tr>
-            
+
             <tr valign="top">
                 <th scope="row">
-                    <label for="blood_group"><?php _e('Blood Group',$this->TD); ?></label>
+                    <label for="shift"><?php _e('Shift',$this->TD); ?></label>
                 </th>
                 <td>
-                    <input type="text" name="student_personal_meta[blood_group]" id="blood_group" value="<?php echo $data['blood_group']; ?>" class="regular-text">
+                    <select name="student_personal_meta[shift]" id="shift">
+                        <option value="Morning Shift" <?php echo isset($data['shift']) && $data['shift'] == 'Morning Shift' ? 'selected="selected"' : ''; ?>><?php _e('Morning Shift', $this->TD); ?></option>
+                        <option value="Afternoon Shift" <?php echo isset($data['shift']) && $data['shift'] == 'Afternoon Shift' ? 'selected="selected"' : ''; ?>><?php _e('Afternoon Shift', $this->TD); ?></option>
+                    </select>
                 </td>
             </tr>
-            
+
             <tr valign="top">
                 <th scope="row">
-                    <label for="religion"><?php _e('Religion',$this->TD); ?></label>
+                    <label for="religion"><?php _e('Ethnic Group',$this->TD); ?></label>
                 </th>
                 <td>
                     <input type="text" name="student_personal_meta[religion]" id="religion" value="<?php echo $data['religion']; ?>" class="regular-text">
@@ -397,6 +409,15 @@ final class RPS_Admin_Init_Metaboxes_Student {
                 </th>
                 <td>
                     <input type="text" name="student_personal_meta[nationality]" id="nationality" value="<?php echo $data['nationality']; ?>" class="regular-text">
+                </td>
+            </tr>
+
+            <tr valign="top">
+                <th scope="row">
+                    <label for="nationality"><?php _e('Special Need Child',$this->TD); ?></label>
+                </th>
+                <td>
+                    <input type="text" name="student_personal_meta[special_need_child]" id="special_need_child" value="<?php echo $data['special_need_child']; ?>" class="regular-text">
                 </td>
             </tr>
             

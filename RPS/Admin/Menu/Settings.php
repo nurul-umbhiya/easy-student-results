@@ -143,16 +143,16 @@ class RPS_Admin_Menu_Settings  {
 
                 array(
                     'name'    => 'department_text',
-                    'label'   => __( 'Select Department Text', $this->TD ),
-                    'desc'    => __( 'First option to dispaly on Department Select box.', $this->TD ),
+                    'label'   => __( 'Select Class Text', $this->TD ),
+                    'desc'    => __( 'First option to dispaly on Class Select box.', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Select Department', $this->TD)
+                    'default' => __('Select Class', $this->TD)
                 ),
                 array (
                     'name'    => 'department_error_text',
-                    'label'   => __( 'Department Error Text', $this->TD ),
+                    'label'   => __( 'Class Error Text', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Please Select a Department From List.', $this->TD)
+                    'default' => __('Please Select a Class From List.', $this->TD)
                 ),
 
                 array(
@@ -171,25 +171,25 @@ class RPS_Admin_Menu_Settings  {
 
                 array(
                     'name'    => 'semester_text',
-                    'label'   => __( 'Select Semester Text', $this->TD ),
-                    'desc'    => __( 'First option to dispaly on Semester Select box.', $this->TD ),
+                    'label'   => __( 'Select Term Text', $this->TD ),
+                    'desc'    => __( 'First option to dispaly on Term Select box.', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Select Semester', $this->TD)
+                    'default' => __('Select Term', $this->TD)
                 ),
                 array(
                     'name'    => 'semester_error_text',
-                    'label'   => __( 'Semester Error Text', $this->TD ),
+                    'label'   => __( 'Term Error Text', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Please Select a Semester From List.', $this->TD)
+                    'default' => __('Please Select a Term From List.', $this->TD)
                 ),
 
                 array(
                     'name'    => 'student_meta',
                     'label'   => __( 'Student Information', $this->TD ),
                     'desc'    => __( 'Enter which Students Information to display on search results in a key:value pair, seperated by <strong>,</strong> (comma).
-                                    Key will be the available fields and value will be the label (title) text. eg:roll_no:Roll No.', $this->TD ),
+                                    Key will be the available fields and value will be the label (title) text. eg:roll_no:Index No.', $this->TD ),
                     'type'    => 'textarea',
-                    'default' => 'roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Department, batch:Batch, semester:Semester'
+                    'default' => 'roll_no:Index No, registration_no:Student ID, dob:Date of Birth, department:Class, batch:Batch, semester:Term'
                 ),
                 array(
                     'name'    => 'help_html',
@@ -218,16 +218,16 @@ class RPS_Admin_Menu_Settings  {
 
                 array(
                     'name'    => 'department_text',
-                    'label'   => __( 'Select Department Text', $this->TD ),
-                    'desc'    => __( 'First option to dispaly on Department Select box.', $this->TD ),
+                    'label'   => __( 'Select Class Text', $this->TD ),
+                    'desc'    => __( 'First option to dispaly on Class Select box.', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Department', $this->TD)
+                    'default' => __('Class', $this->TD)
                 ),
                 array (
                     'name'    => 'department_error_text',
-                    'label'   => __( 'Department Error Text', $this->TD ),
+                    'label'   => __( 'Class Error Text', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Please Select a Department From List.', $this->TD)
+                    'default' => __('Please Select a Class From List.', $this->TD)
                 ),
 
                 array(
@@ -246,25 +246,25 @@ class RPS_Admin_Menu_Settings  {
 
                 array(
                     'name'    => 'semester_text',
-                    'label'   => __( 'Select Semester Text', $this->TD ),
-                    'desc'    => __( 'First option to dispaly on Semester Select box.', $this->TD ),
+                    'label'   => __( 'Select Term Text', $this->TD ),
+                    'desc'    => __( 'First option to dispaly on Term Select box.', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Semester', $this->TD)
+                    'default' => __('Term', $this->TD)
                 ),
                 array(
                     'name'    => 'semester_error_text',
-                    'label'   => __( 'Semester Error Text', $this->TD ),
+                    'label'   => __( 'Term Error Text', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Please Select a Semester From List.', $this->TD)
+                    'default' => __('Please Select a Term From List.', $this->TD)
                 ),
 
                 array(
                     'name'    => 'student_meta',
                     'label'   => __( 'Student Informations', $this->TD ),
                     'desc'    => __( 'Enter which Students Information to display on result output in a key:value pair, seperated by <strong>,</strong> (comma).
-                                    Key will be the available fields and value will be the label (title) text. eg:roll_no:Roll No.', $this->TD ),
+                                    Key will be the available fields and value will be the label (title) text. eg:roll_no:Index No.', $this->TD ),
                     'type'    => 'textarea',
-                    'default' => 'name:Name, roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Department, batch:Batch, semester:Semester'
+                    'default' => 'name:Name, roll_no:Index No, registration_no:Student ID, dob:Date of Birth, department:Class, batch:Batch, semester:Term'
                 ),
 
                 array(
@@ -281,7 +281,7 @@ class RPS_Admin_Menu_Settings  {
                     'name'    => 'subject_meta',
                     'label'   => __( 'Subject Fields', $this->TD ),
                     'desc'    => __( 'Enter which Subject Information to display on result output in a key:value pair, seperated by <strong>,</strong> (comma).
-                                    Key will be the available fields and value will be the label (title) text. eg:roll_no:Roll No.', $this->TD ),
+                                    Key will be the available fields and value will be the label (title) text. eg:roll_no:Index No.', $this->TD ),
                     'type'    => 'textarea',
                     'default' => 'course_name:Subject Name, course_code:Subject Code, total_marks:Total Makrs, marks_obtained:Marks Obtained, grade:Grade'
                 ),
@@ -296,7 +296,7 @@ class RPS_Admin_Menu_Settings  {
                     'name'    => 'result_meta',
                     'label'   => __( 'Result fields', $this->TD ),
                     'desc'    => __( 'Enter which Result Information to display on result output in a key:value pair, seperated by <strong>,</strong> (comma).
-                                    Key will be the available fields and value will be the label (title) text. eg:roll_no:Roll No.', $this->TD ),
+                                    Key will be the available fields and value will be the label (title) text. eg:roll_no:Index No.', $this->TD ),
                     'type'    => 'textarea',
                     'default' => 'total_marks:Total Marks, cgpa:Cgpa, final_result:Final Result'
                 ),
@@ -398,10 +398,10 @@ class RPS_Admin_Menu_Settings  {
 
                 array(
                     'name'    => 'department_text',
-                    'label'   => __( 'Select Department Text', $this->TD ),
-                    'desc'    => __( 'First option to dispaly on Department Select box.', $this->TD ),
+                    'label'   => __( 'Select Class Text', $this->TD ),
+                    'desc'    => __( 'First option to dispaly on Class Select box.', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Department', $this->TD)
+                    'default' => __('Class', $this->TD)
                 ),
                 array (
                     'name'    => 'department_error_text',
@@ -426,25 +426,25 @@ class RPS_Admin_Menu_Settings  {
 
                 array(
                     'name'    => 'semester_text',
-                    'label'   => __( 'Select Semester Text', $this->TD ),
-                    'desc'    => __( 'First option to dispaly on Semester Select box.', $this->TD ),
+                    'label'   => __( 'Select Term Text', $this->TD ),
+                    'desc'    => __( 'First option to dispaly on Term Select box.', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Semester', $this->TD)
+                    'default' => __('Term', $this->TD)
                 ),
                 array(
                     'name'    => 'semester_error_text',
-                    'label'   => __( 'Semester Error Text', $this->TD ),
+                    'label'   => __( 'Term Error Text', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Please Select a Semester From List.', $this->TD)
+                    'default' => __('Please Select a Term From List.', $this->TD)
                 ),
 
                 array(
                     'name'    => 'student_meta',
                     'label'   => __( 'Student Information', $this->TD ),
                     'desc'    => __( 'Enter which Students Information to display on result output in a key:value pair, seperated by <strong>,</strong> (comma).
-                                    Key will be the available fields and value will be the label (title) text. eg:roll_no:Roll No.', $this->TD ),
+                                    Key will be the available fields and value will be the label (title) text. eg:roll_no:Index No.', $this->TD ),
                     'type'    => 'textarea',
-                    'default' => 'name:Name, roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Department, batch:Batch, semester:Semester'
+                    'default' => 'name:Name, roll_no:Index No, registration_no:Student ID, dob:Date of Birth, department:Department, batch:Batch, semester:Term'
                 ),
 
                 array(
@@ -460,7 +460,7 @@ class RPS_Admin_Menu_Settings  {
                     'name'    => 'subject_meta',
                     'label'   => __( 'Subject Fields', $this->TD ),
                     'desc'    => __( 'Enter which Subject Information to display on result output in a key:value pair, seperated by <strong>,</strong> (comma).
-                                    Key will be the available fields and value will be the label (title) text. eg:roll_no:Roll No.', $this->TD ),
+                                    Key will be the available fields and value will be the label (title) text. eg:roll_no:Index No.', $this->TD ),
                     'type'    => 'textarea',
                     'default' => 'course_name:Subject Name, course_code:Subject Code, total_marks:Total Makrs, marks_obtained:Marks Obtained, grade:Grade'
                 ),
@@ -475,7 +475,7 @@ class RPS_Admin_Menu_Settings  {
                     'name'    => 'result_meta',
                     'label'   => __( 'Result fields', $this->TD ),
                     'desc'    => __( 'Enter which Result Information to display on result output in a key:value pair, seperated by <strong>,</strong> (comma).
-                                    Key will be the available fields and value will be the label (title) text. eg:roll_no:Roll No.', $this->TD ),
+                                    Key will be the available fields and value will be the label (title) text. eg:roll_no:Index No.', $this->TD ),
                     'type'    => 'textarea',
                     'default' => 'total_marks:Total Marks, cgpa:Cgpa, final_result:Final Result'
                 ),

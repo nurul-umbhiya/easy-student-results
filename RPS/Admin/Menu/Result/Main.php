@@ -83,7 +83,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 
 			//check department id
 			if ( ! $data['department_id'] ) {
-				$this->error['department_id'] = __('Department is required. Please select a department from list.', $this->TD);
+				$this->error['department_id'] = __('Class is required. Please select a department from list.', $this->TD);
 				$flag = true;
 			}
 
@@ -100,7 +100,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 
 				$row = $wpdb->get_row($query);
 				if ( $row !== NULL ) {
-					$this->messages[] = __('Exam records already exists on database. Please check Exam, Department and Batch.', $this->TD);
+					$this->messages[] = __('Exam records already exists on database. Please check Exam, Class and Batch.', $this->TD);
 				}
 			}
 
@@ -109,7 +109,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 			}
 
 			if ( empty( $course_ids ) ) {
-				$this->messages[] = __( 'Please Select at least one <strong>Course</strong>.', $this->TD );
+				$this->messages[] = __( 'Please Select at least one <strong>Subject</strong>.', $this->TD );
 			}
 
 			$this->error = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_result_main_error', $this->error, $_POST);
@@ -207,7 +207,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 			}
 
 			if ( empty( $course_ids ) ) {
-				$this->messages[] = __( 'Please Select at least one <strong>Course</strong>.', $this->TD );
+				$this->messages[] = __( 'Please Select at least one <strong>Subject</strong>.', $this->TD );
 			}
 
 			if ( empty($this->messages) && empty($this->error) ) {
@@ -378,7 +378,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 
 
 		$student_list = new WP_Error( "Empty", __("No Student Found", $this->TD) );
-		$course_list = new WP_Error( "Empty", __("No Course Found", $this->TD) );
+		$course_list = new WP_Error( "Empty", __("No Subject Found", $this->TD) );
 		$exam_record_data = null;
 
 		//get student list, rps_exam_record table data and rps_marks table data
@@ -434,7 +434,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 				<!-- Department Select Box -->
 				<tr valign="top">
 					<th scope="row">
-						<label for="department_id"><?php _e('Department/Class',$this->TD); ?> *</label>
+						<label for="department_id"><?php _e('Class',$this->TD); ?> *</label>
 					</th>
 					<td>
 						<?php if( !is_wp_error($departments) && is_array($departments) && !empty($departments) ): ?>
@@ -483,7 +483,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 				<!-- Semester Select Box -->
 				<tr valign="top">
 					<th scope="row">
-						<label for="semester_id"><?php _e('Semester',$this->TD); ?></label>
+						<label for="semester_id"><?php _e('Term',$this->TD); ?></label>
 					</th>
 					<td>
 						<?php if ( !empty( $semesters ) ) : ?>
@@ -524,11 +524,11 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 									<tr>
 										<td><input type="checkbox" class="selectAll" /><input type="hidden" name="student_ids[]" value="<?php echo $student_id; ?>"></td>
 										<td><?php echo "<strong>"; _e('Student Name', $this->TD); echo ':</strong> ' . $student_data['name']; ?></td>
-                                		<td><?php echo '<strong>'; _e('Roll No', $this->TD); echo ':</strong> '. $student_data['roll_no']; ?></td>
+                                		<td><?php echo '<strong>'; _e('Index No', $this->TD); echo ':</strong> '. $student_data['roll_no']; ?></td>
 									</tr>
 
 								<?php if( ! is_wp_error( $course_list ) && ! empty( $course_list ) ) { ?>
-									<tr><td colspan="3"><?php _e('Select Course', $this->TD); ?></td></tr>
+									<tr><td colspan="3"><?php _e('Select Subject', $this->TD); ?></td></tr>
 									<?php foreach ( $course_list as $course_id => $course_data ) { ?>
 										<tr>
 											<td>
@@ -538,8 +538,8 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 												}
 												?>>
 											</td>
-											<td><?php echo __( '<strong>Course Code:</strong> ', $this->TD ) . $course_data['course_code']; ?></td>
-											<td><?php echo __( '<strong>Course Name:</strong> ', $this->TD)  . $course_data['name'];  ?></td>
+											<td><?php echo __( '<strong>Subject Code:</strong> ', $this->TD ) . $course_data['course_code']; ?></td>
+											<td><?php echo __( '<strong>Subject Name:</strong> ', $this->TD)  . $course_data['name'];  ?></td>
 										</tr>
 									<?php } ?>
 

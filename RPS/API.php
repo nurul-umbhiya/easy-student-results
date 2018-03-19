@@ -418,12 +418,12 @@ class RPS_API extends WP_REST_Controller {
                 endforeach;
             endif;
 
-            $select_department      = isset($this->options['department_text'])  ? $this->options['department_text']     : __('Select Department', $this->TD);
+            $select_department      = isset($this->options['department_text'])  ? $this->options['department_text']     : __('Select Class', $this->TD);
             $select_batch           = isset($this->options['batch_text'])       ? $this->options['batch_text']          : __('Select Batch', $this->TD);
-            $select_semester        = isset($this->options['semester_text'])    ? $this->options['semester_text']       : __('Select Semester', $this->TD);
-            $department_error_text  = isset($this->options['department_error_text'])    ? esc_sql( $this->options['department_error_text'] )    : __('Please Select a Department From List.', $this->TD);
+            $select_semester        = isset($this->options['semester_text'])    ? $this->options['semester_text']       : __('Select Term', $this->TD);
+            $department_error_text  = isset($this->options['department_error_text'])    ? esc_sql( $this->options['department_error_text'] )    : __('Please Select a Class From List.', $this->TD);
             $batch_error_text       = isset($this->options['batch_error_text'])         ? esc_sql( $this->options['batch_error_text'] )         : __('Please Select a Batch From List.', $this->TD);
-            $semester_error_text    = isset($this->options['semester_error_text'])      ? esc_sql( $this->options['semester_error_text'] )      : __('Please Select a Semester From List.', $this->TD);
+            $semester_error_text    = isset($this->options['semester_error_text'])      ? esc_sql( $this->options['semester_error_text'] )      : __('Please Select a Term From List.', $this->TD);
 
             $data = array(
                 'departments' => $departments,
@@ -460,7 +460,7 @@ class RPS_API extends WP_REST_Controller {
     public function get_student_search_params() {
         return array(
             'department_id' => array(
-                'description' => 'Department ID.',
+                'description' => 'Class ID.',
                 'type' => 'integer',
                 'default' => null,
                 'sanitize_callback' => 'absint',
@@ -474,7 +474,7 @@ class RPS_API extends WP_REST_Controller {
                 'required' => true,
             ),
             'semester_id' => array(
-                'description' => 'Semester ID.',
+                'description' => 'Term ID.',
                 'type' => 'integer',
                 'default' => null,
                 'sanitize_callback' => 'absint',
@@ -537,7 +537,7 @@ class RPS_API extends WP_REST_Controller {
                 'required' => true,
             ),
             'department_id' => array(
-                'description' => 'Department ID.',
+                'description' => 'Class ID.',
                 'type' => 'integer',
                 'default' => null,
                 'sanitize_callback' => 'absint',
@@ -551,7 +551,7 @@ class RPS_API extends WP_REST_Controller {
                 'required' => true,
             ),
             'semester_id' => array(
-                'description' => 'Semester ID.',
+                'description' => 'Term ID.',
                 'type' => 'integer',
                 'default' => null,
                 'sanitize_callback' => 'absint',
@@ -584,14 +584,14 @@ class RPS_API extends WP_REST_Controller {
             $exam_list_data = $this->result->getExamListData();
 
             $select_exam         = isset($this->options['exam_text']) ? esc_attr( $this->options['exam_text'] ) : __('Select Exam', $this->TD);
-            $select_department = isset($this->options['department_text']) ? esc_sql($this->options['department_text']) : __('Select Department', $this->TD);
+            $select_department = isset($this->options['department_text']) ? esc_sql($this->options['department_text']) : __('Select Class', $this->TD);
             $select_batch = isset($this->options['batch_text']) ? esc_sql($this->options['batch_text']) : __('Select Batch', $this->TD);
-            $select_semester = isset($this->options['semester_text']) ? esc_sql($this->options['semester_text']) : __('Select Semester', $this->TD);
+            $select_semester = isset($this->options['semester_text']) ? esc_sql($this->options['semester_text']) : __('Select Term', $this->TD);
 
             $exam_error_text = isset($this->options['exam_error_text']) ? esc_sql($this->options['exam_error_text']) : __('Please Select a Exam From List.', $this->TD);
-            $department_error_text = isset($this->options['department_error_text']) ? esc_sql($this->options['department_error_text']) : __('Please Select a Department From List.', $this->TD);
+            $department_error_text = isset($this->options['department_error_text']) ? esc_sql($this->options['department_error_text']) : __('Please Select a Class From List.', $this->TD);
             $batch_error_text = isset($this->options['batch_error_text']) ? esc_sql($this->options['batch_error_text']) : __('Please Select a Batch From List.', $this->TD);
-            $semester_error_text = isset($this->options['semester_error_text']) ? esc_sql($this->options['semester_error_text']) : __('Please Select a Semester From List.', $this->TD);
+            $semester_error_text = isset($this->options['semester_error_text']) ? esc_sql($this->options['semester_error_text']) : __('Please Select a Term From List.', $this->TD);
 
             $data = array(
                 'exam_ids' => $exam_ids,

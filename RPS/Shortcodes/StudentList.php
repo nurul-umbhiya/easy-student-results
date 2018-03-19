@@ -103,7 +103,7 @@ final class RPS_Shortcodes_StudentList extends RPS_Shortcodes_Abstract {
                         <div class="form-group">
                             <?php if( !is_wp_error($departments) && is_array($departments) && !empty($departments) ): ?>
                                 <select name="department_id" id="department_id" class="form-control">
-                                    <option value=""><?php echo isset($this->options['department_text']) ? $this->options['department_text'] : __('Select Department', $this->TD); ?></option>
+                                    <option value=""><?php echo isset($this->options['department_text']) ? $this->options['department_text'] : __('Select Class', $this->TD); ?></option>
                                     <?php
                                     foreach ($departments as $id => $name):
                                         echo "<option value='{$id}' ".selected($department_id, $id, false)." >{$name}</option>";
@@ -141,7 +141,7 @@ final class RPS_Shortcodes_StudentList extends RPS_Shortcodes_Abstract {
                         <div class="form-group">
                             <?php if(!empty($semesters)): ?>
                                 <select name="semester_id" id="semester_id" class="form-control">
-                                    <option value=""><?php echo isset($this->options['semester_text']) ? $this->options['semester_text'] : __('Select Semester', $this->TD); ?></option>
+                                    <option value=""><?php echo isset($this->options['semester_text']) ? $this->options['semester_text'] : __('Select Term', $this->TD); ?></option>
                                     <?php
                                     if( $department_id != '' && RPS_Helper_Function::is_numeric($department_id) ) {
                                         $semester = isset($semesters[$department_id]) ? $semesters[$department_id] : array();
@@ -168,12 +168,12 @@ final class RPS_Shortcodes_StudentList extends RPS_Shortcodes_Abstract {
         <script type="text/javascript">
             var semesters = <?php echo json_encode($semesters) ?>;
             var batches = <?php echo json_encode($batches) ?>;
-            var select_department   = '<?php echo isset($this->options['department_text'])  ? $this->options['department_text']     : __('Select Department', $this->TD); ?>';
+            var select_department   = '<?php echo isset($this->options['department_text'])  ? $this->options['department_text']     : __('Select Class', $this->TD); ?>';
             var select_batch        = '<?php echo isset($this->options['batch_text'])       ? $this->options['batch_text']          : __('Select Batch', $this->TD); ?>';
-            var select_semester     = '<?php echo isset($this->options['semester_text'])    ? $this->options['semester_text']       : __('Select Semester', $this->TD); ?>';
-            var department_error_text   = '<?php echo isset($this->options['department_error_text'])    ? esc_sql( $this->options['department_error_text'] )    : __('Please Select a Department From List.', $this->TD); ?>';
+            var select_semester     = '<?php echo isset($this->options['semester_text'])    ? $this->options['semester_text']       : __('Select Term', $this->TD); ?>';
+            var department_error_text   = '<?php echo isset($this->options['department_error_text'])    ? esc_sql( $this->options['department_error_text'] )    : __('Please Select a Class From List.', $this->TD); ?>';
             var batch_error_text   = '<?php echo isset($this->options['batch_error_text'])              ? esc_sql( $this->options['batch_error_text'] )         : __('Please Select a Batch From List.', $this->TD); ?>';
-            var semester_error_text   = '<?php echo isset($this->options['semester_error_text'])        ? esc_sql( $this->options['semester_error_text'] )      : __('Please Select a Semester From List.', $this->TD); ?>';
+            var semester_error_text   = '<?php echo isset($this->options['semester_error_text'])        ? esc_sql( $this->options['semester_error_text'] )      : __('Please Select a Term From List.', $this->TD); ?>';
         </script>
         <?php
     }

@@ -38,8 +38,8 @@ class RPS_Admin_Init_Taxonomi {
 
                 $this->taxonomy[] = $slug;
 
-                $name = __("Semester/Section", $this->TD);
-                $label = __("Semester", $this->TD);
+                $name = __("Term", $this->TD);
+                $label = __("Term", $this->TD);
                 
                 register_taxonomy( $slug, array( RPS_Result_Management::PLUGIN_SLUG, 'rps_result_department' ), array(
                         'hierarchical' 			=> false,

@@ -35,9 +35,9 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
         $columns = array (
             'sl'            => 'SL', //Render a checkbox instead of text
             'exam_id'       => __('Exam', $this->TD),
-            'department_id' => __('Department/Class', $this->TD),
+            'department_id' => __('Class', $this->TD),
             'batch_id'      => __('Batch/Year', $this->TD),
-            'semester_id'   => __('Semester/Section', $this->TD),
+            'semester_id'   => __('Term', $this->TD),
             'display'       => __('Display Frontend', $this->TD),
             //'active'        => __('Active', $this->TD),
             //'updated'       => __('Updated', $this->TD),
@@ -199,7 +199,7 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
 
                 ?>
                 <select name="department_id" id="department_id" class="postform">
-                    <option value=""><?php _e('Select Department'); ?></option>
+                    <option value=""><?php _e('Select Class'); ?></option>
                     <?php
                     foreach ($departments as $id => $name):
                         echo "<option value='{$id}' ".selected($department_id, $id, false)." >{$name}</option>";
@@ -230,7 +230,7 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
                 $semester_id = isset($_GET['semester_id']) ? stripslashes(trim($_GET['semester_id'])) :'';
                 if(!empty($semesters)): ?>
                     <select name="semester_id" id="semester_id" class="postform">
-                        <option value=""><?php _e('Select Semester'); ?></option>
+                        <option value=""><?php _e('Select Term'); ?></option>
                         <?php
                         if( $department_id != '' && RPS_Helper_Function::is_numeric($department_id) ) {
                             $semester = isset($semesters[$department_id]) ? $semesters[$department_id] : array();
@@ -264,7 +264,7 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
                             $('#semester_id')
                                 .append($("<option></option>")
                                     .attr("value",'')
-                                    .text('Select Semester'));
+                                    .text('Select Term'));
 
                             if(i !== null){
                                 $.each(i, function(key, value) {

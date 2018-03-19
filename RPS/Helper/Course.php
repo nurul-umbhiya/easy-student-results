@@ -38,7 +38,7 @@ class RPS_Helper_Course {
 			$query = $wpdb->prepare("SELECT * FROM {$wpdb->rps_department} WHERE id = %d", array( $department_id ));
 			$row   = $wpdb->get_row( $query, ARRAY_A );
 			if ( $row === null ) {
-				return new \WP_Error( 'Invalid Department ID', __( "Given 'Department ID' is invalid. No data found associated with this ID. Please check your input.", RPS_Result_Management::TD ) );
+				return new \WP_Error( 'Invalid Class ID', __( "Given 'Class ID' is invalid. No data found associated with this ID. Please check your input.", RPS_Result_Management::TD ) );
 			}
 
 
@@ -100,7 +100,7 @@ class RPS_Helper_Course {
 					}
 				}
 			else:
-				return new \WP_Error( 'No Record Found', __( "No record is associated with given Department_ID", "ustc" ) );
+				return new \WP_Error( 'No Record Found', __( "No record is associated with given Class ID", "ustc" ) );
 			endif;
 
 
@@ -194,7 +194,7 @@ class RPS_Helper_Course {
 			$ret = array();
 			$course = get_post( $course_id );
 			if ( null === $course )
-				return new \WP_Error('Invalid Course ID',__("Given post ID is invalid. Please provide a valid Course ID.", RPS_Result_Management::TD));
+				return new \WP_Error('Invalid Subject ID',__("Given post ID is invalid. Please provide a valid Subject ID.", RPS_Result_Management::TD));
 
 			$data   = get_post_custom( $course_id );
 
@@ -217,7 +217,7 @@ class RPS_Helper_Course {
 			return $ret;
 
 		else:
-			return new \WP_Error('Invalid Argument',__("Given argument is invalid. Please provide a valid Course ID.", RPS_Result_Management::TD));
+			return new \WP_Error('Invalid Argument',__("Given argument is invalid. Please provide a valid Subject ID.", RPS_Result_Management::TD));
 		endif;
 	}
 

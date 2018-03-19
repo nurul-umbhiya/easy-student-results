@@ -322,7 +322,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
 
                 <tr class="form-field form-required">
                     <th scope="row" valign="top">
-                        <label for="department_id"><?php _e('Department/Class', $this->TD) ?></label>
+                        <label for="department_id"><?php _e('Class', $this->TD) ?></label>
                     </th>
                     <td>
                         <?php if( !is_wp_error($departments) && !empty($dept_ids) ): ?>
@@ -340,7 +340,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
                             echo esc_attr($error_string);
                         endif; ?>
                         
-                        <p><?php _e('Select Department/Class From List.', $this->TD) ?></p>
+                        <p><?php _e('Select Class From List.', $this->TD) ?></p>
                         <?php if(isset($this->error['department_id'])) echo '<p style="color:red;"><strong>' . $this->error['department_id'] . '</strong></p>';  ?>
                     </td>
                 </tr>

@@ -322,7 +322,7 @@ class RPS_Helper_DBS {
                 return $ret;
             }
         } else {
-            return new \WP_Error('Invalid Argument', __("Given Department ID is invalid. Please provide valid department ID.", $this->TD));
+            return new \WP_Error('Invalid Argument', __("Given Class ID is invalid. Please provide valid department ID.", $this->TD));
         }
     }
     
@@ -352,7 +352,7 @@ class RPS_Helper_DBS {
                 return $ret;
             }
         } else {
-            return new \WP_Error('Invalid Argument', __("Given Department ID is invalid. Please provide valid department ID.", $this->TD));
+            return new \WP_Error('Invalid Argument', __("Given Class ID is invalid. Please provide valid department ID.", $this->TD));
         }
     }
     

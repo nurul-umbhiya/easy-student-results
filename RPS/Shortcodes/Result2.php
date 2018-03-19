@@ -87,9 +87,9 @@ final class RPS_Shortcodes_Result2 extends RPS_Shortcodes_Abstract
             </div>
 
             <div class="form-group">
-                <label for="exam_roll" class="col-sm-2 control-label"><?php $this->atts['search_by'] == 'roll' ? _e('Roll No', $this->TD) : _e('Registration No', $this->TD); ?></label>
+                <label for="exam_roll" class="col-sm-2 control-label"><?php $this->atts['search_by'] == 'roll' ? _e('Index No', $this->TD) : _e('Registration No', $this->TD); ?></label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control" id="exam_roll" name="exam_roll" placeholder="Enter <?php $this->atts['search_by'] == 'roll' ? _e('Roll No', $this->TD) : _e('Registration No', $this->TD); ?>" value="<?php echo $this->exam_roll ? $this->exam_roll : ''; ?>">
+                    <input type="text" class="form-control" id="exam_roll" name="exam_roll" placeholder="Enter <?php $this->atts['search_by'] == 'roll' ? _e('Index No', $this->TD) : _e('Student ID', $this->TD); ?>" value="<?php echo $this->exam_roll ? $this->exam_roll : ''; ?>">
                 </div>
             </div>
 

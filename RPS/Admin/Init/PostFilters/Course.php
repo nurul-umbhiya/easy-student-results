@@ -68,7 +68,7 @@ class RPS_Admin_Init_PostFilters_Course {
 
             ?>
             <select name="department_id" id="department_id" class="postform">
-                <option value=""><?php _e('Select Department'); ?></option>
+                <option value=""><?php _e('Select Class'); ?></option>
                 <?php
                 foreach ($departments as $id => $name):
                     echo "<option value='{$id}' ".selected($department_id, $id, false)." >{$name}</option>";
@@ -81,7 +81,7 @@ class RPS_Admin_Init_PostFilters_Course {
             $semester_id = isset($_GET['semester_id']) ? stripslashes(trim($_GET['semester_id'])) :'';
             if(!empty($semesters)): ?>
                 <select name="semester_id" id="semester_id" class="postform">
-                    <option value=""><?php _e('Select Semester'); ?></option>
+                    <option value=""><?php _e('Select Term'); ?></option>
                     <?php
                     if( $department_id != '' && RPS_Helper_Function::is_numeric($department_id) ) {
                         $semester = isset($semesters[$department_id]) ? $semesters[$department_id] : array();
@@ -165,11 +165,11 @@ class RPS_Admin_Init_PostFilters_Course {
     }
 
     public function myColumns( $columns ) {
-        $columns['title']       = __('Course Title', RPS_Result_Management::TD);
-        $columns['course_code'] = __('Course Code', RPS_Result_Management::TD);
-        $columns['course_type'] = __("Course Type", RPS_Result_Management::TD);
-        $columns['department_id'] = __('Department', RPS_Result_Management::TD);
-        $columns['semester_id'] = __('Semester', RPS_Result_Management::TD);
+        $columns['title']       = __('Subject Title', RPS_Result_Management::TD);
+        $columns['course_code'] = __('Subject Code', RPS_Result_Management::TD);
+        $columns['course_type'] = __("Subject Type", RPS_Result_Management::TD);
+        $columns['department_id'] = __('Class', RPS_Result_Management::TD);
+        $columns['semester_id'] = __('Term', RPS_Result_Management::TD);
 
         unset($columns['date']);
         return $columns;
@@ -245,9 +245,9 @@ class RPS_Admin_Init_PostFilters_Course {
         wp_localize_script(
             RPS_Result_Management::COURSE, "data",
             array (
-                'title'         => __('Course Name is required.', RPS_Result_Management::TD),
-                'course_code'   => __('Course Code is required.', RPS_Result_Management::TD),
-                'department_id' => __('Department ID is required.', RPS_Result_Management::TD)
+                'title'         => __('Subject Name is required.', RPS_Result_Management::TD),
+                'course_code'   => __('Subject Code is required.', RPS_Result_Management::TD),
+                'department_id' => __('Class ID is required.', RPS_Result_Management::TD)
             )
         );
 
@@ -255,7 +255,7 @@ class RPS_Admin_Init_PostFilters_Course {
     }
     
     function change_default_title( $title ) {
-        $title = __("* Enter Course Name Here", $this->TD);
+        $title = __("* Enter Subject Name Here", $this->TD);
         return $title;
     }
     

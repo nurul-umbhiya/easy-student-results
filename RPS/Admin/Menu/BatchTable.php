@@ -30,7 +30,7 @@ class RPS_Admin_Menu_BatchTable extends \WP_List_Table {
         $columns = array (
             'sl'            => 'SL', //Render a checkbox instead of text
             'title'         => 'Name',
-            'department'    => 'Department',
+            'department'    => 'Class',
             //'semester'      => 'Current Semester',
             'session'       => 'Session',
             'active'        => 'Active',
@@ -127,7 +127,7 @@ class RPS_Admin_Menu_BatchTable extends \WP_List_Table {
                 $department_id =  isset($_GET['department_id']) ? stripslashes(trim($_GET['department_id'])) :'';
             ?>
                 <select name="department_id" id="department_id" class="postform">
-                    <option value=""><?php _e('Select Department', $this->TD); ?></option>
+                    <option value=""><?php _e('Select Class', $this->TD); ?></option>
                 <?php
                   foreach ($departments as $id => $name):
                     echo "<option value='{$id}' ".selected($department_id, $id, false)." >{$name}</option>";

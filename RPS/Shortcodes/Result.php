@@ -145,7 +145,7 @@ final class RPS_Shortcodes_Result extends RPS_Shortcodes_Abstract
                         <div class="form-group">
                             <select name="department_id" id="department_id" class="form-control">
                                 <option
-                                    value=""><?php echo isset($this->options['department_text']) ? esc_attr($this->options['department_text']) : __('Department', $this->TD); ?></option>
+                                    value=""><?php echo isset($this->options['department_text']) ? esc_attr($this->options['department_text']) : __('Class', $this->TD); ?></option>
                                 <?php
                                 if (!empty($departments))
                                     foreach ($departments as $dept_id => $dept_name) {
@@ -171,7 +171,7 @@ final class RPS_Shortcodes_Result extends RPS_Shortcodes_Abstract
                         <div class="form-group">
                             <select name="semester_id" id="semester_id" class="form-control">
                                 <option
-                                    value=""><?php echo isset($this->options['semester_text']) ? $this->options['semester_text'] : __('Semester', $this->TD); ?></option>
+                                    value=""><?php echo isset($this->options['semester_text']) ? $this->options['semester_text'] : __('Term', $this->TD); ?></option>
                                 <?php
                                 if (!empty($semesters))
                                     foreach ($semesters as $sem_id => $sem_name) {
@@ -192,14 +192,14 @@ final class RPS_Shortcodes_Result extends RPS_Shortcodes_Abstract
         <script>
             var exam_list_data = <?php echo json_encode( $exam_list_data ); ?>;
             var select_exam         = '<?php echo isset($this->options['exam_text']) ? esc_attr( $this->options['exam_text'] ) : __('Select Exam', $this->TD); ?>';
-            var select_department   = '<?php echo isset($this->options['department_text'])  ? esc_sql( $this->options['department_text'] )    : __('Select Department', $this->TD); ?>';
+            var select_department   = '<?php echo isset($this->options['department_text'])  ? esc_sql( $this->options['department_text'] )    : __('Select Class', $this->TD); ?>';
             var select_batch        = '<?php echo isset($this->options['batch_text'])       ? esc_sql( $this->options['batch_text'] )         : __('Select Batch', $this->TD); ?>';
-            var select_semester     = '<?php echo isset($this->options['semester_text'])    ? esc_sql( $this->options['semester_text'] )      : __('Select Semester', $this->TD); ?>';
+            var select_semester     = '<?php echo isset($this->options['semester_text'])    ? esc_sql( $this->options['semester_text'] )      : __('Select Term', $this->TD); ?>';
 
             var exam_error_text   = '<?php echo isset($this->options['exam_error_text'])                ? esc_sql( $this->options['exam_error_text'] )          : __('Please Select a Exam From List.', $this->TD); ?>';
-            var department_error_text   = '<?php echo isset($this->options['department_error_text'])    ? esc_sql( $this->options['department_error_text'] )    : __('Please Select a Department From List.', $this->TD); ?>';
+            var department_error_text   = '<?php echo isset($this->options['department_error_text'])    ? esc_sql( $this->options['department_error_text'] )    : __('Please Select a Class From List.', $this->TD); ?>';
             var batch_error_text   = '<?php echo isset($this->options['batch_error_text'])              ? esc_sql( $this->options['batch_error_text'] )         : __('Please Select a Batch From List.', $this->TD); ?>';
-            var semester_error_text   = '<?php echo isset($this->options['semester_error_text'])        ? esc_sql( $this->options['semester_error_text'] )      : __('Please Select a Semester From List.', $this->TD); ?>';
+            var semester_error_text   = '<?php echo isset($this->options['semester_error_text'])        ? esc_sql( $this->options['semester_error_text'] )      : __('Please Select a Term From List.', $this->TD); ?>';
         </script>
 
     <?php
@@ -233,8 +233,8 @@ final class RPS_Shortcodes_Result extends RPS_Shortcodes_Abstract
             <thead>
                 <tr>
                     <th><?php  _e('Name', $this->TD); ?></th>
-                    <th><?php  _e('Roll No', $this->TD); ?></th>
-                    <th><?php  _e('Registration No', $this->TD); ?></th>
+                    <th><?php  _e('Index No', $this->TD); ?></th>
+                    <th><?php  _e('Student ID', $this->TD); ?></th>
                     <th>&nbsp;</th>
                 </tr>
             </thead>
