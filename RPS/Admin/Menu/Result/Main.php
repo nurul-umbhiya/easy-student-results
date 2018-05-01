@@ -95,8 +95,14 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 
 			if ( $flag == false ) {
 				//check same exam record exist on database or not
-				$query = $wpdb->prepare( "SELECT * FROM `{$wpdb->rps_exam_record}` WHERE `exam_id` = %d AND `department_id` = %d
+				if ( $data['semester_id'] !== 0 ) {
+				    $query = $wpdb->prepare( "SELECT * FROM `{$wpdb->rps_exam_record}` WHERE `exam_id` = %d AND `department_id` = %d
+				AND `batch_id` = %d AND `semester_id` = %d", array ( $data['exam_id'], $data['department_id'], $data['batch_id'], $data['semester_id'] ) );
+				}
+				else {
+				    $query = $wpdb->prepare( "SELECT * FROM `{$wpdb->rps_exam_record}` WHERE `exam_id` = %d AND `department_id` = %d
 				AND `batch_id` = %d", array ( $data['exam_id'], $data['department_id'], $data['batch_id'] ) );
+				}
 
 				$row = $wpdb->get_row($query);
 				if ( $row !== NULL ) {

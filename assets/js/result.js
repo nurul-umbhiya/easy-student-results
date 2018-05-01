@@ -1,10 +1,14 @@
 jQuery(function($) {
     $('#result_table, .rps_promote_students_tbl').on('change', '#department_id', function() {
-    //$('#department_id').on('change', function () {
+        change_batch_semester();
+        change_student_course();
+    });
+
+    function change_batch_semester() {
         if( edit_result == true )
             return;
 
-        var id = $(this).val();
+        var id = $('#department_id').val();
 
         // Popupate semester dropdown box
         var i = semesters[id];
@@ -37,11 +41,8 @@ jQuery(function($) {
                         .text(value));
             });
         }
-
-        change_student_course();
-
-
-    });
+    }
+    change_batch_semester();
 
     $('#result_table').on('change', '#batch_id', function() {
     //$('#batch_id').on('change', function () {
