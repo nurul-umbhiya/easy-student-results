@@ -90,7 +90,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 		$this->metadata = $this->result->get_exam_record_meta( $this->exam_record_id, $this->student_id );
 
 		//fix final result metadata
-		if ( array_key_exists('final_grade', $this->metadata) ) {
+		if ( is_array($this->metadata) && array_key_exists('final_grade', $this->metadata) ) {
 			$grade = $this->result->getGradeList();
 			if ( array_key_exists( $this->metadata['final_grade'], $grade ) ) {
 				$this->metadata['final_grade'] = $grade[ $this->metadata['final_grade'] ];
@@ -100,7 +100,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
         $this->metadata['highest_marks'] = 0.00;
 
 		//fix total_marks_obtained meta data
-		if ( !array_key_exists('total_marks_obtained', $this->metadata) ) {
+		if ( is_array($this->metadata) && !array_key_exists('total_marks_obtained', $this->metadata) ) {
 			$this->metadata['total_marks_obtained'] = 0;
 		}
 	}

@@ -1,4 +1,7 @@
 <?php
+if( !defined( 'WPINC' ) ) {
+	die();
+}
 
 class RPS_API extends WP_REST_Controller {
 

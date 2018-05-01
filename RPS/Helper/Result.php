@@ -394,11 +394,27 @@ class RPS_Helper_Result {
 
 
 			$tmp = array();
-			if ( !empty( $result ) )
+			if ( !empty( $result ) ) {
 				foreach ( $result as $row ) {
 					$tmp[ $row['meta_key'] ] = maybe_unserialize( $row['meta_value'] );
 				}
+			}
+			else {
+				$temp = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_results_table_headings',array(
+					'total_marks'           => '',
+					'total_marks_obtained'  => '',
+					'total_percentage'      => '',
+					'final_grade'           => '',
+					'cgpa'                  => '',
+					'result'                => ''
+				));
 
+
+				foreach ( $temp as $key => $value ) {
+					$tmp[ $key ] = '';
+				}
+
+			}
 			$meta_cache = $tmp;
 
 			set_transient( $transient, $meta_cache, 12 * DAY_IN_SECONDS );

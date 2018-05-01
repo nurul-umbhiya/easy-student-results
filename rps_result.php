@@ -4,7 +4,7 @@ Plugin Name: Easy Student Results
 Plugin URI: https://www.nurul.me/
 Description: Result Management System for School, College and University. Use [esr_results] to display result and [esr_students] to display student list.
 Text Domain: easy-student-results
-Version: 2.2
+Version: 2.2.2
 Author: Nurul Umbhiya
 Author URI: https://www.nurul.me/
 */
@@ -216,9 +216,8 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
 	            update_option(RPS_Result_Management::PLUGIN_SLUG .'_basics', $general_option);
 
                 //update current version
-	            update_option(self::PLUGIN_SLUG . '_version', '1.9');
-
 	            $version = '1.9';
+	            update_option(self::PLUGIN_SLUG . '_version', $version);
             }
 
 
@@ -233,7 +232,8 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
 	            RPS_Helper_Function::delete_transient();
 
 	            //update current version
-	            update_option(self::PLUGIN_SLUG . '_version', '2.0');
+	            $version = '2.0';
+	            update_option(self::PLUGIN_SLUG . '_version', $version);
             }
 
             if ( $version == '2.0' ) {
@@ -241,9 +241,25 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
 	            $db_class->createDB();
 
 	            //update current version
-	            update_option(self::PLUGIN_SLUG . '_version', '2.1');
+	            $version = '2.1';
+	            update_option(self::PLUGIN_SLUG . '_version', $version);
+
+
             }
 
+            if ( $version == '2.1' ) {
+	            $version = '2.2';
+	            update_option(self::PLUGIN_SLUG . '_version', '2.2');
+            }
+
+            if ( $version == '2.2' ) {
+	            //delete cache
+	            RPS_Helper_Function::delete_transient();
+
+	            //update current version
+	            $version = '2.2.1';
+	            update_option(self::PLUGIN_SLUG . '_version', $version);
+            }
         }
 
         // Register Custom Status
