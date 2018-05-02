@@ -297,12 +297,7 @@ class RPS_Helper_Result {
 		$meta_value = maybe_serialize($meta_value);
 
 		//check metavalue is same as existing
-		$old_value = $this->get_exam_record_meta($exam_record_id, $student_id, $meta_key);
-
-		if( $old_value === false ) {
-			//input error
-			return false;
-		}
+		$old_value = $this->check_exam_record_meta($exam_record_id, $student_id, $meta_key);
 
 		if ( $old_value !== null && $old_value == $meta_value) {
 			//value already exist ie: old value is equal to new value
@@ -363,6 +358,19 @@ class RPS_Helper_Result {
 		}
 
 		return false;
+	}
+
+	function check_exam_record_meta( $exam_record_id, $student_id, $meta_key = '' ) {
+		global $wpdb;
+		$query = $wpdb->prepare(
+			"SELECT `meta_value` FROM `{$wpdb->rps_exam_record_meta}` WHERE `exam_record_id` = %d AND `student_id` = %d AND `meta_key` = %s LIMIT 1",
+			array($exam_record_id, $student_id, $meta_key)
+		);
+		$result = $wpdb->get_row( $query, ARRAY_A );
+		if ( is_array($result) && !empty($result) ) {
+			return $result['meta_value'];
+		}
+		return null;
 	}
 
 
