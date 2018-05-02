@@ -190,9 +190,11 @@ class RPS_Helper_Marks {
 				}
 				$i++;
 
-				if ( isset ( $course_info['total_marks'] ) && $course_info['total_marks'] != '' ) {
-					$this->total_marks += floatval( $course_info['total_marks'] );
-				}
+				if ( isset($this->option_general['marks_js']) && $this->option_general['marks_js'] == 'on' ) {
+					if ( isset ( $course_info['total_marks'] ) && $course_info['total_marks'] != '' ) {
+						$this->total_marks += floatval( $course_info['total_marks'] );
+					}
+ 				}
 
 				$grades = $this->result->getGradeList();
 				$grade_options = "";

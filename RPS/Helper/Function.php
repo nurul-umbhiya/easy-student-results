@@ -250,9 +250,8 @@ class RPS_Helper_Function {
         }
         */
         global $wpdb;
-        $query = "delete FROM `{$wpdb->options}` where option_name like '%_rps_result_%'";
-        $wpdb->query($query);
-
+	    $query = "delete FROM `{$wpdb->options}` where option_name like '_transient_rps_%' or option_name like '_transient_timeout_rps_%'";
+	    $wpdb->query($query);
     }
 
     public static function delete_taxonomy( $taxonomy ) {

@@ -4,7 +4,7 @@ Plugin Name: Easy Student Results
 Plugin URI: https://www.nurul.me/
 Description: Result Management System for School, College and University. Use [esr_results] to display result and [esr_students] to display student list.
 Text Domain: easy-student-results
-Version: 2.2
+Version: 2.2.2
 Author: Nurul Umbhiya
 Author URI: https://www.nurul.me/
 */
@@ -194,57 +194,73 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
             }
         }
 
-        private function check_for_updates() {
-            $version = get_option( self::PLUGIN_SLUG . '_version', '' );
+	    private function check_for_updates() {
+		    $version = get_option( self::PLUGIN_SLUG . '_version', '' );
 
-            if ( $version == '' ) {
-                //delete cache
-                RPS_Helper_Function::delete_transient();
+		    if ( $version == '' ) {
+			    //delete cache
+			    RPS_Helper_Function::delete_transient();
 
-                //this is version 1.8, run db updates
-	            $db_class = RPS_InstallDb::getInstance();
-	            $db_class->createDB();
+			    //this is version 1.8, run db updates
+			    $db_class = RPS_InstallDb::getInstance();
+			    $db_class->createDB();
 
-	            //set default options
-                $general_option = get_option(RPS_Result_Management::PLUGIN_SLUG .'_basics');
-                if ( !array_key_exists('marks_js', $general_option) ) {
-                    $general_option['marks_js'] = 'on';
-                }
-	            if ( !array_key_exists('percentage_js', $general_option) ) {
-		            $general_option['percentage_js'] = 'on';
-	            }
-	            update_option(RPS_Result_Management::PLUGIN_SLUG .'_basics', $general_option);
+			    //set default options
+			    $general_option = get_option(RPS_Result_Management::PLUGIN_SLUG .'_basics');
+			    if ( !array_key_exists('marks_js', $general_option) ) {
+				    $general_option['marks_js'] = 'on';
+			    }
+			    if ( !array_key_exists('percentage_js', $general_option) ) {
+				    $general_option['percentage_js'] = 'on';
+			    }
+			    update_option(RPS_Result_Management::PLUGIN_SLUG .'_basics', $general_option);
 
-                //update current version
-	            update_option(self::PLUGIN_SLUG . '_version', '1.9');
+			    //update current version
+			    $version = '1.9';
+			    update_option(self::PLUGIN_SLUG . '_version', $version);
+		    }
 
-	            $version = '1.9';
-            }
+
+		    if ( $version == '1.9' ) {
+			    $general_option = get_option(RPS_Result_Management::PLUGIN_SLUG .'_basics');
+			    if ( !array_key_exists('show_picture', $general_option) ) {
+				    $general_option['show_picture'] = 'off';
+			    }
+
+			    //delete transient cache
+			    define(RPS_Result_Management::PLUGIN_SLUG . '_delete_transient', true);
+			    RPS_Helper_Function::delete_transient();
+
+			    //update current version
+			    $version = '2.0';
+			    update_option(self::PLUGIN_SLUG . '_version', $version);
+		    }
+
+		    if ( $version == '2.0' ) {
+			    $db_class = RPS_InstallDb::getInstance();
+			    $db_class->createDB();
+
+			    //update current version
+			    $version = '2.1';
+			    update_option(self::PLUGIN_SLUG . '_version', $version);
 
 
-            if ( $version == '1.9' ) {
-	            $general_option = get_option(RPS_Result_Management::PLUGIN_SLUG .'_basics');
-	            if ( !array_key_exists('show_picture', $general_option) ) {
-		            $general_option['show_picture'] = 'off';
-	            }
+		    }
 
-	            //delete transient cache
-	            define(RPS_Result_Management::PLUGIN_SLUG . '_delete_transient', true);
-	            RPS_Helper_Function::delete_transient();
+		    if ( $version == '2.1' ) {
+			    $version = '2.2';
+			    update_option(self::PLUGIN_SLUG . '_version', '2.2');
+		    }
 
-	            //update current version
-	            update_option(self::PLUGIN_SLUG . '_version', '2.0');
-            }
+		    if ( $version == '2.2' ) {
+			    //delete cache
+			    RPS_Helper_Function::delete_transient();
 
-            if ( $version == '2.0' ) {
-	            $db_class = RPS_InstallDb::getInstance();
-	            $db_class->createDB();
-
-	            //update current version
-	            update_option(self::PLUGIN_SLUG . '_version', '2.1');
-            }
-
-        }
+			    //update current version
+			    $version = '2.2.1';
+			    update_option(self::PLUGIN_SLUG . '_version', $version);
+		    }
+	    }
 
         // Register Custom Status
         public function custom_post_status() {
