@@ -105,6 +105,9 @@ It is hard to continue development and support for this free plugin without cont
 
 == Changelog ==
 
+= 2.2.3 =
+* Fixed a minor bug.
+
 = 2.2.2 =
 * Fixed adding result for different section.
 
