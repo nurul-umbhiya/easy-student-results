@@ -106,19 +106,6 @@ class RPS_Helper_Student {
                     $personal_info  = maybe_unserialize(maybe_unserialize($data['_student_personal_info'][0]));
                     $contact_info   = maybe_unserialize(maybe_unserialize($data['_student_contact_info'][0]));
                     //$education_info = maybe_unserialize(maybe_unserialize($data['_student_education_info'][0]));
-
-	                /*
-	                 * fix dob issue
-	                 */
-	                if (!array_key_exists('_date_of_birth', $data) || $data['_date_of_birth'] == '' ) {
-		                if ( isset($personal_info['dob']) ) {
-			                $data['_date_of_birth'] = $personal_info['dob'];
-			                update_post_meta($row['ID'], '_date_of_birth', $data['_date_of_birth']);
-		                }
-	                }
-	                elseif ( isset($personal_info['dob']) && $personal_info['dob'] != $data['_date_of_birth']) {
-		                $data['_date_of_birth'] = $personal_info['dob'];
-	                }
                     
                     $faculty_info = array (
                         'id'            => $row['ID'],
