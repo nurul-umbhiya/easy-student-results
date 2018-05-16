@@ -15,6 +15,11 @@ jQuery(function($) {
         //console.log(i);
         $('#semester_id option').remove();
 
+        $('#semester_id')
+            .append($("<option></option>")
+            .attr("value",'')
+            .text('Select Term'));
+
 
         if (i !== null) {
             $.each(i, function (key, value) {

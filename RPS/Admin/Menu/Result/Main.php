@@ -493,6 +493,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 					<td>
 						<?php if ( !empty( $semesters ) ) : ?>
 							<select name="semester_id" id="semester_id" class="regular-text" <?php echo $disabled ?>>
+							<option><?php _e('Select Term', $this->TD); ?></option>
 								<?php
 								if( $department_id != '' && RPS_Helper_Function::is_numeric($department_id) ) {
 									$semester = isset($semesters[$department_id]) ? $semesters[$department_id] : array();
@@ -538,7 +539,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 										<tr>
 											<td>
 												<input type="checkbox" name="course_id[student_<?php echo $student_id; ?>][]" value="<?php echo $course_id; ?>"<?php
-												if( $disabled != '') { echo 'checked="checked"'; }
+												if( $disabled === '') { echo 'checked="checked"'; }
 												elseif ( isset($data['course_ids']['student_'. $student_id]) && in_array( $course_id, $data['course_ids']['student_'. $student_id] ) ) {
 													echo 'checked="checked"';
 												}
