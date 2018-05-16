@@ -260,6 +260,24 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
 	            $version = '2.2.1';
 	            update_option(self::PLUGIN_SLUG . '_version', $version);
             }
+
+	        if ( $version == '2.2.1' ) {
+		        //delete cache
+		        RPS_Helper_Function::delete_transient();
+
+		        //update current version
+		        $version = '2.2.2';
+		        update_option(self::PLUGIN_SLUG . '_version', $version);
+	        }
+
+	        if ( $version == '2.2.2' ) {
+		        //delete cache
+		        RPS_Helper_Function::delete_transient();
+
+		        //update current version
+		        $version = '2.2.3';
+		        update_option(self::PLUGIN_SLUG . '_version', $version);
+	        }
         }
 
         // Register Custom Status

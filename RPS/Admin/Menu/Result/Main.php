@@ -539,7 +539,8 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 										<tr>
 											<td>
 												<input type="checkbox" name="course_id[student_<?php echo $student_id; ?>][]" value="<?php echo $course_id; ?>"<?php
-												if ( isset($data['course_ids']['student_'. $student_id]) && in_array( $course_id, $data['course_ids']['student_'. $student_id] ) ) {
+												if( $disabled != '') { echo 'checked="checked"'; }
+												elseif ( isset($data['course_ids']['student_'. $student_id]) && in_array( $course_id, $data['course_ids']['student_'. $student_id] ) ) {
 													echo 'checked="checked"';
 												}
 												?>>

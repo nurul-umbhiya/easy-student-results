@@ -5,13 +5,13 @@ jQuery(function($) {
     });
 
     function change_batch_semester() {
-        if( edit_result == true )
+        if( typeof edit_result != 'undefined' && edit_result == true )
             return;
 
         var id = $('#department_id').val();
 
         // Popupate semester dropdown box
-        var i = semesters[id];
+        var i = typeof semesters != 'undefined' ? semesters[id] : null;
         //console.log(i);
         $('#semester_id option').remove();
 
@@ -28,7 +28,7 @@ jQuery(function($) {
         }
 
         //populate batch dropdown box
-        var j = batches[id];
+        var j = typeof batches != 'undefined' ? batches[id] : null;
         //console.log(j);
         $('#batch_id option').remove();
 
@@ -45,18 +45,18 @@ jQuery(function($) {
     change_batch_semester();
 
     $('#result_table').on('change', '#batch_id', function() {
-    //$('#batch_id').on('change', function () {
+        //$('#batch_id').on('change', function () {
         change_student_course();
     });
 
     $('#result_table').on('change', '#semester_id', function() {
-    //$('#semester_id').on('change', function () {
+        //$('#semester_id').on('change', function () {
         change_student_course();
     });
 
     function change_student_course() {
 
-        if( edit_result == true )
+        if( typeof edit_result != 'undefined' && edit_result == true )
             return;
 
         var department_id = $('#department_id').val();
@@ -86,7 +86,7 @@ jQuery(function($) {
 
     function change_student_course2() {
 
-        if( edit_result == true )
+        if( typeof edit_result != 'undefined' && edit_result == true )
             return;
 
         var department_id = $('#department_id').val();

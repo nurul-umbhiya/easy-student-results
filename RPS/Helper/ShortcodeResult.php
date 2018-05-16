@@ -265,10 +265,10 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 								$temp[] = esc_attr($course_code);
 								break;
 							case 'total_marks':
-								$temp[] = esc_attr($total_marks);
+								$temp[] = intval($total_marks);
 								break;
 							case 'marks_obtained':
-								$temp[] = esc_attr($marks_obtained);
+								$temp[] = intval($marks_obtained);
 								break;
 							case 'grade':
 								$temp[] = esc_attr($grade);
@@ -277,7 +277,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 								$temp[] = esc_attr($grade_point);
 								break;
                             case 'percentage':
-                                $temp[] = floatval($percentage) . '%';
+                                $temp[] = intval($percentage) . '%';
                                 break;
 							default:
 								$temp[] = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_sc_subject_meta', '&nbsp;', $value, $row );

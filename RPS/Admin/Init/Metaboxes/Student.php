@@ -68,6 +68,22 @@ final class RPS_Admin_Init_Metaboxes_Student {
             $data = array_map('sanitize_text_field',$_POST['student_personal_meta']);
             $data = array_map('trim', $data);
             update_post_meta($post_id, '_student_personal_info', $data);
+
+
+	        /*
+			 * fix dob issue
+			 */
+	        $dob = get_post_meta($post_id, '_date_of_birth', true);
+	        if ( $dob == '' ) {
+		        if ( isset($data['dob']) ) {
+			        $dob = $data['dob'];
+		        }
+	        }
+            elseif ( isset($data['dob']) && $data['dob'] != $dob) {
+		        $dob = $data['dob'];
+	        }
+	        update_post_meta($post_id, '_date_of_birth', $dob);
+
             
             $change = true;
         }
@@ -215,6 +231,7 @@ final class RPS_Admin_Init_Metaboxes_Student {
                 <td>
                     <?php if(!empty($semesters)): ?>
                         <select name="student_faculty_meta[semester_id]" id="semester_id" class="">
+                            <option><?php _e('Select Semester/Section', $this->TD); ?></option>
                             <?php
                             if( $department_id != '' && RPS_Helper_Function::is_numeric($department_id) ) {
                                 $semester = isset($semesters[$department_id]) ? $semesters[$department_id] : array();
@@ -256,9 +273,13 @@ final class RPS_Admin_Init_Metaboxes_Student {
 
                     // Popupate semester dropdown box
                     var i = semesters[id];
-                    console.log(i);
+                    //console.log(i);
                     $('#semester_id option').remove();
 
+                    $('#semester_id')
+                        .append($("<option></option>")
+                        .attr("value",'')
+                        .text('<?php _e('Select Semester/Section', $this->TD); ?>'));
 
                     if(i !== null){
                         $.each(i, function(key, value) {
