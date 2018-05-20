@@ -57,6 +57,7 @@ class RPS_Admin_Menu_Main {
         add_action('admin_menu',array($this,'gradeMenu'),14);
         add_action('admin_menu',array($this,'examsMenu'),15);
         add_action('admin_menu',array($this,'resultsMenu'),16);
+	    add_action('admin_menu',array($this,'resultsMenuNew'),17);
         add_action('admin_menu', array($this, 'premiumMenu'), 1000);
     }
 
@@ -106,6 +107,13 @@ class RPS_Admin_Menu_Main {
 
         self::$page_hook['results'] = RPS_Result_Management::PLUGIN_SLUG . '_results';
     }
+
+	public function resultsMenuNew() {
+		self::$slug['results_new'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Add New Results", $this->TD), __("Add New Results", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_results_new',array($this,'results_new'));
+		add_action('load-' . self::$slug['results_new'] , array($this,'loadResultsNew'));
+
+		self::$page_hook['results_new'] = RPS_Result_Management::PLUGIN_SLUG . '_results_new';
+	}
 
     public function premiumMenu() {
         self::$slug['premium'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Premium AddOns", $this->TD), __("Premium AddOns", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_premium',array($this,'premiumAddons'));
@@ -186,6 +194,18 @@ class RPS_Admin_Menu_Main {
         $obj = RPS_Admin_Menu_Result_Main::getInstance(self::$page_hook['results']);
         $obj->mainDiv();
     }
+
+	/* Results New Menu Functions */
+
+	public function loadResultsNew() {
+		$obj = RPS_Admin_Menu_Result_New::getInstance(self::$page_hook['results_new']);
+		$obj->onLoadPage();
+	}
+
+	public function results_new() {
+		$obj = RPS_Admin_Menu_Result_New::getInstance(self::$page_hook['results_new']);
+		$obj->mainDiv();
+	}
 
     /*
     Premium Addons

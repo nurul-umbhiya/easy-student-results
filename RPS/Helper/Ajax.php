@@ -36,7 +36,206 @@ class RPS_Helper_Ajax {
         //add_action( 'wp_ajax_', array($this,'') );
 
         add_action( 'wp_ajax_load_student_course', array($this,'load_student_course') );
+	    add_action( 'wp_ajax_rps_result_load_courses', array($this,'load_courses') );
+	    add_action( 'wp_ajax_rps_result_check_existing_results', array($this,'check_existing_results') );
+	    add_action( 'wp_ajax_rps_result_add_student_results', array($this,'add_student_results') );
     }
+
+	public function add_student_results() {
+		$result['type'] = '';
+		//check nonce
+		if( check_ajax_referer( 'rps_result_add_student_results', 'nonce',false ) ) {
+			global $wpdb;
+			$exam_record_id        = ( isset( $_POST['exam_record_id'] ) )        ? intval( $_POST['exam_record_id'] ) : 0;
+			$student_id        = ( isset( $_POST['student_id'] ) )        ? intval( $_POST['student_id'] ) : 0;
+			$subjects        = ( isset( $_POST['subjects'] ) )        ? $_POST['subjects'] : array();
+
+			if ( $exam_record_id > 0 && $student_id > 0 && !empty($subjects) ) {
+				$query = "INSERT INTO {$wpdb->rps_marks} (`exam_record_id`, `student_id`, `subject_id`, `grade_id`) VALUES ";
+				$rows = array();
+
+				//get grade_id
+				$st = "SELECT * FROM `{$wpdb->rps_grade}` LIMIT 1";
+				$grade_data = $wpdb->get_row($st, ARRAY_A);
+				if ( is_array($grade_data) ) {
+					$grade_id = $grade_data['id'];
+				} else {
+					$grade_id = '1';
+				}
+
+
+				foreach ( $subjects as $course_index => $course_id ) {
+					$rows[] = "($exam_record_id, $student_id, $course_id, $grade_id)";
+				}
+
+				$query .= implode(', ', $rows);
+
+				if( $wpdb->query( $query ) ) {
+					$result['type'] = 'success';
+				}
+				else {
+				    $result['errors'][] = 'Database Error';
+                }
+			}
+		}
+		else {
+			$result['errors'][] = "Nonce Error";
+		}
+
+		header( 'Content-Type: application/json; charset=utf-8' );
+		//echo result
+		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+			$result = json_encode($result);
+			echo $result;
+		}
+		else {
+			header("Location: ".$_SERVER["HTTP_REFERER"]);
+		}
+
+		die();
+    }
+
+    public function check_existing_results() {
+	    $result['type'] = '';
+	    //check nonce
+	    if( check_ajax_referer( 'rps_result_check_existing_results', 'secure',false ) ) {
+
+	        global $wpdb;
+
+		    $data['exam_id']        = ( isset( $_POST['exam_id'] ) )        ? intval( $_POST['exam_id'] ) : 0;
+		    $data['department_id']  = ( isset( $_POST['department_id'] ) )  ? intval( $_POST['department_id'] ) : 0;
+		    $data['batch_id']       = ( isset( $_POST['batch_id'] ) )       ? intval( $_POST['batch_id'] )  : 0;
+		    $data['semester_id']    = ( isset( $_POST['semester_id'] ) )    ? intval( $_POST['semester_id'] ) : 0;
+		    $data['display']        = ( isset( $_POST['display'] ) )        ? intval( $_POST['display'] ) : 1;
+		    $data['active']         = ( isset( $_POST['active'] ) )         ? (int) $_POST['active']  : 1;
+
+		    $flag = false;
+		    //check exam_id
+		    if ( ! $data['exam_id'] ) {
+			    $result['errors'][] = __('Exam field is required. Please select a exam from list.', $this->TD);
+			    $flag = true;
+		    }
+
+		    //check department id
+		    if ( ! $data['department_id'] ) {
+			    $result['errors'][] = __('Class is required. Please select a department from list.', $this->TD);
+			    $flag = true;
+		    }
+
+		    //check batch_id
+		    if ( ! $data['batch_id'] ) {
+			    $result['errors'][] = __( 'Batch id is required. Please select a batch id from list.', $this->TD );
+			    $flag = true;
+		    }
+
+		    if ( $flag == false ) {
+			    //check same exam record exist on database or not
+			    if ( $data['semester_id'] !== 0 ) {
+				    $query = $wpdb->prepare( "SELECT * FROM `{$wpdb->rps_exam_record}` WHERE `exam_id` = %d AND `department_id` = %d
+				AND `batch_id` = %d AND `semester_id` = %d", array ( $data['exam_id'], $data['department_id'], $data['batch_id'], $data['semester_id'] ) );
+			    }
+			    else {
+				    $query = $wpdb->prepare( "SELECT * FROM `{$wpdb->rps_exam_record}` WHERE `exam_id` = %d AND `department_id` = %d
+				AND `batch_id` = %d", array ( $data['exam_id'], $data['department_id'], $data['batch_id'] ) );
+			    }
+			    $row = $wpdb->get_row($query);
+			    if ( $row !== NULL ) {
+				    $result['errors'][] = __('Exam records already exists on database. Please check Exam, Department and Batch.', $this->TD);
+			    }
+			    else {
+			        $result['type'] = 'success';
+
+				    //get student ids
+				    if ( $data['department_id'] && $data['batch_id'] && $data['semester_id'] ) {
+					    $student_list   = $this->student->getStudentDetails( $data['department_id'], $data['batch_id'], $data['semester_id'] );
+				    } elseif ( $data['department_id'] && $data['batch_id'] ) {
+					    $student_list = $this->student->getStudentDetails( $data['department_id'], $data['batch_id'] );
+				    }
+
+				    if( ! is_wp_error( $student_list ) && ! empty( $student_list ) ) {
+					    $result['students'] = array_keys($student_list);
+
+					    //insert into exam record table
+					    $data['added'] = time();
+					    $format = array('%d', '%d', '%d', '%d', '%d', '%d', '%d');
+
+
+					    if ( $wpdb->insert( $wpdb->rps_exam_record, $data, $format ) ) {
+						    //now add result table data
+						    $transient = "rps_exam_list_data";
+						    delete_transient( $transient );
+
+						    $result['exam_record_id'] = $wpdb->insert_id;
+					    }
+					    else {
+						    $result['exam_record_id'] = 0;
+					    }
+
+				    }
+				    else {
+					    $result['students'] = 0;
+				    }
+                }
+		    }
+	    }
+	    else {
+		    $result['type'] = "Nonce Error";
+	    }
+
+	    header( 'Content-Type: application/json; charset=utf-8' );
+	    //echo result
+	    if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+		    $result = json_encode($result);
+		    echo $result;
+	    }
+	    else {
+		    header("Location: ".$_SERVER["HTTP_REFERER"]);
+	    }
+
+	    die();
+    }
+
+	public function load_courses() {
+		$result['type'] = '';
+		//check nonce
+		if( check_ajax_referer( 'rps_result_load_courses', 'secure',false ) ) {
+			$department_id = isset( $_POST['department_id'] ) ?  intval($_POST['department_id']) : 0;
+			$batch_id = isset( $_POST['batch_id'] ) ?  intval($_POST['batch_id']) : 0;
+			$semester_id = isset( $_POST['semester_id'] ) ?  intval($_POST['semester_id']) : 0;
+
+			if ( $department_id && $batch_id && $semester_id ) {
+				$course_list    = $this->course->getAllCourses( $department_id, $semester_id );
+			} elseif ( $department_id && $batch_id ) {
+				$course_list    = $this->course->getAllCourses( $department_id );
+			}
+
+			ob_start();
+			if( ! is_wp_error( $course_list ) && ! empty( $course_list ) ) {
+				foreach ( $course_list as $course_id => $course_data ) {
+					echo "<input type=\"checkbox\" name=\"course_id[]\" value=\"{$course_id}\" checked=\"checked\"/>{$course_data['name']}<br>";
+			    }
+			}
+			$data = ob_get_clean();
+
+			$result['data'] = $data;
+			$result['type'] = 'success';
+		}
+		else {
+			$result['type'] = "Nonce Error";
+		}
+
+		header( 'Content-Type: application/json; charset=utf-8' );
+		//echo result
+		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+			$result = json_encode($result);
+			echo $result;
+		}
+		else {
+			header("Location: ".$_SERVER["HTTP_REFERER"]);
+		}
+
+		die();
+	}
 
     public function load_student_course() {
         $result['type'] = '';
