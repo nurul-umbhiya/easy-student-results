@@ -489,7 +489,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 				<!-- Semester Select Box -->
 				<tr valign="top">
 					<th scope="row">
-						<label for="semester_id"><?php _e('Semester',$this->TD); ?></label>
+						<label for="semester_id"><?php _e('Semester/Section',$this->TD); ?></label>
 					</th>
 					<td>
 						<?php if ( !empty( $semesters ) ) : ?>
@@ -539,7 +539,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 									<?php foreach ( $course_list as $course_id => $course_data ) { ?>
 										<tr>
 											<td>
-												<input type="checkbox" name="course_id[student_<?php echo $student_id; ?>][]" value="<?php echo $course_id; ?>"<?php
+												<input type="checkbox" name="course_id[student_<?php echo $student_id; ?>][]" value="<?php echo $course_id; ?>" <?php
 												if( $disabled === '') { echo 'checked="checked"'; }
 												elseif ( isset($data['course_ids']['student_'. $student_id]) && in_array( $course_id, $data['course_ids']['student_'. $student_id] ) ) {
 													echo 'checked="checked"';
