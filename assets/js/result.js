@@ -11,6 +11,11 @@ jQuery(function($) {
         //console.log(i);
         $('#semester_id option').remove();
 
+        $('#semester_id')
+            .append($("<option></option>")
+            .attr("value",'')
+            .text('Select Semester/Section'));
+
 
         if (i !== null) {
             $.each(i, function (key, value) {

@@ -210,11 +210,12 @@ final class RPS_Admin_Init_Metaboxes_Student {
             <!-- Semester Select Box -->
             <tr valign="top">
                 <th scope="row">
-                    <label for="semester_id"><?php _e('Semester',$this->TD); ?></label>
+                    <label for="semester_id"><?php _e('Semester/Section',$this->TD); ?></label>
                 </th>
                 <td>
                     <?php if(!empty($semesters)): ?>
                         <select name="student_faculty_meta[semester_id]" id="semester_id" class="">
+                            <option><?php _e('Select Semester/Section', $this->TD); ?></option>
                             <?php
                             if( $department_id != '' && RPS_Helper_Function::is_numeric($department_id) ) {
                                 $semester = isset($semesters[$department_id]) ? $semesters[$department_id] : array();
@@ -256,8 +257,12 @@ final class RPS_Admin_Init_Metaboxes_Student {
 
                     // Popupate semester dropdown box
                     var i = semesters[id];
-                    console.log(i);
                     $('#semester_id option').remove();
+
+                    $('#semester_id')
+                        .append($("<option></option>")
+                        .attr("value",'')
+                        .text('<?php _e('Select Term', $this->TD); ?>'));
 
 
                     if(i !== null){
