@@ -39,7 +39,90 @@ class RPS_Helper_Ajax {
 	    add_action( 'wp_ajax_rps_result_load_courses', array($this,'load_courses') );
 	    add_action( 'wp_ajax_rps_result_check_existing_results', array($this,'check_existing_results') );
 	    add_action( 'wp_ajax_rps_result_add_student_results', array($this,'add_student_results') );
+
+	    //migrate course data.. ie: add _course_priority meta field
+	    add_action( 'wp_ajax_' . RPS_Result_Management::PLUGIN_SLUG . '_collect_course_data', array($this, 'collect_course_data') );
+	    add_action( 'wp_ajax_' . RPS_Result_Management::PLUGIN_SLUG . '_migrate_course_data', array($this, 'migrate_course_data') );
     }
+
+	public function collect_course_data() {
+		$result['type'] = '';
+		//check nonce
+		if( check_ajax_referer( RPS_Result_Management::PLUGIN_SLUG . '_collect_course_data_' . get_current_user_id(), 'nonce',false ) && current_user_can('manage_options') ) {
+			//get all student id
+
+			$post_type = RPS_Result_Management::COURSE;
+
+			$args = array(
+				'fields' => 'ids',
+				'post_type' => $post_type,
+				'post_status' => 'publish',
+				'posts_per_page' => -1,
+				'meta_query' => array(
+					array(
+						'key' => '_course_priority',
+						'compare' => 'NOT EXISTS',
+						'value' => ''
+					),
+				)
+			);
+
+
+			$query = new WP_Query( $args );
+
+			$result['type'] = 'success';
+			$result['count'] = $query->found_posts;
+			$result['courses'] = wp_parse_id_list( $query->posts );
+		}
+		else {
+			$result['type'] = "Nonce Error. Please refresh this page and try again.";
+		}
+
+		header( 'Content-Type: application/json; charset=utf-8' );
+		//echo result
+		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+			$result = json_encode($result);
+			echo $result;
+		}
+		else {
+			header("Location: ".$_SERVER["HTTP_REFERER"]);
+		}
+
+		die();
+	}
+
+	public function migrate_course_data() {
+		$result['type'] = '';
+		//check nonce
+		if( check_ajax_referer( RPS_Result_Management::PLUGIN_SLUG . '_migrate_course_data_' . get_current_user_id(), 'nonce',false )  && current_user_can('manage_options') ) {
+			$course_id = isset($_POST['course_id']) ? intval($_POST['course_id']) : '';
+
+			$data = get_post_meta($course_id, '_course_priority', true);
+
+			if ( $data == '' ) {
+				$data = 0;
+			}
+			update_post_meta($course_id, '_course_priority', $data);
+
+
+			$result['type'] = 'success';
+		}
+		else {
+			$result['type'] = "Nonce Error. Please refresh this page and try again.";
+		}
+
+		header( 'Content-Type: application/json; charset=utf-8' );
+		//echo result
+		if(!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+			$result = json_encode($result);
+			echo $result;
+		}
+		else {
+			header("Location: ".$_SERVER["HTTP_REFERER"]);
+		}
+
+		die();
+	}
 
 	public function add_student_results() {
 		$result['type'] = '';

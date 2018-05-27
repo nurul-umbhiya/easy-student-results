@@ -31,6 +31,7 @@ class RPS_Admin_Init_Metaboxes_Course {
     public function metaBoxes() {
         add_meta_box('course-info', __('Subject Information',$this->TD), array($this,'courseInfoMeta'));
         add_meta_box('course-details', __('Subject Detailed Information',$this->TD), array($this,'courseDetailsMeta'));
+	    add_meta_box('course-priority', __('Subject Priority',$this->TD), array($this,'coursePriorityMeta'), null, 'side');
     }
     
     public function saveMeta( $post_id ) {
@@ -65,6 +66,14 @@ class RPS_Admin_Init_Metaboxes_Course {
             
             $cache = true;
         }
+
+	    if ( isset( $_POST['course_priority_meta_nonce'] ) && check_admin_referer('course_priority_meta', 'course_priority_meta_nonce') ) {
+		    $course_priority = isset($_POST['course_priority']) ? intval($_POST['course_priority']) : '';
+
+		    update_post_meta($post_id, '_course_priority', $course_priority);
+
+		    $cache = true;
+	    }
         
         //delete student cache
         if($cache == true) {
@@ -72,6 +81,24 @@ class RPS_Admin_Init_Metaboxes_Course {
             define(RPS_Result_Management::PLUGIN_SLUG . '_delete_transient', true);
             RPS_Helper_Function::delete_transient();
         }
+    }
+
+    public function coursePriorityMeta( $post ) {
+
+	    $course_priority = get_post_meta($post->ID, '_course_priority', true);
+
+        wp_nonce_field( 'course_priority_meta','course_priority_meta_nonce' ); ?>
+        <table>
+            <tr valign="top">
+                <th scope="row">
+                    <label for="course_priority"><?php _e('Subject Priority',$this->TD); ?> *</label>
+                </th>
+                <td>
+                    <input type="number" min="1" name="course_priority" id="course_priority" value="<?php echo $course_priority; ?>" style="width: 130px;">
+                </td>
+            </tr>
+        </table>
+        <?php
     }
     
     public function courseInfoMeta($post) {

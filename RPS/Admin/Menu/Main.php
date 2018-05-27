@@ -58,6 +58,7 @@ class RPS_Admin_Menu_Main {
         add_action('admin_menu',array($this,'examsMenu'),15);
         add_action('admin_menu',array($this,'resultsMenu'),16);
 	    add_action('admin_menu',array($this,'resultsMenuNew'),17);
+	    add_action('admin_menu', array($this, 'migrateMenu'), 99);
         add_action('admin_menu', array($this, 'premiumMenu'), 1000);
     }
 
@@ -113,6 +114,13 @@ class RPS_Admin_Menu_Main {
 		add_action('load-' . self::$slug['results_new'] , array($this,'loadResultsNew'));
 
 		self::$page_hook['results_new'] = RPS_Result_Management::PLUGIN_SLUG . '_results_new';
+	}
+
+	public function migrateMenu() {
+		self::$slug['migrate_data'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Migrate Data", $this->TD), __("Migrate Data", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_migrate_data',array($this,'migrate_data'));
+		add_action('load-' . self::$slug['migrate_data'] , array($this,'loadMigrateData'));
+
+		self::$page_hook['migrate_data'] = RPS_Result_Management::PLUGIN_SLUG . '_migrate_data';
 	}
 
     public function premiumMenu() {
@@ -204,6 +212,18 @@ class RPS_Admin_Menu_Main {
 
 	public function results_new() {
 		$obj = RPS_Admin_Menu_Result_New::getInstance(self::$page_hook['results_new']);
+		$obj->mainDiv();
+	}
+
+	/* Results New Menu Functions */
+
+	public function loadMigrateData() {
+		$obj = RPS_Admin_Menu_MigrateData::getInstance(self::$page_hook['migrate_data']);
+		$obj->onLoadPage();
+	}
+
+	public function migrate_data() {
+		$obj = RPS_Admin_Menu_MigrateData::getInstance(self::$page_hook['migrate_data']);
 		$obj->mainDiv();
 	}
 
