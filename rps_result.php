@@ -316,15 +316,21 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
         }
 
         public function resultShortcode( $atts ) {
+            ob_start();
             new RPS_Shortcodes_Result($atts);
+            return ob_get_clean();
         }
 
         public function studentShortcode( $atts ) {
-             new RPS_Shortcodes_StudentList( $atts );
+            ob_start();
+            new RPS_Shortcodes_StudentList( $atts );
+            return ob_get_clean();
         }
 
         public function resultShortcode2( $atts ) {
+            ob_start();
             new RPS_Shortcodes_Result2( $atts );
+            return ob_get_clean();
         }
 
 
