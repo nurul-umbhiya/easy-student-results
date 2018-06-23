@@ -211,8 +211,8 @@ class RPS_Helper_Course {
 				'total_marks'     => $details['total_marks'],
 				'credit'          => $details['credit'],
 				'course_type'     => $details['course_type'],
-				'pre_requisist'   => $details['pre_requisist'],
-				'related_subject' => $details['related_subject'],
+				'pre_requisist'   => isset($details['pre_requisist']) ? $details['pre_requisist'] : '',
+				'related_subject' => isset($details['related_subject']) ? $details['related_subject'] : '',
 			);
 			return $ret;
 
