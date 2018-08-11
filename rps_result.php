@@ -192,6 +192,29 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
 	            //check for updates
 	            $this->check_for_updates();
             }
+
+            //advanced custom field support
+            add_action(RPS_Result_Management::PLUGIN_SLUG . '_student_section_meta_single_print', array($this, 'esr_student_section_meta_single_print'), 10, 2 );
+            add_filter(RPS_Result_Management::PLUGIN_SLUG . '_result_student_section_meta_single', array($this, 'esr_result_student_section_meta_single'), 10, 3);
+        }
+
+        function esr_student_section_meta_single_print($student_id, $meta_key) {
+            if ( function_exists('get_fields') ) {
+	            $all_fields = get_fields($student_id);
+	            if ( array_key_exists($meta_key, $all_fields) ) {
+		            echo esc_attr($all_fields[$meta_key]);
+	            }
+            }
+        }
+
+        function esr_result_student_section_meta_single($value, $student_id, $meta_key) {
+	        if ( function_exists('get_fields') ) {
+		        $all_fields = get_fields($student_id);
+		        if ( array_key_exists($meta_key, $all_fields) ) {
+			        $value = esc_attr($all_fields[$meta_key]);
+		        }
+	        }
+            return $value;
         }
 
         private function check_for_updates() {

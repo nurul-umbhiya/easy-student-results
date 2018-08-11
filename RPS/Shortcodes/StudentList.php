@@ -250,9 +250,11 @@ final class RPS_Shortcodes_StudentList extends RPS_Shortcodes_Abstract {
                                     } elseif( $meta_key == 'semester' ) {
                                         echo isset( $semester_info['name'] ) ? esc_attr( $semester_info['name'] ) : '';
 
-                                    } else {
+                                    } elseif ( isset( $student[ $meta_key ] ) ) {
                                         echo isset( $student[ $meta_key ] ) ? esc_attr( $student[ $meta_key ] ) : '';
-
+                                    }
+                                    else {
+                                        do_action(RPS_Result_Management::PLUGIN_SLUG . '_student_section_meta_single_print', $student['id'], $meta_key);
                                     }
 
                                     echo "</td></tr>";

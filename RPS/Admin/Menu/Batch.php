@@ -444,7 +444,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
 
     }
     
-    private function listTable(){
+    private function listTable() {
         $batch_table = new RPS_Admin_Menu_BatchTable();
         //Fetch, prepare, sort, and filter our data...
         $batch_table->prepare_items();

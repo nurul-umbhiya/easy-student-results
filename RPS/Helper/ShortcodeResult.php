@@ -190,6 +190,14 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 				);
 			} else {
 			    //probably a hook to add other data
+                $hook_temp = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_result_student_section_meta_single', 'temp_string', $this->student_id, $meta_key );
+
+                if ( $hook_temp != 'temp_string' ) {
+	                $this->student_section_data[] = array(
+		                'key' => $meta_value,
+		                'value' => $hook_temp
+	                );
+                }
             }
 		}
 
