@@ -127,7 +127,7 @@ class RPS_API extends WP_REST_Controller {
         $department_info = $this->dbs->getDepartmentInfo( $this->department_id );
         $batch_info = $this->dbs->getBatchInfo($this->department_id, $this->batch_id);
         $semester_info = $this->dbs->getSemesterInfo( $this->department_id, $this->semester_id );
-        $student_info = $this->student->getSutdentInfo( $this->department_id, $this->batch_id, $this->student_id, $this->semester_id );
+        $student_info = $this->student->getStudentInfo( $this->department_id, $this->batch_id, $this->semester_id, $this->student_id, 'all' );
 
         $ret_meta = array();
 
@@ -327,7 +327,7 @@ class RPS_API extends WP_REST_Controller {
         if( RPS_Helper_Function::is_numeric($this->department_id) && RPS_Helper_Function::is_numeric($this->batch_id) &&
             RPS_Helper_Function::is_numeric($this->semester_id) ) {
 
-            $student_list = $this->student->getStudentDetails( $this->department_id, $this->batch_id, $this->semester_id );
+            $student_list = $this->student->getStudentDetails( $this->department_id, $this->batch_id, $this->semester_id, 'all' );
 
             //get department, batch and semester
             $department_info = $this->dbs->getDepartmentInfo( $this->department_id );
@@ -336,7 +336,7 @@ class RPS_API extends WP_REST_Controller {
 
         } elseif ( RPS_Helper_Function::is_numeric($this->department_id) && RPS_Helper_Function::is_numeric($this->batch_id) ) {
 
-            $student_list = $this->student->getStudentDetails( $this->department_id, $this->batch_id, $this->semester_id );
+            $student_list = $this->student->getStudentDetails( $this->department_id, $this->batch_id, null, 'all' );
             $department_info = $this->dbs->getDepartmentInfo( $this->department_id );
             $batch_info = $this->dbs->getBatchInfo( $this->department_id, $this->batch_id );
 
