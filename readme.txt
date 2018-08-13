@@ -105,6 +105,10 @@ It is hard to continue development and support for this free plugin without cont
 
 == Changelog ==
 
+= 2.2.5 =
+* Added Advanced Custom Field AddOns Support as Student Meta
+* Updated Mobile API
+
 = 2.2.4 =
 * Codebase Updated
 
