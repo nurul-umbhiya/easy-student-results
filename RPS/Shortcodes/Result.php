@@ -35,7 +35,7 @@ final class RPS_Shortcodes_Result extends RPS_Shortcodes_Abstract
         $this->options = get_option( RPS_Result_Management::PLUGIN_SLUG . '_results', array() );
 
 
-        ob_start();
+        //ob_start();
 
         if ( trim( $this->options['custom_css'] ) != '' ) {
             echo '<style type="text/css" rel="stylesheet">' . trim( $this->options['custom_css'] ) . '</style>';
@@ -66,9 +66,9 @@ final class RPS_Shortcodes_Result extends RPS_Shortcodes_Abstract
         echo "</div><!--end .container-fluid-->";
         echo "</div><!--end #rps_result-->";
 
-        $res = ob_get_clean();
+        //$res = ob_get_clean();
 
-        echo $res;
+        //echo $res;
 
     }
 

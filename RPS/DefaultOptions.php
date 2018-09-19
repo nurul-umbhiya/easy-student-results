@@ -61,7 +61,7 @@ class RPS_DefaultOptions {
 			'batch_error_text'      => __('Please Select a Batch From List.', $this->TD),
 			'semester_error_text'   => __('Please Select a Semester From List.', $this->TD),
 			'student_meta'      => 'name:Name, roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Department, batch:Batch, semester:Semester',
-			'subject_meta'      => 'course_name:Subject Name, course_code:Subject Code, total_marks:Total Makrs, marks_obtained:Marks Obtained, grade:Grade',
+			'subject_meta'      => 'course_name:Subject Name, course_code:Subject Code, total_marks:Total Marks, marks_obtained:Marks Obtained, grade:Grade',
 			'result_meta'       => 'total_marks:Total Marks, total_marks_obtained:Marks Obtained, cgpa:Cgpa, final_result:Final Result, (highest_marks, class_position --> if you use Result Fields AddOns)',
 			'print_button'		=> 'on',
 			'print_button_text' => __('Print Result', $this->TD),

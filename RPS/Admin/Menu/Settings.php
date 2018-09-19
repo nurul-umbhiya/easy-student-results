@@ -283,7 +283,7 @@ class RPS_Admin_Menu_Settings  {
                     'desc'    => __( 'Enter which Subject Information to display on result output in a key:value pair, seperated by <strong>,</strong> (comma).
                                     Key will be the available fields and value will be the label (title) text. eg:roll_no:Roll No.', $this->TD ),
                     'type'    => 'textarea',
-                    'default' => 'course_name:Subject Name, course_code:Subject Code, total_marks:Total Makrs, marks_obtained:Marks Obtained, grade:Grade'
+                    'default' => 'course_name:Subject Name, course_code:Subject Code, total_marks:Total Marks, marks_obtained:Marks Obtained, grade:Grade'
                 ),
                 array(
                     'name'    => 'help_html_subject',
@@ -462,7 +462,7 @@ class RPS_Admin_Menu_Settings  {
                     'desc'    => __( 'Enter which Subject Information to display on result output in a key:value pair, seperated by <strong>,</strong> (comma).
                                     Key will be the available fields and value will be the label (title) text. eg:roll_no:Roll No.', $this->TD ),
                     'type'    => 'textarea',
-                    'default' => 'course_name:Subject Name, course_code:Subject Code, total_marks:Total Makrs, marks_obtained:Marks Obtained, grade:Grade'
+                    'default' => 'course_name:Subject Name, course_code:Subject Code, total_marks:Total Marks, marks_obtained:Marks Obtained, grade:Grade'
                 ),
                 array(
                     'name'    => 'help_html_subject',

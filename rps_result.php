@@ -4,7 +4,7 @@ Plugin Name: Easy Student Results
 Plugin URI: https://www.nurul.me/
 Description: Result Management System for School, College and University. Use [esr_results] to display result and [esr_students] to display student list.
 Text Domain: easy-student-results
-Version: 2.2.5
+Version: 2.2.6
 Author: Nurul Umbhiya
 Author URI: https://www.nurul.me/
 */
@@ -201,7 +201,7 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
         function esr_student_section_meta_single_print($student_id, $meta_key) {
             if ( function_exists('get_fields') ) {
 	            $all_fields = get_fields($student_id);
-	            if ( array_key_exists($meta_key, $all_fields) ) {
+	            if ( is_array($all_fields) && array_key_exists($meta_key, $all_fields) ) {
 		            echo esc_attr($all_fields[$meta_key]);
 	            }
             }
@@ -210,7 +210,7 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
         function esr_result_student_section_meta_single($value, $student_id, $meta_key) {
 	        if ( function_exists('get_fields') ) {
 		        $all_fields = get_fields($student_id);
-		        if ( array_key_exists($meta_key, $all_fields) ) {
+		        if ( is_array($all_fields) && array_key_exists($meta_key, $all_fields) ) {
 			        $value = esc_attr($all_fields[$meta_key]);
 		        }
 	        }

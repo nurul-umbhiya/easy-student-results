@@ -169,7 +169,7 @@ class RPS_Helper_DBS {
         $list = $this->getSemesterData();
         if( $list === '' || $list === NULL  || empty($list)) {
             return new \WP_Error(__('Empty Results', $this->TD),sprintf(__("No semester found with department id %s.", $this->TD), $department_id ));
-        } elseif( RPS_Helper_Function::is_numeric($department_id) && array_key_exists($department_id, $list) ) {
+        } elseif( RPS_Helper_Function::is_numeric($department_id) && is_array($list) && array_key_exists($department_id, $list) ) {
             return $list[$department_id];
         }
         else {

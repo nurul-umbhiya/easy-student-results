@@ -33,7 +33,7 @@ final class RPS_Shortcodes_StudentList extends RPS_Shortcodes_Abstract {
 
         $this->options = get_option( RPS_Result_Management::PLUGIN_SLUG . '_students', array() );
 
-        ob_start();
+        //ob_start();
 
         echo '<div class="rps_result">';
         echo '<div class="container-fluid">';
@@ -48,9 +48,9 @@ final class RPS_Shortcodes_StudentList extends RPS_Shortcodes_Abstract {
         echo "</div><!--end .container-fluid-->";
         echo "</div><!--end #rps_result-->";
 
-        $res = ob_get_clean();
+        //$res = ob_get_clean();
 
-        echo $res;
+       // echo $res;
 
     }
 

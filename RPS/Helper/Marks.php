@@ -234,19 +234,19 @@ class RPS_Helper_Marks {
 							break;
 
 						case 'marks_obtained':
-							echo "<input type='text' name='results[{$row['id']}][marks_obtained]' style='width:70px;' class='form-control rps_marks' value='{$row['marks_obtained']}'>";
+							echo "<input type='text' name='results[{$row['id']}][marks_obtained]' style='width:90px;' class='form-control rps_marks' value='{$row['marks_obtained']}'>";
 							break;
 
 						case 'percentage':
-							echo "<input type='text' name='results[{$row['id']}][percentage]' style='width:70px;' class='form-control percentage' value='{$row['percentage']}'>";
+							echo "<input type='text' name='results[{$row['id']}][percentage]' style='width:90px;' class='form-control percentage' value='{$row['percentage']}'>";
 							break;
 
 						case 'grade':
-							echo "<select class='grades' name='results[{$row['id']}][grade]' style='min-width: 50px;'>{$grade_options}</select>";
+							echo "<select class='grades form-control' name='results[{$row['id']}][grade]' style='min-width: 70px;'>{$grade_options}</select>";
 							break;
 
 						case 'grade_point':
-							echo "<input type='text' readonly='readonly' class='form-control rps_grade' style='width:70px;'>";
+							echo "<input type='text' readonly='readonly' class='form-control rps_grade' style='width:90px;'>";
 							break;
 
 						default:
@@ -319,12 +319,12 @@ class RPS_Helper_Marks {
 
 					case 'total_marks_obtained':
 						$total_marks_obtained = isset( $this->result_metadata['total_marks_obtained'] ) ? floatval( $this->result_metadata['total_marks_obtained'] ) : '';
-						echo '<input name="metadata[total_marks_obtained]" type="text" placeholder="' . $lbl_total_marks_obtained . '" class="form-control total_marks_obtained" style="width:70px;" value="' . $total_marks_obtained .'" />';
+						echo '<input name="metadata[total_marks_obtained]" type="text" placeholder="' . $lbl_total_marks_obtained . '" class="form-control total_marks_obtained" style="width:90px;" value="' . $total_marks_obtained .'" />';
 						break;
 
 					case 'total_percentage':
 						$total_percentage = isset( $this->result_metadata['total_percentage'] ) ? esc_attr($this->result_metadata['total_percentage']) : "";
-						echo '<input name="metadata[total_percentage]" type="text" placeholder="eg: 80" value="' . $total_percentage .'" class="form-control total_percentage" style="width:70px;" />';
+						echo '<input name="metadata[total_percentage]" type="text" placeholder="eg: 80" value="' . $total_percentage .'" class="form-control total_percentage" style="width:90px;" />';
 						break;
 
 					case 'final_grade':
@@ -341,18 +341,18 @@ class RPS_Helper_Marks {
 								$grade_options .= ">{$grade}</option>";
 							}
 						}
-						echo '<select name="metadata[final_grade]" class="final_grade" style="min-width: 50px;">' . $grade_options . '</select>';
+						echo '<select name="metadata[final_grade]" class="final_grade form-control" style="min-width: 50px;">' . $grade_options . '</select>';
 						//echo '<input name="metadata[final_grade]" id="final_grade" type="text" value="' . $final_grade .'" class="small-text" />';
 						break;
 
 					case 'cgpa':
 						$cgpa = isset( $this->result_metadata['cgpa'] ) ? floatval($this->result_metadata['cgpa']) : "";
-						echo '<input name="metadata[cgpa]" type="text" placeholder="eg: 3.16" value="' . $cgpa .'" class="form-control cgpa" style="width:70px;" />';
+						echo '<input style="width:90px;" name="metadata[cgpa]" type="text" placeholder="eg: 3.16" value="' . $cgpa .'" class="form-control cgpa" />';
 						break;
 
 					case 'result':
 						$final_result = isset( $this->result_metadata['final_result'] ) ? esc_attr($this->result_metadata['final_result']) : "";
-						echo '<input name="metadata[final_result]" type="text" placeholder="eg: passed" value="' . $final_result .'" class="form-control final_result" style="width:100px;" />';
+						echo '<input name="metadata[final_result]" type="text" placeholder="eg: passed" value="' . $final_result .'" class="form-control final_result" style="width:120px;" />';
 						break;
 
 					default:

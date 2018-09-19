@@ -256,7 +256,7 @@ class RPS_Helper_Course {
 		} else {
 			if ( RPS_Helper_Function::is_numeric( $department_id ) && RPS_Helper_Function::is_numeric( $semester_id ) ) {
 
-				if (  array_key_exists( $semester_id, $data ) && array_key_exists($course_id, $data[ $semester_id ] ) ) {
+				if ( is_array($data) && array_key_exists( $semester_id, $data ) && array_key_exists($course_id, $data[ $semester_id ] ) ) {
 					$ret = $data[ $semester_id ][ $course_id ];
 				} else {
 					return new \WP_Error( 'Invalid Arguments', __( "Given arguments are invalid.", RPS_Result_Management::TD ) );
