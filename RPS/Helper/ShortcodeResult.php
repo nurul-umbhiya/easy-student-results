@@ -16,7 +16,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 	public function __construct( $exam_id, $exam_record_id, $department_id, $batch_id, $semester_id = null, $student_id ) {
 
 		if (    !RPS_Helper_Function::is_numeric( $exam_record_id ) ||
-				!RPS_Helper_Function::is_numeric( $department_id ) ||
+		        !RPS_Helper_Function::is_numeric( $department_id ) ||
 		        !RPS_Helper_Function::is_numeric( $batch_id ) ||
 		        !RPS_Helper_Function::is_numeric( $student_id )
 		)
@@ -82,10 +82,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 
 	public function get_result_data() {
 		global $wpdb;
-		$query = $wpdb->prepare( "
-                    SELECT marks.*, meta.meta_value FROM `{$wpdb->rps_marks}` marks INNER JOIN `$wpdb->postmeta` meta ON marks.subject_id = meta.post_id 
-                    WHERE marks.exam_record_id = %d AND marks.student_id = %d AND meta.meta_key='_course_priority' ORDER BY meta.meta_value ASC, marks.id ASC 
-                ", array( $this->exam_record_id, $this->student_id )  );
+		$query = $wpdb->prepare( "SELECT * FROM `{$wpdb->rps_marks}` WHERE `exam_record_id` = %d AND `student_id` = %d", array( $this->exam_record_id, $this->student_id )  );
 		$this->result_data = $wpdb->get_results( $query, ARRAY_A );
 	}
 
@@ -100,7 +97,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 			}
 		}
 		//fix highest_marks
-        $this->metadata['highest_marks'] = 0.00;
+		$this->metadata['highest_marks'] = 0.00;
 
 		//fix total_marks_obtained meta data
 		if ( is_array($this->metadata) && !array_key_exists('total_marks_obtained', $this->metadata) ) {
@@ -181,7 +178,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 						'key' => $meta_value,
 						'value' => $this->metadata[ $meta_key ]
 					);
-                }
+				}
 
 
 
@@ -192,8 +189,16 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 					'value' => isset( $this->student_info[ $meta_key ] ) ? esc_attr( $this->student_info[ $meta_key ] ) : ''
 				);
 			} else {
-			    //probably a hook to add other data
-            }
+				//probably a hook to add other data
+				$hook_temp = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_result_student_section_meta_single', 'temp_string', $this->student_id, $meta_key );
+
+				if ( $hook_temp != 'temp_string' ) {
+					$this->student_section_data[] = array(
+						'key' => $meta_value,
+						'value' => $hook_temp
+					);
+				}
+			}
 		}
 
 		//echo "<pre>"; print_r($this->student_section_data); echo "</pre>";
@@ -279,9 +284,9 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 							case 'grade_point':
 								$temp[] = esc_attr($grade_point);
 								break;
-                            case 'percentage':
-                                $temp[] = intval($percentage) . '%';
-                                break;
+							case 'percentage':
+								$temp[] = intval($percentage) . '%';
+								break;
 							default:
 								$temp[] = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_sc_subject_meta', '&nbsp;', $value, $row );
 						}
@@ -334,30 +339,30 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 
 			for( $i = 0; $i < count($result_keys); $i++ ) {
 				if ( is_array( $this->metadata ) && array_key_exists( $result_keys[ $i ], $this->metadata  )  ) {
-				    if ( $result_keys[ $i ] == 'total_percentage' ) {
-					    $this->result_section_data[] = array(
-						    'key' => $result_values[$i],
-						    'value' => $this->metadata[ $result_keys[ $i ] ] . '%'
-					    );
-                    }
+					if ( $result_keys[ $i ] == 'total_percentage' ) {
+						$this->result_section_data[] = array(
+							'key' => $result_values[$i],
+							'value' => $this->metadata[ $result_keys[ $i ] ] . '%'
+						);
+					}
                     elseif ( $result_keys[ $i ] == 'highest_marks' ) {
-					    global $wpdb;
-					    $query = $wpdb->prepare("SELECT highest_total_marks FROM `{$wpdb->rps_exam_record}` WHERE id=%d LIMIT 1", array($this->exam_record_id));
-					    $res = $wpdb->get_row($query, ARRAY_A);
-					    if ( is_array($res) && !empty($res) ) {
-						    $this->result_section_data[] = array(
-							    'key' => $result_values[$i],
-							    'value' => $res['highest_total_marks']
-						    );
-					    }
+						global $wpdb;
+						$query = $wpdb->prepare("SELECT highest_total_marks FROM `{$wpdb->rps_exam_record}` WHERE id=%d LIMIT 1", array($this->exam_record_id));
+						$res = $wpdb->get_row($query, ARRAY_A);
+						if ( is_array($res) && !empty($res) ) {
+							$this->result_section_data[] = array(
+								'key' => $result_values[$i],
+								'value' => $res['highest_total_marks']
+							);
+						}
 
-				    }
+					}
 					else {
 						$this->result_section_data[] = array(
 							'key' => $result_values[$i],
 							'value' => $this->metadata[ $result_keys[ $i ] ]
 						);
-                    }
+					}
 				}
 			}
 		}
@@ -367,15 +372,14 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 		}
 	}
 
-	public function result_header( $echo = true ) {
-		ob_start();
-		?>
-		<div id="res_result_print_data">
-
+public function result_header( $echo = true ) {
+	ob_start();
+	?>
+    <div id="res_result_print_data" class="rps_result">
 		<?php if ( isset($this->options['show_header_footer']) && $this->options['show_header_footer'] == 'on' ) { ?>
-			<header id="result_header" class="avoid-this">
+            <header id="result_header" class="avoid-this">
 				<?php echo  $this->options['print_header']; ?>
-			</header>
+            </header>
 		<?php } ?>
 		<?php
 		$data = ob_get_clean();
@@ -386,26 +390,26 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 		else {
 			return $data;
 		}
-	}
+		}
 
-	public function result_footer( $echo = true ) {
+		public function result_footer( $echo = true ) {
 		ob_start();
 		if ( isset($this->options['show_header_footer']) && $this->options['show_header_footer'] == 'on' ) { ?>
-			<footer id="result_footer" class="avoid-this">
+            <footer id="result_footer" class="avoid-this">
 				<?php echo  $this->options['print_footer']; ?>
-			</footer>
+            </footer>
 		<?php } ?>
-		</div>
+    </div>
 	<?php
-		$data = ob_get_clean();
+	$data = ob_get_clean();
 
-		if ( $echo ) {
-			echo $data;
-		}
-		else {
-			return $data;
-		}
+	if ( $echo ) {
+		echo $data;
 	}
+	else {
+		return $data;
+	}
+}
 
 	public function result_print_button( $echo = true ) {
 		ob_start();
@@ -414,10 +418,10 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
             <div class="visible-print-block" id="result_prepend"><?php echo $this->options['print_header'];  ?></div>
             <div class="visible-print-block" id="result_append"><?php echo $this->options['print_footer'];  ?></div>
             <script type="text/javascript">
-                var bs_url = '<?php echo $this->URL . '/assets/bootstrap-3.3.5/css/bootstrap.min.css'; ?>';
+                var bs_url = '<?php echo $this->URL . '/assets/bootstrap-3.3.5/css/bootstrap.css'; ?>';
             </script>
-        <?php endif;
-        $data = ob_get_clean();
+		<?php endif;
+		$data = ob_get_clean();
 
 		if ( $echo ) {
 			echo $data;
@@ -430,15 +434,15 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 	public function result_back_button( $echo = true ) {
 		ob_start();
 		$nonce = wp_nonce_field( 'search_student_nonce' , 'search_student', true, false ); ?>
-			<form method="post" style="display: inline;">
-				<?php echo $nonce; ?>
-				<input type="hidden" name="exam_id" value="<?php echo $this->exam_id; ?>" />
-				<input type="hidden" name="department_id" value="<?php echo $this->department_id; ?>" />
-				<input type="hidden" name="batch_id" value="<?php echo $this->batch_id; ?>" />
-				<input type="hidden" name="semester_id" value="<?php echo $this->semester_id; ?>" />
-				<button type="submit" class="btn btn-primary"><?php _e('Back', $this->TD); ?></button>
-			</form>
-	<?php
+        <form method="post" style="display: inline;">
+			<?php echo $nonce; ?>
+            <input type="hidden" name="exam_id" value="<?php echo $this->exam_id; ?>" />
+            <input type="hidden" name="department_id" value="<?php echo $this->department_id; ?>" />
+            <input type="hidden" name="batch_id" value="<?php echo $this->batch_id; ?>" />
+            <input type="hidden" name="semester_id" value="<?php echo $this->semester_id; ?>" />
+            <button type="submit" class="btn btn-primary"><?php _e('Back', $this->TD); ?></button>
+        </form>
+		<?php
 		$data = ob_get_clean();
 		if ( $echo ) {
 			echo $data;
@@ -456,26 +460,26 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 
 		$this->get_student_info_section_data();
 		if ( is_array( $this->student_section_data ) && !empty( $this->student_section_data ) ):
-            //add student picture here
-            if ( isset($this->options['show_picture']) && $this->options['show_picture'] == 'on'
-                 && isset( $this->student_info['image']) && $this->student_info['image'] != '' ) {
-	            $featured_img_url = esc_url(get_the_post_thumbnail_url($this->student_info['id'], $this->options['image_size']));
-		        echo "<p><img class='img-rounded img-responsive' src='{$featured_img_url}' style='display: block; margin: 0 auto;'></p>";
-            }
+			//add student picture here
+			if ( isset($this->options['show_picture']) && $this->options['show_picture'] == 'on'
+			     && isset( $this->student_info['image']) && $this->student_info['image'] != '' ) {
+				$featured_img_url = esc_url(get_the_post_thumbnail_url($this->student_info['id'], $this->options['image_size']));
+				echo "<p><img class='img-rounded img-responsive' src='{$featured_img_url}' style='display: block; margin: 0 auto;'></p>";
+			}
 
 
 			//student section starts here
 			?>
-			<table class="table">
-				<tbody>
+            <table class="table table-bordered">
+                <tbody>
 				<?php
 				foreach ( $this->student_section_data as $data ) {
 					echo '<tr><th>' . $data['key'] . '</th><td>' . $data['value'] . '</td></tr>';
 				}
 				?>
-				</tbody>
-			</table>
-			<br>
+                </tbody>
+            </table>
+            <br>
 			<?php
 		endif;
 
@@ -490,20 +494,20 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 		 */
 		if ( is_array( $this->subject_section_data['subject_headings'] ) && !empty( $this->subject_section_data['subject_headings'] ) ):
 			?>
-			<table class="table table-striped table-hover table-bordered">
-				<thead>
-				<tr>
-					<th><?php _e('SL', $this->TD); ?></th>
+            <table class="table table-striped table-hover table-bordered">
+                <thead>
+                <tr>
+                    <th><?php _e('SL', $this->TD); ?></th>
 					<?php
 					if ( is_array($this->subject_section_data['subject_headings']) && !empty( $this->subject_section_data['subject_headings'] ) )
 						foreach( $this->subject_section_data['subject_headings'] as $key => $value) {
 							echo "<th>$value</th>";
 						}
 					?>
-				</tr>
-				</thead>
+                </tr>
+                </thead>
 
-				<tbody>
+                <tbody>
 				<?php
 				if ( is_array($this->subject_section_data['subject_value']) && !empty($this->subject_section_data['subject_value']) ) {
 					$i = 0;
@@ -521,9 +525,9 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 
 				}
 				?>
-				</tbody>
-			</table>
-			<br>
+                </tbody>
+            </table>
+            <br>
 			<?php
 		endif;
 
@@ -532,29 +536,29 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 
 		if ( is_array( $this->result_section_data ) && !empty( $this->result_section_data ) ):
 			?>
-			<table class="table table-bordered">
-				<tbody>
-					<?php
-                    $i = 1;
-                    $count = count( $this->result_section_data );
-                    echo '<tr>';
-					foreach ( $this->result_section_data as $row ) {
-						echo '<th>' . $row['key'] . '</th><td>' . $row['value'] . '</td>';
-					    if ( $i % 2 == 0  ) {
-					        echo '</tr>';
-					        if ( $i < $count ) {
-					            echo '<tr>';
-                            }
-                        }
-                        $i++;
+            <table class="table table-bordered">
+                <tbody>
+				<?php
+				$i = 1;
+				$count = count( $this->result_section_data );
+				echo '<tr>';
+				foreach ( $this->result_section_data as $row ) {
+					echo '<th>' . $row['key'] . '</th><td>' . $row['value'] . '</td>';
+					if ( $i % 2 == 0  ) {
+						echo '</tr>';
+						if ( $i < $count ) {
+							echo '<tr>';
+						}
 					}
-					if ( $i % 2 == 0 ) {
-					    echo '</tr>';
-                    }
-					?>
-				</tbody>
-			</table>
-		<?php
+					$i++;
+				}
+				if ( $i % 2 == 0 ) {
+					echo '</tr>';
+				}
+				?>
+                </tbody>
+            </table>
+			<?php
 		endif;
 
 		//get result footer
@@ -575,8 +579,4 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 			return $data;
 		}
 	}
-
-
-
-
 }
