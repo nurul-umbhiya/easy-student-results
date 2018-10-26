@@ -6884,3 +6884,11 @@
     display: none !important;
   }
 }
+@media print {
+  #res_result_print_data table td, #res_result_print_data table th {
+    padding: 0px 8px !important;
+  }
+  #res_result_print_data table {
+    direction: rtl;
+  }
+}

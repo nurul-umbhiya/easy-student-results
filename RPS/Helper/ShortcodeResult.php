@@ -82,7 +82,11 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 
 	public function get_result_data() {
 		global $wpdb;
-		$query = $wpdb->prepare( "SELECT * FROM `{$wpdb->rps_marks}` WHERE `exam_record_id` = %d AND `student_id` = %d", array( $this->exam_record_id, $this->student_id )  );
+		//$query = $wpdb->prepare( "SELECT * FROM `{$wpdb->rps_marks}` WHERE `exam_record_id` = %d AND `student_id` = %d", array( $this->exam_record_id, $this->student_id )  );
+		$query = $wpdb->prepare( "
+                    SELECT marks.*, meta.meta_value FROM `{$wpdb->rps_marks}` marks INNER JOIN `$wpdb->postmeta` meta ON marks.subject_id = meta.post_id 
+                    WHERE marks.exam_record_id = %d AND marks.student_id = %d AND meta.meta_key='_course_priority' ORDER BY meta.meta_value ASC, marks.id ASC 
+                ", array( $this->exam_record_id, $this->student_id )  );
 		$this->result_data = $wpdb->get_results( $query, ARRAY_A );
 	}
 
