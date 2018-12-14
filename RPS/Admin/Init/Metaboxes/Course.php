@@ -201,6 +201,7 @@ class RPS_Admin_Init_Metaboxes_Course {
         $data = maybe_unserialize( get_post_meta( $post->ID, '_course_details', true) );
 
         if( empty( $data ) || $data == "" ) {
+            $data = array();
             $data['total_marks'] = "";
             $data['credit'] = "";
             $data['course_type'] = "";

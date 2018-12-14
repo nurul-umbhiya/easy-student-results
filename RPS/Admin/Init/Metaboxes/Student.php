@@ -440,7 +440,8 @@ final class RPS_Admin_Init_Metaboxes_Student {
 
     public function contactMeta($post) {
         $data = maybe_unserialize(get_post_meta($post->ID,'_student_contact_info',true));
-        if(empty($data) || $data == ""){
+        if(empty($data) || $data == "") {
+            $data = array();
             $data['present_address'] = "";
             $data['permanent_address'] = "";
             $data['gaurdian_name'] = "";

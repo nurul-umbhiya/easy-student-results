@@ -193,7 +193,7 @@ class RPS_Helper_Course {
 		if ( RPS_Helper_Function::is_numeric( $course_id ) ):
 			$ret = array();
 			$course = get_post( $course_id );
-			if ( null === $course )
+			if ( null === $course || $course->post_type !== RPS_Result_Management::COURSE)
 				return new \WP_Error('Invalid Course ID',__("Given post ID is invalid. Please provide a valid Course ID.", RPS_Result_Management::TD));
 
 			$data   = get_post_custom( $course_id );

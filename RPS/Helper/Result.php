@@ -418,7 +418,8 @@ class RPS_Helper_Result {
 					'total_percentage'      => '',
 					'final_grade'           => '',
 					'cgpa'                  => '',
-					'result'                => ''
+					'result'                => '',
+					'final_result'          => ''
 				));
 
 
