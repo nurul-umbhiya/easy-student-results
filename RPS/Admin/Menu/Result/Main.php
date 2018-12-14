@@ -89,7 +89,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 
 			//check batch_id
 			if ( ! $data['batch_id'] ) {
-				$this->error['batch_id'] = __( 'Batch id is required. Please select a batch id from list.', $this->TD );
+				$this->error['batch_id'] = __( 'Session id is required. Please select a session id from list.', $this->TD );
 				$flag = true;
 			}
 
@@ -106,7 +106,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 
 				$row = $wpdb->get_row($query);
 				if ( $row !== NULL ) {
-					$this->messages[] = __('Exam records already exists on database. Please check Exam, Class and Batch.', $this->TD);
+					$this->messages[] = __('Exam records already exists on database. Please check Exam, Class and Session.', $this->TD);
 				}
 			}
 
@@ -115,7 +115,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 			}
 
 			if ( empty( $course_ids ) ) {
-				$this->messages[] = __( 'Please Select at least one <strong>Course</strong>.', $this->TD );
+				$this->messages[] = __( 'Please Select at least one <strong>Subject</strong>.', $this->TD );
 			}
 
 			$this->error = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_result_main_error', $this->error, $_POST);
@@ -213,7 +213,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 			}
 
 			if ( empty( $course_ids ) ) {
-				$this->messages[] = __( 'Please Select at least one <strong>Course</strong>.', $this->TD );
+				$this->messages[] = __( 'Please Select at least one <strong>Subject</strong>.', $this->TD );
 			}
 
 			if ( empty($this->messages) && empty($this->error) ) {
@@ -384,7 +384,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 
 
 		$student_list = new WP_Error( "Empty", __("No Student Found", $this->TD) );
-		$course_list = new WP_Error( "Empty", __("No Course Found", $this->TD) );
+		$course_list = new WP_Error( "Empty", __("No Subject Found", $this->TD) );
 		$exam_record_data = null;
 
 		//get student list, rps_exam_record table data and rps_marks table data
@@ -462,7 +462,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 				<!-- Batch Select box -->
 				<tr valign="top">
 					<th scope="row">
-						<label for="batch_id"><?php _e('Batch/Year',$this->TD); ?> * </label>
+						<label for="batch_id"><?php _e('Session',$this->TD); ?> * </label>
 					</th>
 					<td>
 						<?php if(!empty($batches)) { ?>
@@ -535,7 +535,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 									</tr>
 
 								<?php if( ! is_wp_error( $course_list ) && ! empty( $course_list ) ) { ?>
-									<tr><td colspan="3"><?php _e('Select Course', $this->TD); ?></td></tr>
+									<tr><td colspan="3"><?php _e('Select Subject', $this->TD); ?></td></tr>
 									<?php foreach ( $course_list as $course_id => $course_data ) { ?>
 										<tr>
 											<td>
@@ -546,8 +546,8 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 												}
 												?>>
 											</td>
-											<td><?php echo __( '<strong>Course Code:</strong> ', $this->TD ) . $course_data['course_code']; ?></td>
-											<td><?php echo __( '<strong>Course Name:</strong> ', $this->TD)  . $course_data['name'];  ?></td>
+											<td><?php echo __( '<strong>Subject Code:</strong> ', $this->TD ) . $course_data['course_code']; ?></td>
+											<td><?php echo __( '<strong>Subject Name:</strong> ', $this->TD)  . $course_data['name'];  ?></td>
 										</tr>
 									<?php } ?>
 

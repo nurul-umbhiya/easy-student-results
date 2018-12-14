@@ -54,10 +54,10 @@ class RPS_Helper_DBS {
             return $list[ $department_id ];
         }
         elseif ( $list === '' || $list === NULL  || empty( $list ) ) {
-            return new \WP_Error(__('Empty Results', $this->TD),sprintf(__("No records found with department id %s.", $this->TD), $department_id) );
+            return new \WP_Error(__('Empty Results', $this->TD),sprintf(__("No records found with class id %s.", $this->TD), $department_id) );
         }
         else {
-            return new \WP_Error(__('Invalid Argument', $this->TD) , __("Invalid department id.",  $this->TD));
+            return new \WP_Error(__('Invalid Argument', $this->TD) , __("Invalid class id.",  $this->TD));
         }
     }
     
@@ -70,7 +70,7 @@ class RPS_Helper_DBS {
     public function getDepartmentList($active=true) {
         $list = $this->getDepartmentData();
         if( $list === '' || $list === NULL  || empty($list)):
-            return new \WP_Error(__('Empty Results', $this->TD),__("No department found.", $this->TD));
+            return new \WP_Error(__('Empty Results', $this->TD),__("No class found.", $this->TD));
         else:
             $ret = array();
 
@@ -93,7 +93,7 @@ class RPS_Helper_DBS {
     public function getAllDepartments() {
 	    $list = $this->getDepartmentData();
 	    if( $list === '' || $list === NULL  || empty($list) ):
-		    return new \WP_Error(__('Empty Results', $this->TD),__("No department found.", $this->TD));
+		    return new \WP_Error(__('Empty Results', $this->TD),__("No class found.", $this->TD));
 	    else:
 		    return $list;
 	    endif;
@@ -168,7 +168,7 @@ class RPS_Helper_DBS {
     public function getSemesterInfoByDept($department_id) {
         $list = $this->getSemesterData();
         if( $list === '' || $list === NULL  || empty($list)) {
-            return new \WP_Error(__('Empty Results', $this->TD),sprintf(__("No semester found with department id %s.", $this->TD), $department_id ));
+            return new \WP_Error(__('Empty Results', $this->TD),sprintf(__("No term found with class id %s.", $this->TD), $department_id ));
         } elseif( RPS_Helper_Function::is_numeric($department_id) && is_array($list) && array_key_exists($department_id, $list) ) {
             return $list[$department_id];
         }
@@ -193,7 +193,7 @@ class RPS_Helper_DBS {
         $list = $this->getSemesterData();
         
         if( $list === '' || $list === NULL  || empty($list)) {
-            return new \WP_Error(__('Empty Results', $this->TD), sprintf(__("No semester found with department id %s.", $this->TD),$department_id));
+            return new \WP_Error(__('Empty Results', $this->TD), sprintf(__("No term found with class id %s.", $this->TD),$department_id));
         }
         elseif( RPS_Helper_Function::is_numeric($department_id) && RPS_Helper_Function::is_numeric($semester_id) && array_key_exists($department_id, $list)
                 && array_key_exists($semester_id, $list[$department_id]) ) {
@@ -282,15 +282,15 @@ class RPS_Helper_DBS {
             $list = $this->getBatchData($department_id);
         
             if( $list === '' || $list === NULL  || empty($list)) {
-                return new \WP_Error(__('Empty Results', $this->TD), sprintf(__("No batch found with department id %s and %s.", $this->TD), $department_id, $batch_id));
+                return new \WP_Error(__('Empty Results', $this->TD), sprintf(__("No session found with class id %s and %s.", $this->TD), $department_id, $batch_id));
             }
             elseif (is_array($list) && array_key_exists($batch_id, $list) ) {
                     return $list[$batch_id];
             } else {
-                    return new \WP_Error('Invalid Argument', __("Given argument is invalid. Please provide a valid batch id.", $this->TD));
+                    return new \WP_Error('Invalid Argument', __("Given argument is invalid. Please provide a valid session id.", $this->TD));
             }
         } else {
-            return new \WP_Error('Invalid Argument', __("Given arguments are invalid. Please provide valid department id and batch id.", $this->TD));
+            return new \WP_Error('Invalid Argument', __("Given arguments are invalid. Please provide valid class id and session id.", $this->TD));
         }
     }
     
@@ -305,7 +305,7 @@ class RPS_Helper_DBS {
         if (RPS_Helper_Function::is_numeric($department_id)) {
             $list = $this->getBatchData($department_id);
             if( $list === '' || $list === NULL  || empty($list)) {
-                return new \WP_Error(__('Empty Results', $this->TD), sprintf(__("No batch found with department id %s and %s.", $this->TD), $department_id, $batch_id));
+                return new \WP_Error(__('Empty Results', $this->TD), sprintf(__("No session found with class id %s and %s.", $this->TD), $department_id, $batch_id));
             } else {
                 $ret = array();
                 foreach ($list as $id => $row):
@@ -322,7 +322,7 @@ class RPS_Helper_DBS {
                 return $ret;
             }
         } else {
-            return new \WP_Error('Invalid Argument', __("Given Department ID is invalid. Please provide valid department ID.", $this->TD));
+            return new \WP_Error('Invalid Argument', __("Given Class ID is invalid. Please provide valid class ID.", $this->TD));
         }
     }
     
@@ -330,7 +330,7 @@ class RPS_Helper_DBS {
         if(RPS_Helper_Function::is_numeric($department_id)) {
             $list = $this->getBatchData($department_id);
             if( $list === '' || $list === NULL  || empty($list)) {
-                return new \WP_Error(__('Empty Results', $this->TD), sprintf(__("No batch found with department id %s.", $this->TD), $department_id));
+                return new \WP_Error(__('Empty Results', $this->TD), sprintf(__("No session found with class id %s.", $this->TD), $department_id));
             } else {
                 $ret = array();
                 foreach ($list as $id => $row):
@@ -352,7 +352,7 @@ class RPS_Helper_DBS {
                 return $ret;
             }
         } else {
-            return new \WP_Error('Invalid Argument', __("Given Department ID is invalid. Please provide valid department ID.", $this->TD));
+            return new \WP_Error('Invalid Argument', __("Given Class ID is invalid. Please provide valid class ID.", $this->TD));
         }
     }
     

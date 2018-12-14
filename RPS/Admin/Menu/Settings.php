@@ -134,7 +134,7 @@ class RPS_Admin_Menu_Settings  {
                 array(
                     'name'  => 'delete_data',
                     'label' => __( 'Delete All Plugins Data', $this->TD ),
-                    'desc'  => __( 'If you select this option, when you delete this plugin, all plugins data such as custom db table created by this plugin, all students data, all courses data etc will be deleted. Select this option if you want to completely remove this plugin.', $this->TD ),
+                    'desc'  => __( 'If you select this option, when you delete this plugin, all plugins data such as custom db table created by this plugin, all students data, all subjects data etc will be deleted. Select this option if you want to completely remove this plugin.', $this->TD ),
                     'type'  => 'checkbox'
                 ),
             ) ),
@@ -157,16 +157,16 @@ class RPS_Admin_Menu_Settings  {
 
                 array(
                     'name'    => 'batch_text',
-                    'label'   => __( 'Select Batch Text', $this->TD ),
-                    'desc'    => __( 'First option to dispaly on Batch Select box.', $this->TD ),
+                    'label'   => __( 'Select Session Text', $this->TD ),
+                    'desc'    => __( 'First option to display on Session Select box.', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Select Batch', $this->TD)
+                    'default' => __('Select Session', $this->TD)
                 ),
                 array(
                     'name'    => 'batch_error_text',
-                    'label'   => __( 'Batch Error Text', $this->TD ),
+                    'label'   => __( 'Session Error Text', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Please Select a Batch From List.', $this->TD)
+                    'default' => __('Please Select a Session From List.', $this->TD)
                 ),
 
                 array(
@@ -189,7 +189,7 @@ class RPS_Admin_Menu_Settings  {
                     'desc'    => __( 'Enter which Students Information to display on search results in a key:value pair, seperated by <strong>,</strong> (comma).
                                     Key will be the available fields and value will be the label (title) text. eg:roll_no:Roll No.', $this->TD ),
                     'type'    => 'textarea',
-                    'default' => 'roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Department, batch:Batch, semester:Term'
+                    'default' => 'roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Class, batch:Session, semester:Term'
                 ),
                 array(
                     'name'    => 'help_html',
@@ -232,16 +232,16 @@ class RPS_Admin_Menu_Settings  {
 
                 array(
                     'name'    => 'batch_text',
-                    'label'   => __( 'Select Batch Text', $this->TD ),
-                    'desc'    => __( 'First option to dispaly on Batch Select box.', $this->TD ),
+                    'label'   => __( 'Select Session Text', $this->TD ),
+                    'desc'    => __( 'First option to display on Session Select box.', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Batch', $this->TD)
+                    'default' => __('Session', $this->TD)
                 ),
                 array(
                     'name'    => 'batch_error_text',
-                    'label'   => __( 'Batch Error Text', $this->TD ),
+                    'label'   => __( 'Session Error Text', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Please Select a Batch From List.', $this->TD)
+                    'default' => __('Please Select a Session From List.', $this->TD)
                 ),
 
                 array(
@@ -264,7 +264,7 @@ class RPS_Admin_Menu_Settings  {
                     'desc'    => __( 'Enter which Students Information to display on result output in a key:value pair, seperated by <strong>,</strong> (comma).
                                     Key will be the available fields and value will be the label (title) text. eg:roll_no:Roll No.', $this->TD ),
                     'type'    => 'textarea',
-                    'default' => 'name:Name, roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Class, batch:Batch, semester:Term'
+                    'default' => 'name:Name, roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Class, batch:Session, semester:Term'
                 ),
 
                 array(
@@ -412,16 +412,16 @@ class RPS_Admin_Menu_Settings  {
 
                 array(
                     'name'    => 'batch_text',
-                    'label'   => __( 'Select Batch Text', $this->TD ),
-                    'desc'    => __( 'First option to dispaly on Batch Select box.', $this->TD ),
+                    'label'   => __( 'Select Session Text', $this->TD ),
+                    'desc'    => __( 'First option to dispaly on Session Select box.', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Batch', $this->TD)
+                    'default' => __('Session', $this->TD)
                 ),
                 array(
                     'name'    => 'batch_error_text',
-                    'label'   => __( 'Batch Error Text', $this->TD ),
+                    'label'   => __( 'Session Error Text', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Please Select a Batch From List.', $this->TD)
+                    'default' => __('Please Select a Session From List.', $this->TD)
                 ),
 
                 array(
@@ -444,7 +444,7 @@ class RPS_Admin_Menu_Settings  {
                     'desc'    => __( 'Enter which Students Information to display on result output in a key:value pair, seperated by <strong>,</strong> (comma).
                                     Key will be the available fields and value will be the label (title) text. eg:roll_no:Roll No.', $this->TD ),
                     'type'    => 'textarea',
-                    'default' => 'name:Name, roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Class, batch:Batch, semester:Term'
+                    'default' => 'name:Name, roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Class, batch:Session, semester:Term'
                 ),
 
                 array(

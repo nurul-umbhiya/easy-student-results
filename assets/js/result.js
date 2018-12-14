@@ -18,7 +18,7 @@ jQuery(function($) {
         $('#semester_id')
             .append($("<option></option>")
             .attr("value",'')
-            .text('Select Semester/Section'));
+            .text('Select Term'));
 
         if (i !== null) {
             $.each(i, function (key, value) {

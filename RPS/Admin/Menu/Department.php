@@ -320,7 +320,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
             $row = $wpdb->get_row($query, ARRAY_A);
             if ( is_array($row) && !empty($row) && intval( $row['cnt'] ) != 0) {
                 $error = true;
-                $this->errors[] = __('You can\'t delete this department. Class is assigned to batch. Please delete batch first to delete this department', $this->TD);
+                $this->errors[] = __('You can\'t delete this department. Class is assigned to batch. Please delete session first to delete this department', $this->TD);
             }
 
             //check department id is used with any student
@@ -372,7 +372,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
 	            $result = $wpdb->get_row( $query, ARRAY_A );
 	            if ( is_array( $result ) && ! empty( $result ) ) {
 		            $error          = true;
-		            $this->errors[] = __( 'You can\'t delete this department. Class is assigned to Courses. Please delete assigned Courses or reassign Courses to another class first to delete this department', $this->TD );
+		            $this->errors[] = __( 'You can\'t delete this department. Class is assigned to Subjects. Please delete assigned Subjects or reassign subjects to another class first to delete this department', $this->TD );
 	            }
             }
 

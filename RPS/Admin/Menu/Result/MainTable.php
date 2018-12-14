@@ -36,7 +36,7 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
             'sl'            => 'SL', //Render a checkbox instead of text
             'exam_id'       => __('Exam', $this->TD),
             'department_id' => __('Class', $this->TD),
-            'batch_id'      => __('Batch/Year', $this->TD),
+            'batch_id'      => __('Session', $this->TD),
             'semester_id'   => __('Term', $this->TD),
             'display'       => __('Display Frontend', $this->TD),
             //'active'        => __('Active', $this->TD),
@@ -212,7 +212,7 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
                 $batch_id = isset($_GET['batch_id']) ? stripslashes(trim($_GET['batch_id'])) :'';
                 ?>
                 <select name="batch_id" id="batch_id" class="postform">
-                    <option value=""><?php _e('Select Batch'); ?></option>
+                    <option value=""><?php _e('Select Session'); ?></option>
                     <?php
                     if($department_id != '' && RPS_Helper_Function::is_numeric($department_id)) {
                         $batch = isset($batches[$department_id]) ? $batches[$department_id] : '';
@@ -284,7 +284,7 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
                             $( '#batch_id' )
                                 .append($("<option></option>")
                                     .attr("value",'')
-                                    .text('Select Batch'));
+                                    .text('Select Session'));
 
                             // Add option to the select box from list
                             if ( j !== null ) {

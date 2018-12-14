@@ -70,14 +70,14 @@ class RPS_Helper_Ajax {
                             </tr>
 
                             <?php if( ! is_wp_error( $course_list ) && ! empty( $course_list ) ) { ?>
-                            <tr><td colspan="3"><?php _e('Select Course', $this->TD); ?></td></tr>
+                            <tr><td colspan="3"><?php _e('Select Subject', $this->TD); ?></td></tr>
                             <?php foreach ( $course_list as $course_id => $course_data ) { ?>
                                 <tr>
                                     <td>
                                         <input type="checkbox" name="course_id[student_<?php echo $student_id; ?>][]" value="<?php echo $course_id; ?>" checked="checked"/>
                                     </td>
-                                    <td><?php echo __( '<strong>Course Code:</strong> ', $this->TD ) . $course_data['course_code']; ?></td>
-                                    <td><?php echo __( '<strong>Course Name:</strong> ', $this->TD)  . $course_data['name'];  ?></td>
+                                    <td><?php echo __( '<strong>Subject Code:</strong> ', $this->TD ) . $course_data['course_code']; ?></td>
+                                    <td><?php echo __( '<strong>Subject Name:</strong> ', $this->TD)  . $course_data['name'];  ?></td>
                                 </tr>
                             <?php } ?>
                             </tbody>
@@ -176,8 +176,8 @@ class RPS_Helper_Ajax {
                                 <input type="checkbox" name="course_id[]" value="<?php echo $course_id; ?>">
                             </td>
                             <td>
-                                <p><?php echo __( '<strong>Course Code:</strong> ', $this->TD ) . $course_data['course_code']; ?></p>
-                                <p><?php echo __( '<strong>Course Name:</strong> ', $this->TD)  . $course_data['name'];  ?></p>
+                                <p><?php echo __( '<strong>Subject Code:</strong> ', $this->TD ) . $course_data['course_code']; ?></p>
+                                <p><?php echo __( '<strong>Subject Name:</strong> ', $this->TD)  . $course_data['name'];  ?></p>
                             </td>
                         </tr>
                         <?php

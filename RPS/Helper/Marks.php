@@ -105,7 +105,7 @@ class RPS_Helper_Marks {
                     </td>
 
                     <th>
-					    <?php _e('Department / Class', $this->TD); ?>:
+					    <?php _e('Class', $this->TD); ?>:
                     </th>
                     <td>
 					    <?php echo $dept_name; ?>
@@ -114,14 +114,14 @@ class RPS_Helper_Marks {
 
                 <tr>
                     <th>
-					    <?php _e('Batch / Year', $this->TD); ?>:
+					    <?php _e('Session', $this->TD); ?>:
                     </th>
                     <td>
 					    <?php echo $batch_name; ?>
                     </td>
 
                     <th>
-					    <?php _e('Semester / Section', $this->TD); ?>:
+					    <?php _e('Term', $this->TD); ?>:
                     </th>
                     <td>
 					    <?php echo $semester_name; ?>

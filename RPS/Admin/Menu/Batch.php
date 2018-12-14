@@ -59,7 +59,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
             
             //check for validation 
             if( !$data['name'] ) {
-                $this->error['name'] = __('Please specify a batch name.', $this->TD);
+                $this->error['name'] = __('Please specify a session name.', $this->TD);
             } else {
                 //check for unique name
             }
@@ -91,7 +91,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
                 $count = $wpdb->get_var($query);
 
                 if( 0 !== intval($count) ) {
-                    $this->error['name'] = __('Batch name already exists in database. Please enter another name.', $this->TD);
+                    $this->error['name'] = __('Session name already exists in database. Please enter another name.', $this->TD);
                 }
             }
             
@@ -133,7 +133,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
 
             //check for validation
             if( !$data['name'] ) {
-                $this->error['name'] = __('Please specify a batch name.', $this->TD);
+                $this->error['name'] = __('Please specify a session name.', $this->TD);
             } else {
                 //check for unique name
             }
@@ -155,7 +155,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
                 $count = $wpdb->get_var($query);
 
                 if( 0 !== intval($count) ) {
-                    $this->error['name'] = __('Batch name already exists in database. Please enter another name.', $this->TD);
+                    $this->error['name'] = __('Session name already exists in database. Please enter another name.', $this->TD);
                 }
             }
             
@@ -227,7 +227,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
 
 	            if ( is_array( $result ) && ! empty( $result ) ) {
 		            $error          = true;
-		            $this->errors[] = __( 'You can\'t delete this Batch. Batch is assigned to Students. Please delete assigned Students or reassign Students to another batch first to delete this batch.', $this->TD );
+		            $this->errors[] = __( 'You can\'t delete this Session. Session is assigned to Students. Please delete assigned Students or reassign Students to another session first to delete this batch.', $this->TD );
 	            }
             }
 
@@ -237,7 +237,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
 	            $result = $wpdb->get_row( $query, ARRAY_A );
 	            if ( is_array( $result ) && ! empty( $result ) ) {
 		            $error          = true;
-		            $this->errors[] = __( 'You can\'t delete this batch. Batch is assigned to Exams. Please delete assigned Exams or reassign Exams to another batch first to delete this batch', $this->TD );
+		            $this->errors[] = __( 'You can\'t delete this batch. Session is assigned to Exams. Please delete assigned Exams or reassign Exams to another session first to delete this batch', $this->TD );
 	            }
             }
 
@@ -252,7 +252,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
 		        define(RPS_Result_Management::PLUGIN_SLUG . '_delete_transient', true);
 		        RPS_Helper_Function::delete_transient();
 
-                $this->messages[] = __('Batch deleted successfully.', $this->TD);
+                $this->messages[] = __('Session deleted successfully.', $this->TD);
             }
 
             $this->listTable();
@@ -311,7 +311,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
                 <tbody>
                 <tr class="form-field form-required">
                     <th scope="row" valign="top">
-                        <label for="name"><?php _e('Batch/Year', $this->TD) ?></label>
+                        <label for="name"><?php _e('Session', $this->TD) ?></label>
                     </th>
                     <td>
                         <input name="name" id="name" type="text" size="40" aria-required="true" value="<?php echo $data['name'];   ?>" <?php //echo $readonly; ?> />
@@ -403,7 +403,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
                             <option value='1' <?php selected($data['active'], "1"); ?>><?php _e('Active', $this->TD) ?></option>
                             <option value='2' <?php selected($data['active'], "2");  ?>><?php _e('In-active', $this->TD) ?></option>
                         </select>
-                        <p><?php _e('Enable this Batch ?', $this->TD) ?></p>
+                        <p><?php _e('Enable this Session ?', $this->TD) ?></p>
                         <?php if(isset($this->error['active'])) echo '<p style="color:red;"><strong>' . $this->error['active'] . '</strong></p>';  ?>
                     </td>
                 </tr>
@@ -411,7 +411,7 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
             </table>
 
             <p class="submit">
-                <input type="submit" name="submit" id="submit" class="button button-primary" value="<?php if(isset($_REQUEST['edit'])) { echo "Edit Batch"; } else { echo  "Add New Batch";} ?>"/>
+                <input type="submit" name="submit" id="submit" class="button button-primary" value="<?php if(isset($_REQUEST['edit'])) { echo "Edit Session"; } else { echo  "Add New Session";} ?>"/>
                 <?php echo '<a href="' . esc_url_raw( add_query_arg(array('page' => $this->page),  admin_url('admin.php?')) ) .'" class="button button-secondary">' . __('Back', $this->TD) .'</a>';  ?>
             </p>
                 
@@ -462,15 +462,15 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
     
     private function get_header() {
         if(isset($_REQUEST['add_new']) && $_REQUEST['add_new'] != "") {
-            $title = __("Add New Batch", $this->TD);
+            $title = __("Add New Session", $this->TD);
             
         }
         elseif(isset ($_REQUEST['edit']) && $_REQUEST['edit'] != "") {
-            $title = __("Edit Batch", $this->TD);
+            $title = __("Edit Session", $this->TD);
         }
         else {
             $link = ' <a href="' . esc_url_raw( add_query_arg(array('add_new'=>'1', 'page'=> $this->page),  admin_url('admin.php?')) ) .'" class="add-new-h2">' . __('Add New', $this->TD) . '</a>';
-            $title = __("Batch List", $this->TD) . apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_batch_h2', $link) ;
+            $title = __("Session List", $this->TD) . apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_batch_h2', $link) ;
             
         }
     ?>
@@ -505,10 +505,10 @@ class RPS_Admin_Menu_Batch extends RPS_Admin_Menu_MenuAbstract {
 
         if(isset($_REQUEST['updated'])) {
             if($_REQUEST['updated']==1) {
-                echo '<div id="message" class="updated fade">' . __('Batch Added Successfully.', $this->TD) . '</div>';
+                echo '<div id="message" class="updated fade">' . __('Session Added Successfully.', $this->TD) . '</div>';
             }
             elseif($_REQUEST['updated']==2) {
-                echo '<div id="message" class="updated fade"><p>' . __('Batch Edited Successfully.', $this->TD) . '</p></div>';
+                echo '<div id="message" class="updated fade"><p>' . __('Session Edited Successfully.', $this->TD) . '</p></div>';
             }
         }
     }

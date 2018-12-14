@@ -136,7 +136,7 @@ final class RPS_Admin_Menu_Result_Marks {
 
 					<tr>
 						<th>
-							<?php _e('Batch / Year', $this->TD); ?>:
+							<?php _e('Session', $this->TD); ?>:
 						</th>
 						<td>
 							<?php echo $batch_name; ?>

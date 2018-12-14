@@ -176,7 +176,7 @@ final class RPS_Admin_Init_Metaboxes_Student {
             
             <tr valign="top">
                 <th scope="row">
-                    <label for="department_id"><?php _e('Department/Class',$this->TD); ?> * </label>
+                    <label for="department_id"><?php _e('Class',$this->TD); ?> * </label>
                 </th>
                 <td>
                     <?php if( !is_wp_error($departments) && is_array($departments) && !empty($departments) ): ?>
@@ -197,7 +197,7 @@ final class RPS_Admin_Init_Metaboxes_Student {
             
             <tr valign="top">
                 <th scope="row">
-                    <label for="batch_id"><?php _e('Batch/Year',$this->TD); ?> * </label>
+                    <label for="batch_id"><?php _e('Session',$this->TD); ?> * </label>
                 </th>
                 <td>
                     <?php if(!empty($batches)) { ?>
@@ -217,7 +217,7 @@ final class RPS_Admin_Init_Metaboxes_Student {
                     <p><em><?php _e('You can change as long as there is no entry for this student on result table.', $this->TD); ?></em></p>
                     <?php } else {
                         $link = '';
-                        echo __('No batch found. Please add batch first to continue.', $this->TD);
+                        echo __('No session found. Please add session first to continue.', $this->TD);
                     }
                     ?>
                 </td>
@@ -226,12 +226,12 @@ final class RPS_Admin_Init_Metaboxes_Student {
             <!-- Semester Select Box -->
             <tr valign="top">
                 <th scope="row">
-                    <label for="semester_id"><?php _e('Semester/Section',$this->TD); ?></label>
+                    <label for="semester_id"><?php _e('Term',$this->TD); ?></label>
                 </th>
                 <td>
                     <?php if(!empty($semesters)): ?>
                         <select name="student_faculty_meta[semester_id]" id="semester_id" class="">
-                            <option><?php _e('Select Semester/Section', $this->TD); ?></option>
+                            <option><?php _e('Select Term', $this->TD); ?></option>
                             <?php
                             if( $department_id != '' && RPS_Helper_Function::is_numeric($department_id) ) {
                                 $semester = isset($semesters[$department_id]) ? $semesters[$department_id] : array();
@@ -279,7 +279,7 @@ final class RPS_Admin_Init_Metaboxes_Student {
                     $('#semester_id')
                         .append($("<option></option>")
                         .attr("value",'')
-                        .text('<?php _e('Select Semester/Section', $this->TD); ?>'));
+                        .text('<?php _e('Select Term', $this->TD); ?>'));
 
                     if(i !== null){
                         $.each(i, function(key, value) {

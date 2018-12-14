@@ -29,8 +29,8 @@ class RPS_Admin_Init_Metaboxes_Course {
     
     
     public function metaBoxes() {
-        add_meta_box('course-info', __('Course Information',$this->TD), array($this,'courseInfoMeta'));
-        add_meta_box('course-details', __('Course Detailed Information',$this->TD), array($this,'courseDetailsMeta'));
+        add_meta_box('course-info', __('Subject Information',$this->TD), array($this,'courseInfoMeta'));
+        add_meta_box('course-details', __('Subject Detailed Information',$this->TD), array($this,'courseDetailsMeta'));
     }
     
     public function saveMeta( $post_id ) {
@@ -108,7 +108,7 @@ class RPS_Admin_Init_Metaboxes_Course {
         <table class="form-table">
             <tr valign="top">
                 <th scope="row">
-                    <label for="course_code"><?php _e('Course Code',$this->TD); ?> *</label>
+                    <label for="course_code"><?php _e('Subject Code',$this->TD); ?> *</label>
                 </th>
                 <td>
                     <input type="text" name="course_info_meta[course_code]" id="course_code" value="<?php echo $course_code; ?>" class="regular-text">
@@ -117,7 +117,7 @@ class RPS_Admin_Init_Metaboxes_Course {
             
             <tr valign="top">
                 <th scope="row">
-                    <label for="department_id"><?php _e('Department/Class',$this->TD); ?> *</label>
+                    <label for="department_id"><?php _e('Class',$this->TD); ?> *</label>
                 </th>
                 <td>
                     <?php if( !is_wp_error($departments) && is_array($departments) && !empty($departments) ): ?>
@@ -138,12 +138,12 @@ class RPS_Admin_Init_Metaboxes_Course {
             
             <tr valign="top">
                 <th scope="row">
-                    <label for="semester_id"><?php _e('Semester/Section',$this->TD); ?></label>
+                    <label for="semester_id"><?php _e('Term',$this->TD); ?></label>
                 </th>
                 <td>
                     <?php if(!empty($semesters)): ?>
                     <select name="course_info_meta[semester_id]" id="semester_id" class="regular-text">
-                        <option value=""><?php _e('Select Semester', $this->TD); ?></option>
+                        <option value=""><?php _e('Select Term', $this->TD); ?></option>
                         <?php
                             if( $department_id != '' && RPS_Helper_Function::is_numeric($department_id) ) {
                                 $semester = isset($semesters[$department_id]) ? $semesters[$department_id] : array();
@@ -181,7 +181,7 @@ class RPS_Admin_Init_Metaboxes_Course {
                     $('#semester_id')
                         .append($("<option></option>")
                             .attr("value",'')
-                            .text('Select Semester'));
+                            .text('Select Term'));
                     // Add option to the select box from list
                     if(i !== null) {
                         $.each(i, function(key, value) {   
@@ -233,7 +233,7 @@ class RPS_Admin_Init_Metaboxes_Course {
             
             <tr valign="top">
                 <th scope="row">
-                    <label for="course_type"><?php _e('Course Type',$this->TD); ?></label>
+                    <label for="course_type"><?php _e('Subject Type',$this->TD); ?></label>
                 </th>
                 <td>
                     <select name="course_details_meta[course_type]" id="course_type">

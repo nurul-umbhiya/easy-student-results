@@ -80,7 +80,7 @@ class RPS_Admin_Menu_Main {
     }
 
     public function batchMenu() {
-        self::$slug['batch'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Batch", $this->TD), __("Batch", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_batch',array($this,'batch'));
+        self::$slug['batch'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Session", $this->TD), __("Session", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG . '_batch',array($this,'batch'));
         add_action('load-' . self::$slug['batch'] , array($this,'loadBatch'));
 
         self::$page_hook['batch'] = RPS_Result_Management::PLUGIN_SLUG . '_batch';
