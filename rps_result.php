@@ -19,7 +19,7 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
         private static $instance;
         private $dir, $url;
 
-        const VER = 2.2;
+        const VER = 2.7;
 
         //do not change below constant
         const DS = '/';

@@ -1,0 +1,1763 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2018-08-30 21:30+0600\n"
+"PO-Revision-Date: 2018-08-30 21:33+0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.8.7.1\n"
+"X-Poedit-Basepath: ..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-SearchPath-0: RPS\n"
+"X-Poedit-SearchPath-1: rps_result.php\n"
+"X-Poedit-SearchPath-2: uninstall.php\n"
+
+#: RPS/API.php:103 RPS/API.php:300 RPS/API.php:345
+msgid "Invalid Request."
+msgstr ""
+
+#: RPS/API.php:109
+msgid "Invalid Exam Record ID."
+msgstr ""
+
+#: RPS/API.php:122 RPS/API.php:446 RPS/API.php:615
+msgid "No data found."
+msgstr ""
+
+#: RPS/API.php:180 RPS/Helper/Marks.php:140 RPS/Helper/ShortcodeResult.php:501
+msgid "SL"
+msgstr ""
+
+#: RPS/API.php:424 RPS/API.php:590 RPS/Admin/Init/PostFilters/Course.php:71
+#: RPS/Admin/Init/PostFilters/Student.php:108 RPS/Admin/Menu/BatchTable.php:130
+#: RPS/Admin/Menu/Result/MainTable.php:202 RPS/Admin/Menu/Settings.php:149
+#: RPS/DefaultOptions.php:41 RPS/Shortcodes/Result.php:195
+#: RPS/Shortcodes/StudentList.php:106 RPS/Shortcodes/StudentList.php:171
+msgid "Select Department"
+msgstr ""
+
+#: RPS/API.php:425 RPS/API.php:591 RPS/Admin/Init/PostFilters/Student.php:121
+#: RPS/Admin/Menu/Result/MainTable.php:215 RPS/Admin/Menu/Settings.php:163
+#: RPS/DefaultOptions.php:42 RPS/Shortcodes/Result.php:196
+#: RPS/Shortcodes/StudentList.php:122 RPS/Shortcodes/StudentList.php:172
+msgid "Select Batch"
+msgstr ""
+
+#: RPS/API.php:426 RPS/API.php:592 RPS/Admin/Init/Metaboxes/Course.php:146
+#: RPS/Admin/Init/PostFilters/Course.php:84
+#: RPS/Admin/Init/PostFilters/Student.php:139
+#: RPS/Admin/Menu/Result/MainTable.php:233 RPS/Admin/Menu/Settings.php:177
+#: RPS/DefaultOptions.php:43 RPS/Shortcodes/Result.php:197
+#: RPS/Shortcodes/StudentList.php:144 RPS/Shortcodes/StudentList.php:173
+msgid "Select Semester"
+msgstr ""
+
+#: RPS/API.php:427 RPS/API.php:595 RPS/Admin/Menu/Settings.php:155
+#: RPS/Admin/Menu/Settings.php:230 RPS/Admin/Menu/Settings.php:410
+#: RPS/DefaultOptions.php:44 RPS/DefaultOptions.php:60
+#: RPS/DefaultOptions.php:90 RPS/Shortcodes/Result.php:200
+#: RPS/Shortcodes/StudentList.php:174
+msgid "Please Select a Department From List."
+msgstr ""
+
+#: RPS/API.php:428 RPS/API.php:596 RPS/Admin/Menu/Settings.php:169
+#: RPS/Admin/Menu/Settings.php:244 RPS/Admin/Menu/Settings.php:424
+#: RPS/DefaultOptions.php:45 RPS/DefaultOptions.php:61
+#: RPS/DefaultOptions.php:91 RPS/Shortcodes/Result.php:201
+#: RPS/Shortcodes/StudentList.php:175
+msgid "Please Select a Batch From List."
+msgstr ""
+
+#: RPS/API.php:429 RPS/API.php:597 RPS/Admin/Menu/Settings.php:183
+#: RPS/Admin/Menu/Settings.php:258 RPS/Admin/Menu/Settings.php:438
+#: RPS/DefaultOptions.php:46 RPS/DefaultOptions.php:62
+#: RPS/DefaultOptions.php:92 RPS/Shortcodes/Result.php:202
+#: RPS/Shortcodes/StudentList.php:176
+msgid "Please Select a Semester From List."
+msgstr ""
+
+#: RPS/API.php:589 RPS/Admin/Menu/Result/MainTable.php:169
+#: RPS/Admin/Menu/Settings.php:210 RPS/Admin/Menu/Settings.php:390
+#: RPS/DefaultOptions.php:55 RPS/DefaultOptions.php:85
+#: RPS/Shortcodes/Result.php:132 RPS/Shortcodes/Result.php:194
+msgid "Select Exam"
+msgstr ""
+
+#: RPS/API.php:594 RPS/Admin/Menu/Settings.php:216
+#: RPS/Admin/Menu/Settings.php:396 RPS/DefaultOptions.php:59
+#: RPS/DefaultOptions.php:89 RPS/Shortcodes/Result.php:199
+msgid "Please Select a Exam From List."
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:32
+msgid "Course Information"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:33
+msgid "Course Detailed Information"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:111
+#: RPS/Admin/Init/PostFilters/Course.php:169
+msgid "Course Code"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:120
+#: RPS/Admin/Init/Metaboxes/Student.php:179 RPS/Admin/Menu/Batch.php:325
+#: RPS/Admin/Menu/Result/Main.php:443 RPS/Admin/Menu/Result/MainTable.php:38
+msgid "Department/Class"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:131
+#: RPS/Admin/Init/Metaboxes/Course.php:163
+msgid ""
+"You can change as long as there is no entry for this course on result table."
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:141
+#: RPS/Admin/Init/Metaboxes/Student.php:229 RPS/Admin/Init/Taxonomi.php:41
+#: RPS/Admin/Menu/Result/Main.php:492 RPS/Admin/Menu/Result/MainTable.php:40
+msgid "Semester/Section"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:165
+#: RPS/Admin/Init/Metaboxes/Student.php:248 RPS/Admin/Menu/Result/Main.php:511
+msgid "No semester/section found."
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:218 RPS/Helper/Marks.php:143
+#: RPS/Helper/Marks.php:270 RPS/Helper/Marks.php:302
+msgid "Total Marks"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:226
+msgid "Credit"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:235
+#: RPS/Admin/Init/PostFilters/Course.php:170
+msgid "Course Type"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:240 RPS/Helper/Function.php:268
+msgid "Theory"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:241 RPS/Helper/Function.php:269
+msgid "Lab"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:242 RPS/Helper/Function.php:270
+msgid "Project / Thesis"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:250
+msgid "Prerequisite Subject"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Course.php:259
+msgid "Related Theory / Lab Subject"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:32
+msgid "Faculty Information"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:33
+msgid "Personal Details"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:34
+msgid "Contact Information"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:161 RPS/Shortcodes/Result.php:237
+#: RPS/Shortcodes/Result2.php:90 RPS/Shortcodes/Result2.php:92
+msgid "Registration No"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:170
+msgid "Class Roll No"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:190
+#: RPS/Admin/Init/Metaboxes/Student.php:217
+#: RPS/Admin/Init/Metaboxes/Student.php:246
+msgid ""
+"You can change as long as there is no entry for this student on result table."
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:200 RPS/Admin/Menu/Batch.php:314
+#: RPS/Admin/Menu/Result/Main.php:465 RPS/Admin/Menu/Result/MainTable.php:39
+msgid "Batch/Year"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:220
+msgid "No batch found. Please add batch first to continue."
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:234
+#: RPS/Admin/Init/Metaboxes/Student.php:282 RPS/Admin/Menu/Result/Main.php:497
+msgid "Select Semester/Section"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:255
+msgid "Library Card"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:342
+msgid "Father's Name"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:351
+msgid "Mother's Name"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:360
+msgid "Gender"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:364
+msgid "Male"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:365
+msgid "Female"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:372
+msgid "Date of birth"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:381
+msgid "Email Address"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:390
+msgid "Contact Number"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:399
+msgid "Blood Group"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:408
+msgid "Religion"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:417
+msgid "Nationality"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:458
+msgid "Present Address"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:467
+msgid "Permanent Address"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:476
+msgid "Local Guardian Name"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:485
+msgid "Guardian Address"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:494
+msgid "Guardian Contact No"
+msgstr ""
+
+#: RPS/Admin/Init/Metaboxes/Student.php:503
+msgid "Guardian Email Address"
+msgstr ""
+
+#: RPS/Admin/Init/PostFilters/Course.php:168
+msgid "Course Title"
+msgstr ""
+
+#: RPS/Admin/Init/PostFilters/Course.php:171 RPS/Admin/Menu/Main.php:75
+#: RPS/Admin/Menu/Settings.php:224 RPS/Admin/Menu/Settings.php:404
+#: RPS/DefaultOptions.php:56 RPS/DefaultOptions.php:86
+#: RPS/Shortcodes/Result.php:148
+msgid "Department"
+msgstr ""
+
+#: RPS/Admin/Init/PostFilters/Course.php:172 RPS/Admin/Init/Taxonomi.php:42
+#: RPS/Admin/Menu/Settings.php:252 RPS/Admin/Menu/Settings.php:432
+#: RPS/DefaultOptions.php:58 RPS/DefaultOptions.php:88
+#: RPS/Shortcodes/Result.php:174
+msgid "Semester"
+msgstr ""
+
+#: RPS/Admin/Init/PostFilters/Course.php:209
+#: RPS/Admin/Init/PostFilters/Course.php:217
+#: RPS/Admin/Init/PostFilters/Student.php:294
+#: RPS/Admin/Init/PostFilters/Student.php:302
+#: RPS/Admin/Init/PostFilters/Student.php:310
+#: RPS/Admin/Menu/Result/MainTable.php:101 RPS/Admin/Menu/Result/Marks.php:103
+#: RPS/Helper/Function.php:278 RPS/Helper/Marks.php:91
+msgid "N/A"
+msgstr ""
+
+#: RPS/Admin/Init/PostFilters/Course.php:248
+msgid "Course Name is required."
+msgstr ""
+
+#: RPS/Admin/Init/PostFilters/Course.php:249
+msgid "Course Code is required."
+msgstr ""
+
+#: RPS/Admin/Init/PostFilters/Course.php:250
+msgid "Department ID is required."
+msgstr ""
+
+#: RPS/Admin/Init/PostFilters/Course.php:258
+msgid "* Enter Course Name Here"
+msgstr ""
+
+#: RPS/Admin/Init/PostFilters/Student.php:68
+msgid "Student Name is required."
+msgstr ""
+
+#: RPS/Admin/Init/PostFilters/Student.php:69
+msgid "Student Registration Number is required."
+msgstr ""
+
+#: RPS/Admin/Init/PostFilters/Student.php:70
+msgid "Student Roll Number is required."
+msgstr ""
+
+#: RPS/Admin/Init/PostFilters/Student.php:71
+msgid "Student Department is required."
+msgstr ""
+
+#: RPS/Admin/Init/PostFilters/Student.php:72
+msgid "Student Batch is required."
+msgstr ""
+
+#: RPS/Admin/Init/PostFilters/Student.php:80
+msgid "Enter Student Name Here"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:43
+msgid "Student Photo"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:62
+msgid ""
+"You are not authorized to delete this post. Entry exist on result table."
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:117
+msgid "Courses"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:118
+msgid "Course"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:120
+msgid "Add Course"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:121
+msgid "Add New course"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:122 RPS/Admin/Init/PostType.php:161
+#: RPS/Admin/Init/Taxonomi.php:54 RPS/Admin/Menu/Department.php:548
+msgid "Edit"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:123
+msgid "Edit Course"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:124
+msgid "New Course"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:125 RPS/Admin/Init/PostType.php:126
+msgid "View Course"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:127
+msgid "Search Courses"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:128
+msgid "No Courses found"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:129
+msgid "No Courses found in trash"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:130
+msgid "Parent Course"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:133
+msgid "This is where you can add new courses."
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:156
+msgid "Students"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:157
+msgid "Student"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:159
+msgid "Add Student"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:160
+msgid "Add New Student"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:162
+msgid "Edit Student"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:163
+msgid "New Student"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:164 RPS/Admin/Init/PostType.php:165
+msgid "View Student"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:166
+msgid "Search Students"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:167
+msgid "No Students found"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:168
+msgid "No Students found in trash"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:169
+msgid "Parent Student"
+msgstr ""
+
+#: RPS/Admin/Init/PostType.php:172
+msgid "This is where you can add new Students."
+msgstr ""
+
+#: RPS/Admin/Init/Taxonomi.php:50 RPS/Shortcodes/Result.php:184
+#: RPS/Shortcodes/StudentList.php:162
+msgid "Search"
+msgstr ""
+
+#: RPS/Admin/Init/Taxonomi.php:51
+msgid "All"
+msgstr ""
+
+#: RPS/Admin/Init/Taxonomi.php:52 RPS/Admin/Init/Taxonomi.php:53
+msgid "Parent"
+msgstr ""
+
+#: RPS/Admin/Init/Taxonomi.php:55 RPS/Helper/Marks.php:378
+msgid "Update"
+msgstr ""
+
+#: RPS/Admin/Init/Taxonomi.php:56 RPS/Admin/Menu/Batch.php:472
+#: RPS/Admin/Menu/Exams.php:349 RPS/Admin/Menu/Grade.php:358
+#: RPS/Admin/Menu/Result/Main.php:642
+msgid "Add New"
+msgstr ""
+
+#: RPS/Admin/Init/Taxonomi.php:57
+msgid "New"
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:62 RPS/Admin/Menu/Batch.php:136
+msgid "Please specify a batch name."
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:68
+msgid "Please select a department from above list."
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:78 RPS/Admin/Menu/Batch.php:142
+msgid "Please select a month for session from avobe list."
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:82 RPS/Admin/Menu/Batch.php:146
+msgid "Please select a year for session from avobe list."
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:94 RPS/Admin/Menu/Batch.php:158
+msgid "Batch name already exists in database. Please enter another name."
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:114
+msgid "Somethis went wrong!"
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:186
+#, php-format
+msgid "No records found with id %s"
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:230
+msgid ""
+"You can't delete this Batch. Batch is assigned to Students. Please delete "
+"assigned Students or reassign Students to another batch first to delete this "
+"batch."
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:240
+msgid ""
+"You can't delete this batch. Batch is assigned to Exams. Please delete "
+"assigned Exams or reassign Exams to another batch first to delete this batch"
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:255
+msgid "Batch deleted successfully."
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:318
+msgid "The short name of batch/section, eg. 1st, Section A etc."
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:343
+msgid "Select Department/Class From List."
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:351
+msgid "Session"
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:392
+msgid "Enter Session. eg. Month - Year"
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:399 RPS/Admin/Menu/Batch.php:403
+#: RPS/Admin/Menu/Department.php:486 RPS/Admin/Menu/Department.php:516
+#: RPS/Admin/Menu/Department.php:525 RPS/Admin/Menu/ExamTable.php:37
+#: RPS/Admin/Menu/Exams.php:303 RPS/Admin/Menu/Exams.php:307
+#: RPS/Admin/Menu/Grade.php:247 RPS/Admin/Menu/Grade.php:251
+#: RPS/Admin/Menu/GradeTable.php:37 RPS/Admin/Menu/Result/Main.php:589
+#: RPS/Admin/Menu/Result/Main.php:593 RPS/Admin/Menu/Result/MainTable.php:115
+#: RPS/Admin/Menu/Result/MarksTable.php:105
+msgid "Active"
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:404 RPS/Admin/Menu/Department.php:487
+msgid "In-active"
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:406
+msgid "Enable this Batch ?"
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:415 RPS/Admin/Menu/Exams.php:319
+#: RPS/Admin/Menu/Grade.php:263 RPS/Admin/Menu/Grade.php:310
+#: RPS/Admin/Menu/Grade.php:326 RPS/Admin/Menu/Result/Main.php:606
+#: RPS/Admin/Menu/Result/MarksTable.php:147 RPS/Helper/Function.php:140
+#: RPS/Helper/Marks.php:379 RPS/Helper/ShortcodeResult.php:444
+msgid "Back"
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:465
+msgid "Add New Batch"
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:469
+msgid "Edit Batch"
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:473
+msgid "Batch List"
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:508
+msgid "Batch Added Successfully."
+msgstr ""
+
+#: RPS/Admin/Menu/Batch.php:511
+msgid "Batch Edited Successfully."
+msgstr ""
+
+#: RPS/Admin/Menu/BatchTable.php:53 RPS/Admin/Menu/ExamTable.php:56
+#: RPS/Admin/Menu/GradeTable.php:55 RPS/Admin/Menu/Result/MainTable.php:65
+#, php-format
+msgid "<a href=\"?page=%s&edit=%s\" class=\"edit\">Edit</a>"
+msgstr ""
+
+#: RPS/Admin/Menu/BatchTable.php:54
+#, php-format
+msgid ""
+"<a href=\"%s\" data-batch_id=\"%d\" data-batch_name=\"%s\" class=\"delete "
+"delete_batch batch_id_%s\">Delete</a>"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:157 RPS/Admin/Menu/Department.php:235
+msgid "Please specify a department name."
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:160 RPS/Admin/Menu/Department.php:243
+msgid "Department name already exists in database."
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:163
+msgid "Please specify a department slug."
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:167
+#, php-format
+msgid "Slug \"%s\" is too long (28 characters max). Shorten it, please."
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:169
+#, php-format
+msgid ""
+"Slug \"%s\" is not allowed because it is a reserved term. Change it, please."
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:174
+#, php-format
+msgid "Slug \"%s\" is already in use. Change it, please."
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:198
+msgid "Department Added Successfully..."
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:208
+msgid "Something went wrong."
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:262
+msgid "Department Updated Successfully."
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:298
+#, php-format
+msgid "No records found with id %d"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:323
+msgid ""
+"You can't delete this department. Department is assigned to batch. Please "
+"delete batch first to delete this department"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:348
+msgid ""
+"You can't delete this department. Department is assigned to Students. Please "
+"delete assigned Students or reassign Students to another department first to "
+"delete this department"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:375
+msgid ""
+"You can't delete this department. Department is assigned to Courses. Please "
+"delete assigned Courses or reassign Courses to another department first to "
+"delete this department"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:385
+msgid ""
+"You can't delete this department. Department is assigned to Exams. Please "
+"delete assigned Exams or reassign Exams to another department first to "
+"delete this department"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:405
+msgid "Department/Class deleted successfully."
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:445
+msgid "Add New Department/Class"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:450
+msgid "Department/Class Name"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:452
+msgid ""
+"The short name of department or class, use Uppercase letters with no space. "
+"eg CSE"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:457
+msgid "Department/Class Slug"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:459
+msgid ""
+"The \"slug\" is the URL-friendly version of the name. It is usually all "
+"lowercase and contains only letters, numbers, and underscore. <strong>Leave "
+"blank for lowercase version of your department name.</strong> eg. cse"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:464
+msgid "Full Name"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:466
+msgid "eg. Computer Science & Engineering"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:471
+msgid "Description"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:473
+msgid "Write a short description about department."
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:477
+msgid "Total Credit"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:479
+msgid "Total credit to complete."
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:489
+msgid "Enable this department?"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:494
+msgid "Edit Department"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:494
+msgid "Add New Department"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:495
+msgid "Cancel"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:514 RPS/Admin/Menu/Department.php:523
+#: RPS/Shortcodes/Result.php:235
+msgid "Name"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:515 RPS/Admin/Menu/Department.php:524
+msgid "Semesters/Section"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:536
+msgid "No Department/Class Found."
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:549 RPS/Admin/Menu/Grade.php:325
+#: RPS/Admin/Menu/Result/MainTable.php:125
+msgid "Delete"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:581
+msgid "Configure Semester"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:619
+msgid "Department/Class List"
+msgstr ""
+
+#: RPS/Admin/Menu/Department.php:647 RPS/Admin/Menu/ExamTable.php:38
+#: RPS/Admin/Menu/Exams.php:371 RPS/Admin/Menu/GradeTable.php:38
+msgid "Updated"
+msgstr ""
+
+#: RPS/Admin/Menu/ExamTable.php:33 RPS/Admin/Menu/Exams.php:223
+msgid "Exam Name"
+msgstr ""
+
+#: RPS/Admin/Menu/ExamTable.php:34
+msgid "Month"
+msgstr ""
+
+#: RPS/Admin/Menu/ExamTable.php:35
+msgid "Year"
+msgstr ""
+
+#: RPS/Admin/Menu/ExamTable.php:36 RPS/Admin/Menu/Result/MainTable.php:41
+msgid "Display Frontend"
+msgstr ""
+
+#: RPS/Admin/Menu/ExamTable.php:57
+#, php-format
+msgid ""
+"<a href=\"%s\" data-exam_id=\"%d\" data-exam_name=\"%s\" class=\"delete "
+"delete_exam exam_id_%s\">Delete</a>"
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:64 RPS/Admin/Menu/Exams.php:112
+msgid "Please Enter Exam Name."
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:72 RPS/Admin/Menu/Exams.php:120
+msgid ""
+"Exam name already exist... Please enter another exam name or exam month or "
+"exam year."
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:81
+msgid "Exam Inserted Successfully."
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:131
+msgid "Exam Updated Successfully."
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:135
+msgid "Nothing is updated"
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:227
+msgid ""
+"This name will be displayed on frontend search form and other places. Exam "
+"name should be unique. eg Exam 2015"
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:234
+msgid "Exam Month"
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:260
+msgid "Select Exam Month"
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:266
+msgid "Select Exam Year"
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:283
+msgid "Exam Year"
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:290
+msgid "Display on frontend Search Box"
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:294 RPS/Admin/Menu/Result/Main.php:579
+#: RPS/Admin/Menu/Result/MainTable.php:108
+#: RPS/Admin/Menu/Result/MarksTable.php:98
+msgid "Show"
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:295 RPS/Admin/Menu/Result/Main.php:580
+#: RPS/Admin/Menu/Result/MainTable.php:110
+#: RPS/Admin/Menu/Result/MarksTable.php:100
+msgid "Hide"
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:297
+msgid "Show/Hide exam on frontend search box."
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:308 RPS/Admin/Menu/Grade.php:252
+#: RPS/Admin/Menu/Result/Main.php:594 RPS/Admin/Menu/Result/MainTable.php:117
+#: RPS/Admin/Menu/Result/MarksTable.php:107
+msgid "Inactive"
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:310
+msgid "If status is <strong>Active</strong>, you can add result for this exam."
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:318
+msgid "Update Exam"
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:318 RPS/Admin/Menu/Exams.php:342
+msgid "Add New Exam"
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:346
+msgid "Edit Exam"
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:350
+msgid "Exam Lists "
+msgstr ""
+
+#: RPS/Admin/Menu/Exams.php:375 RPS/Admin/Menu/Result/Main.php:689
+msgid "<p>Exam Deleted Successfully.</p>"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:65 RPS/Admin/Menu/Grade.php:130
+msgid "Please Enter Grade."
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:72 RPS/Admin/Menu/Grade.php:136
+msgid "Grade already exist. Please enter another grade."
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:81 RPS/Admin/Menu/Grade.php:150
+msgid "Grade Point already exist. Please enter another Grade Point."
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:87 RPS/Admin/Menu/Grade.php:145
+msgid ""
+"Grade Point  should be a numeric value and should be greate than or equal to "
+"zero"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:98
+msgid "Grade Inserted Successfully."
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:205 RPS/Admin/Menu/GradeTable.php:33
+msgid "Alphabetic Grade"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:209
+msgid "Grade should be unique. eg A+, A, B+, B etc"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:216 RPS/Admin/Menu/GradeTable.php:34
+msgid "Marks"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:220
+msgid "Enter marks range for this grade. eg: 80 - 100, 75 - 79 etc"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:226 RPS/Admin/Menu/GradeTable.php:35
+#: RPS/Helper/Marks.php:147
+msgid "Grade Point"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:230
+msgid ""
+"Enter grade poing. eg: 4.0, 3.7 etc. Grade point must be a numeric value."
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:237 RPS/Admin/Menu/GradeTable.php:36
+msgid "Grade Classification"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:241
+msgid "Enter grade classification here if exist."
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:254 RPS/Admin/Menu/Result/Main.php:596
+msgid ""
+"If status is <strong>Active</strong>, you will view this grade to add result "
+"page. If status is <strong>Inactive</strong> this grade will be hidden."
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:262
+msgid "Update Grade"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:262 RPS/Admin/Menu/Grade.php:351
+msgid "Add New Grade"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:275
+msgid "Invalid Entry"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:307
+msgid ""
+"Grade ID Exist on Result Table. You can't delete this record until you "
+"delete record on result table."
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:319 RPS/Admin/Menu/Grade.php:323
+msgid "Are you sure you want to delete this grade?"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:354
+msgid "Edit Grade"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:356
+msgid "Delete Grade"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:359
+msgid "Grade Lists "
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:382 RPS/Admin/Menu/Result/Main.php:684
+msgid "<p>Updated</p>"
+msgstr ""
+
+#: RPS/Admin/Menu/Grade.php:387
+msgid "<p>Grade Deleted.</p>"
+msgstr ""
+
+#: RPS/Admin/Menu/GradeTable.php:32
+msgid "Grade ID"
+msgstr ""
+
+#: RPS/Admin/Menu/GradeTable.php:56
+#, php-format
+msgid "<a href=\"?page=%s&delete=%s\" class=\"delete\">Delete</a>"
+msgstr ""
+
+#: RPS/Admin/Menu/Main.php:71 RPS/Admin/Menu/Main.php:75
+#: RPS/Admin/Menu/Main.php:83 RPS/Admin/Menu/Main.php:90
+#: RPS/Admin/Menu/Main.php:97 RPS/Admin/Menu/Main.php:104
+#: RPS/Admin/Menu/Main.php:111 RPS/Admin/Menu/Settings.php:30
+msgid "Easy Student Results"
+msgstr ""
+
+#: RPS/Admin/Menu/Main.php:71
+msgid "Student Results"
+msgstr ""
+
+#: RPS/Admin/Menu/Main.php:83 RPS/Admin/Menu/Settings.php:238
+#: RPS/Admin/Menu/Settings.php:418 RPS/DefaultOptions.php:57
+#: RPS/DefaultOptions.php:87 RPS/Shortcodes/Result.php:161
+msgid "Batch"
+msgstr ""
+
+#: RPS/Admin/Menu/Main.php:90
+msgid "Grade / Division"
+msgstr ""
+
+#: RPS/Admin/Menu/Main.php:90 RPS/Helper/Marks.php:146
+msgid "Grade"
+msgstr ""
+
+#: RPS/Admin/Menu/Main.php:97
+msgid "Exams"
+msgstr ""
+
+#: RPS/Admin/Menu/Main.php:104
+msgid "Results"
+msgstr ""
+
+#: RPS/Admin/Menu/Main.php:111
+msgid "Premium AddOns"
+msgstr ""
+
+#: RPS/Admin/Menu/PremiumAddOns.php:103
+msgid "Price: $"
+msgstr ""
+
+#: RPS/Admin/Menu/PremiumAddOns.php:104
+msgid "Buy Now"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:80
+msgid "Exam field is required. Please select a exam from list."
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:86
+msgid "Department is required. Please select a department from list."
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:92
+msgid "Batch id is required. Please select a batch id from list."
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:109
+msgid ""
+"Exam records already exists on database. Please check Exam, Department and "
+"Batch."
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:114 RPS/Admin/Menu/Result/Main.php:212
+msgid "Please select at least one <strong>Student</strong>."
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:118 RPS/Admin/Menu/Result/Main.php:216
+msgid "Please Select at least one <strong>Course</strong>."
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:159
+msgid "Exam Record Inserted Successfully."
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:386
+msgid "No Student Found"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:387
+msgid "No Course Found"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:418 RPS/Admin/Menu/Result/MainTable.php:37
+#: RPS/Admin/Menu/Result/Marks.php:123 RPS/Helper/Marks.php:101
+msgid "Exam"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:431
+#, php-format
+msgid "Please create a <a href=\"%s\">exam</a> first."
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:435
+msgid "Select Exam From List"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:483
+msgid "No batch/section found."
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:533 RPS/Admin/Menu/Result/MarksTable.php:47
+#: RPS/Helper/Ajax.php:68 RPS/Helper/Marks.php:542
+msgid "Student Name"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:534 RPS/Helper/Ajax.php:69
+#: RPS/Shortcodes/Result.php:236 RPS/Shortcodes/Result2.php:90
+#: RPS/Shortcodes/Result2.php:92
+msgid "Roll No"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:538 RPS/Helper/Ajax.php:73
+msgid "Select Course"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:549 RPS/Helper/Ajax.php:79
+#: RPS/Helper/Ajax.php:179
+msgid "<strong>Course Code:</strong> "
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:550 RPS/Helper/Ajax.php:80
+#: RPS/Helper/Ajax.php:180
+msgid "<strong>Course Name:</strong> "
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:555 RPS/Helper/Ajax.php:87
+msgid "No course found."
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:565 RPS/Helper/Ajax.php:97
+#: RPS/Shortcodes/Result.php:276
+msgid "No Students found."
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:575
+msgid "Display on frontend Search Result"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:582
+msgid "Show/Hide exam on frontend search result."
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:605
+msgid "Update Exam Record"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:605 RPS/Admin/Menu/Result/Main.php:645
+msgid "Add New Exam Record"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:648
+msgid "Edit Exam Record"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:651 RPS/Admin/Menu/Result/MainTable.php:124
+#: RPS/Admin/Menu/Result/MarksTable.php:68
+#: RPS/Admin/Menu/Result/MarksTable.php:91
+msgid "Add Marks"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:654
+msgid "Student List"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Main.php:658
+msgid "Exam Record List"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/MainTable.php:44
+#: RPS/Admin/Menu/Result/MarksTable.php:50
+msgid "Actions"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Marks.php:79 RPS/Admin/Menu/Result/Marks.php:107
+msgid "Invalid Exam Record ID"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Marks.php:130 RPS/Helper/Marks.php:108
+msgid "Department / Class"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Marks.php:139 RPS/Helper/Marks.php:117
+msgid "Batch / Year"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/Marks.php:146 RPS/Helper/Marks.php:124
+msgid "Semester / Section"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/MarksTable.php:48 RPS/Helper/Marks.php:543
+msgid "Roll Number"
+msgstr ""
+
+#: RPS/Admin/Menu/Result/MarksTable.php:49 RPS/Helper/Marks.php:544
+msgid "Registration Number"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:30 RPS/Admin/Menu/Settings.php:37
+msgid "Settings"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:60
+msgid "General Settings"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:64
+msgid "Shortcode Student"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:68
+msgid "Shortcode Result"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:72
+msgid "API"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:76
+msgid "License"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:97
+msgid "Who Can View <em>Student Results</em> Menu"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:98
+msgid "Select User Role here. Default is Administrator"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:110
+msgid "Disable Bootstrap CSS"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:111
+msgid "Disable Bootstrap CSS on Frontend"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:116
+msgid "Disable Bootstrap JS"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:117
+msgid "Disable Bootstrap JS on Frontend"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:122
+msgid "Disable Auto-Calculating Total Marks?"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:123
+msgid ""
+"If you want to disable auto-calculating Total Marks value in marks window, "
+"uncheck this button"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:129
+msgid "Disable Auto-Calculating Percentage?"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:130
+msgid ""
+"If you want to disable auto-calculating percentage value in marks window, "
+"uncheck this button"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:136
+msgid "Delete All Plugins Data"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:137
+msgid ""
+"If you select this option, when you delete this plugin, all plugins data "
+"such as custom db table created by this plugin, all students data, all "
+"courses data etc will be deleted. Select this option if you want to "
+"completely remove this plugin."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:146 RPS/Admin/Menu/Settings.php:221
+#: RPS/Admin/Menu/Settings.php:401
+msgid "Select Department Text"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:147 RPS/Admin/Menu/Settings.php:222
+#: RPS/Admin/Menu/Settings.php:402
+msgid "First option to dispaly on Department Select box."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:153 RPS/Admin/Menu/Settings.php:228
+#: RPS/Admin/Menu/Settings.php:408
+msgid "Department Error Text"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:160 RPS/Admin/Menu/Settings.php:235
+#: RPS/Admin/Menu/Settings.php:415
+msgid "Select Batch Text"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:161 RPS/Admin/Menu/Settings.php:236
+#: RPS/Admin/Menu/Settings.php:416
+msgid "First option to dispaly on Batch Select box."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:167 RPS/Admin/Menu/Settings.php:242
+#: RPS/Admin/Menu/Settings.php:422
+msgid "Batch Error Text"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:174 RPS/Admin/Menu/Settings.php:249
+#: RPS/Admin/Menu/Settings.php:429
+msgid "Select Semester Text"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:175 RPS/Admin/Menu/Settings.php:250
+#: RPS/Admin/Menu/Settings.php:430
+msgid "First option to dispaly on Semester Select box."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:181 RPS/Admin/Menu/Settings.php:256
+#: RPS/Admin/Menu/Settings.php:436
+msgid "Semester Error Text"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:188 RPS/Admin/Menu/Settings.php:443
+msgid "Student Information"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:189
+msgid ""
+"Enter which Students Information to display on search results in a key:value "
+"pair, seperated by <strong>,</strong> (comma).\n"
+"                                    Key will be the available fields and "
+"value will be the label (title) text. eg:roll_no:Roll No."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:196
+msgid "Available Fields"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:207 RPS/Admin/Menu/Settings.php:387
+msgid "Select Exam Text"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:208 RPS/Admin/Menu/Settings.php:388
+msgid "First option to dispaly on Exams Select box."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:214 RPS/Admin/Menu/Settings.php:394
+msgid "Exam Error Text"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:263
+msgid "Student Informations"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:264 RPS/Admin/Menu/Settings.php:444
+msgid ""
+"Enter which Students Information to display on result output in a key:value "
+"pair, seperated by <strong>,</strong> (comma).\n"
+"                                    Key will be the available fields and "
+"value will be the label (title) text. eg:roll_no:Roll No."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:272 RPS/Admin/Menu/Settings.php:452
+msgid "Available Student Fields"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:282 RPS/Admin/Menu/Settings.php:461
+msgid "Subject Fields"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:283 RPS/Admin/Menu/Settings.php:462
+msgid ""
+"Enter which Subject Information to display on result output in a key:value "
+"pair, seperated by <strong>,</strong> (comma).\n"
+"                                    Key will be the available fields and "
+"value will be the label (title) text. eg:roll_no:Roll No."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:290 RPS/Admin/Menu/Settings.php:469
+msgid "Available Subject Fields"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:297 RPS/Admin/Menu/Settings.php:476
+msgid "Result fields"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:298 RPS/Admin/Menu/Settings.php:477
+msgid ""
+"Enter which Result Information to display on result output in a key:value "
+"pair, seperated by <strong>,</strong> (comma).\n"
+"                                    Key will be the available fields and "
+"value will be the label (title) text. eg:roll_no:Roll No."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:305 RPS/Admin/Menu/Settings.php:484
+msgid "Available Result Fields"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:312
+msgid "Show Print Result Button"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:313
+msgid "Show Print result button on search page."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:319
+msgid "Print Button Text"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:321 RPS/DefaultOptions.php:67
+msgid "Print Result"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:326
+msgid "Print Header Section"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:327
+msgid ""
+"Institution name, address etc for Print version of result page. You can use "
+"HTML Tags and CSS styling here. Leave this field blank if you don't want to "
+"include header section for print version of result."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:334
+msgid "Print Footer Section"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:335
+msgid ""
+"You can use HTML Tags and CSS styling here. Leave this field blank if you "
+"don't want to include footer text for print version of result."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:342
+msgid "Custom CSS"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:343
+msgid "If you want to change css styling you can do it from here."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:350
+msgid "Display Header/footer with Result ?"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:351
+msgid ""
+"Check this box if you want to display above header footer while displaying "
+"result."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:357
+msgid "Hide Search Field"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:358
+msgid ""
+"If you want to hide search fields while displaying result, you can tick this "
+"checkbox"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:363
+msgid "Show Student Image"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:364
+msgid ""
+"If you want to display Student Image on Result Page, tick this checkbox."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:370
+msgid "Image Size"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:371
+msgid "Select image size for student image."
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:381
+msgid "Enable API"
+msgstr ""
+
+#: RPS/Admin/Menu/Settings.php:382
+msgid "Enable API for Mobile Apps"
+msgstr ""
+
+#: RPS/Helper/Ajax.php:156
+msgid "<strong>Name:</strong> "
+msgstr ""
+
+#: RPS/Helper/Ajax.php:157
+msgid "<strong>Roll:</strong> "
+msgstr ""
+
+#: RPS/Helper/Ajax.php:157
+msgid "<strong>Registration Number:</strong> "
+msgstr ""
+
+#: RPS/Helper/Course.php:41
+msgid ""
+"Given 'Department ID' is invalid. No data found associated with this ID. "
+"Please check your input."
+msgstr ""
+
+#: RPS/Helper/Course.php:103
+msgid "No record is associated with given Department_ID"
+msgstr ""
+
+#: RPS/Helper/Course.php:145 RPS/Helper/Course.php:157
+#: RPS/Helper/Course.php:248 RPS/Helper/Course.php:262
+#: RPS/Helper/Course.php:270
+msgid "Given arguments are invalid."
+msgstr ""
+
+#: RPS/Helper/Course.php:197
+msgid "Given post ID is invalid. Please provide a valid Course ID."
+msgstr ""
+
+#: RPS/Helper/Course.php:220
+msgid "Given argument is invalid. Please provide a valid Course ID."
+msgstr ""
+
+#: RPS/Helper/DBS.php:57 RPS/Helper/DBS.php:73 RPS/Helper/DBS.php:96
+#: RPS/Helper/DBS.php:171 RPS/Helper/DBS.php:196 RPS/Helper/DBS.php:285
+#: RPS/Helper/DBS.php:308 RPS/Helper/DBS.php:333
+msgid "Empty Results"
+msgstr ""
+
+#: RPS/Helper/DBS.php:57
+#, php-format
+msgid "No records found with department id %s."
+msgstr ""
+
+#: RPS/Helper/DBS.php:60 RPS/Helper/DBS.php:176 RPS/Helper/DBS.php:203
+#: RPS/Helper/DBS.php:229
+msgid "Invalid Argument"
+msgstr ""
+
+#: RPS/Helper/DBS.php:60
+msgid "Invalid department id."
+msgstr ""
+
+#: RPS/Helper/DBS.php:73 RPS/Helper/DBS.php:96
+msgid "No department found."
+msgstr ""
+
+#: RPS/Helper/DBS.php:171 RPS/Helper/DBS.php:196
+#, php-format
+msgid "No semester found with department id %s."
+msgstr ""
+
+#: RPS/Helper/DBS.php:176
+msgid "Please provide valid department_id"
+msgstr ""
+
+#: RPS/Helper/DBS.php:203
+msgid "Please provide valid department_id and semester_id"
+msgstr ""
+
+#: RPS/Helper/DBS.php:229
+msgid "Given argument is invalid. Please provide a valid department_id"
+msgstr ""
+
+#: RPS/Helper/DBS.php:285 RPS/Helper/DBS.php:308
+#, php-format
+msgid "No batch found with department id %s and %s."
+msgstr ""
+
+#: RPS/Helper/DBS.php:290
+msgid "Given argument is invalid. Please provide a valid batch id."
+msgstr ""
+
+#: RPS/Helper/DBS.php:293
+msgid ""
+"Given arguments are invalid. Please provide valid department id and batch id."
+msgstr ""
+
+#: RPS/Helper/DBS.php:325 RPS/Helper/DBS.php:355
+msgid "Given Department ID is invalid. Please provide valid department ID."
+msgstr ""
+
+#: RPS/Helper/DBS.php:333
+#, php-format
+msgid "No batch found with department id %s."
+msgstr ""
+
+#: RPS/Helper/Function.php:187
+msgid "January"
+msgstr ""
+
+#: RPS/Helper/Function.php:191
+msgid "February"
+msgstr ""
+
+#: RPS/Helper/Function.php:195
+msgid "March"
+msgstr ""
+
+#: RPS/Helper/Function.php:199
+msgid "April"
+msgstr ""
+
+#: RPS/Helper/Function.php:203
+msgid "May"
+msgstr ""
+
+#: RPS/Helper/Function.php:207
+msgid "June"
+msgstr ""
+
+#: RPS/Helper/Function.php:211
+msgid "July"
+msgstr ""
+
+#: RPS/Helper/Function.php:215
+msgid "August"
+msgstr ""
+
+#: RPS/Helper/Function.php:219
+msgid "September"
+msgstr ""
+
+#: RPS/Helper/Function.php:223
+msgid "October"
+msgstr ""
+
+#: RPS/Helper/Function.php:227
+msgid "November"
+msgstr ""
+
+#: RPS/Helper/Function.php:231
+msgid "December"
+msgstr ""
+
+#: RPS/Helper/Marks.php:39
+msgid "Invalid Exam Record ID. Please Check your input values."
+msgstr ""
+
+#: RPS/Helper/Marks.php:46
+msgid "Invalid Student ID. Please check your input values."
+msgstr ""
+
+#: RPS/Helper/Marks.php:141
+msgid "Subject Name"
+msgstr ""
+
+#: RPS/Helper/Marks.php:142
+msgid "Subject Code"
+msgstr ""
+
+#: RPS/Helper/Marks.php:144 RPS/Helper/Marks.php:271 RPS/Helper/Marks.php:303
+msgid "Marks Obtained"
+msgstr ""
+
+#: RPS/Helper/Marks.php:145 RPS/Helper/Marks.php:272
+msgid "Percentage"
+msgstr ""
+
+#: RPS/Helper/Marks.php:273
+msgid "Final Grade"
+msgstr ""
+
+#: RPS/Helper/Marks.php:274
+msgid "CGPA"
+msgstr ""
+
+#: RPS/Helper/Marks.php:275
+msgid "Final Result"
+msgstr ""
+
+#: RPS/Helper/Result.php:87
+msgid "No exams found on database."
+msgstr ""
+
+#: RPS/Helper/Result.php:209
+msgid "Invalid Argument Supplied."
+msgstr ""
+
+#: RPS/Helper/Result.php:215
+msgid "No Exam Record Found."
+msgstr ""
+
+#: RPS/Helper/Result.php:221
+msgid "No results found on database."
+msgstr ""
+
+#: RPS/Helper/ShortcodeResult.php:24
+msgid "Please Check Constructor values"
+msgstr ""
+
+#: RPS/Helper/ShortcodeResult.php:299 RPS/Helper/ShortcodeResult.php:525
+msgid "No result found."
+msgstr ""
+
+#: RPS/Helper/Student.php:152
+msgid "No Student found."
+msgstr ""
+
+#: RPS/Helper/Student.php:187 RPS/Helper/Student.php:215
+msgid "Given arguments are invalid. Please provide valid argument."
+msgstr ""
+
+#: RPS/Helper/Student.php:244
+msgid "Given arguments are invalid. Please provide valid arguments."
+msgstr ""
+
+#: RPS/Helper/Student.php:255
+msgid "Student ID is invalid. Please provide a valid Student ID."
+msgstr ""
+
+#: RPS/Helper/Student.php:271
+msgid "Given post ID is invalid. Please provide a valid Student ID."
+msgstr ""
+
+#: RPS/Helper/Student.php:316
+msgid "Given argument is invalid. Please provide a valid Student ID."
+msgstr ""
+
+#: RPS/Helper/Student.php:335 RPS/Helper/Student.php:353
+#: RPS/Helper/Student.php:371
+msgid "No student found."
+msgstr ""
+
+#: RPS/Shortcodes/Result.php:219 RPS/Shortcodes/Result.php:290
+#: RPS/Shortcodes/StudentList.php:200
+msgid "Invalid Request"
+msgstr ""
+
+#: RPS/Shortcodes/Result2.php:74
+msgid "Examination"
+msgstr ""
+
+#: RPS/Shortcodes/Result2.php:83
+msgid "No Exam Found"
+msgstr ""
+
+#: RPS/Shortcodes/Result2.php:98
+msgid "Submit"
+msgstr ""
+
+#: RPS/Shortcodes/Result2.php:99
+msgid "Reset"
+msgstr ""
+
+#: RPS/Shortcodes/Result2.php:121
+msgid "Invalid exam selected. Please check your input."
+msgstr ""
+
+#: RPS/Shortcodes/Result2.php:143
+msgid "Student not found on database. Please check your input."
+msgstr ""
