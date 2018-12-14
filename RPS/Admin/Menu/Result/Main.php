@@ -83,7 +83,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 
 			//check department id
 			if ( ! $data['department_id'] ) {
-				$this->error['department_id'] = __('Department is required. Please select a department from list.', $this->TD);
+				$this->error['department_id'] = __('Class is required. Please select a class from list.', $this->TD);
 				$flag = true;
 			}
 
@@ -106,7 +106,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 
 				$row = $wpdb->get_row($query);
 				if ( $row !== NULL ) {
-					$this->messages[] = __('Exam records already exists on database. Please check Exam, Department and Batch.', $this->TD);
+					$this->messages[] = __('Exam records already exists on database. Please check Exam, Class and Batch.', $this->TD);
 				}
 			}
 
@@ -440,7 +440,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 				<!-- Department Select Box -->
 				<tr valign="top">
 					<th scope="row">
-						<label for="department_id"><?php _e('Department/Class',$this->TD); ?> *</label>
+						<label for="department_id"><?php _e('Class',$this->TD); ?> *</label>
 					</th>
 					<td>
 						<?php if( !is_wp_error($departments) && is_array($departments) && !empty($departments) ): ?>

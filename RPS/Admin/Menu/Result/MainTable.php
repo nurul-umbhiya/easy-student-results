@@ -35,7 +35,7 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
         $columns = array (
             'sl'            => 'SL', //Render a checkbox instead of text
             'exam_id'       => __('Exam', $this->TD),
-            'department_id' => __('Department/Class', $this->TD),
+            'department_id' => __('Class', $this->TD),
             'batch_id'      => __('Batch/Year', $this->TD),
             'semester_id'   => __('Semester/Section', $this->TD),
             'display'       => __('Display Frontend', $this->TD),
@@ -199,7 +199,7 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
 
                 ?>
                 <select name="department_id" id="department_id" class="postform">
-                    <option value=""><?php _e('Select Department'); ?></option>
+                    <option value=""><?php _e('Select Class'); ?></option>
                     <?php
                     foreach ($departments as $id => $name):
                         echo "<option value='{$id}' ".selected($department_id, $id, false)." >{$name}</option>";

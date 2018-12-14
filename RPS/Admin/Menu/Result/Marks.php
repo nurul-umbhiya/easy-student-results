@@ -127,7 +127,7 @@ final class RPS_Admin_Menu_Result_Marks {
 						</td>
 
 						<th>
-							<?php _e('Department / Class', $this->TD); ?>:
+							<?php _e('Class', $this->TD); ?>:
 						</th>
 						<td>
 							<?php echo $dept_name; ?>

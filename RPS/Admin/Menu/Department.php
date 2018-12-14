@@ -154,13 +154,13 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
 
             // Error checking
             if( !$name ) {
-                $this->error['name'] = __("Please specify a department name.", $this->TD);
+                $this->error['name'] = __("Please specify a class name.", $this->TD);
             } elseif($this->getDepartmentByName($name) != NULL) {
                 //check department name exist in database
-                $this->error['name'] = __("Department name already exists in database.", $this->TD);
+                $this->error['name'] = __("Class name already exists in database.", $this->TD);
             }
             if( !$slug ) {
-                $this->error['slug'] = __("Please specify a department slug.", $this->TD);
+                $this->error['slug'] = __("Please specify a class slug.", $this->TD);
             }
             else {
                 if ( strlen( $slug ) >= 28 ) {
@@ -195,7 +195,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
 
                 if($wpdb->insert( $wpdb->rps_department, $data , $format)) {
                     
-                    $this->messages[] = __("Department Added Successfully...", $this->TD);
+                    $this->messages[] = __("Class Added Successfully...", $this->TD);
                     do_action( RPS_Result_Management::PLUGIN_SLUG . '_department_added', $wpdb->insert_id, $data );
 
                     //delete transient cache
@@ -232,7 +232,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
 
 	        // Error checking
 	        if ( $name == '' ) {
-		        $this->error['name'] = __("Please specify a department name.", $this->TD);
+		        $this->error['name'] = __("Please specify a class name.", $this->TD);
 	        } else {
 		        $query = $wpdb->prepare("SELECT count(*) FROM `{$wpdb->rps_department}` WHERE name=%s AND id != %d",
 			        array($name, $department_id)
@@ -240,7 +240,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
 		        $count = $wpdb->get_var($query);
 
 		        if( 0 !== intval($count) ) {
-			        $this->error['name'] = __("Department name already exists in database.", $this->TD);
+			        $this->error['name'] = __("Class name already exists in database.", $this->TD);
 		        }
 	        }
 
@@ -259,7 +259,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
                 $format_where = array("%d");
 
                 if($wpdb->update($wpdb->rps_department,$data,$where,$format,$format_where)) {
-                    $this->messages[] = __("Department Updated Successfully.",$this->TD);
+                    $this->messages[] = __("Class Updated Successfully.",$this->TD);
                     $data = array();
 
                     $id = (int) $_REQUEST['edit'];
@@ -320,7 +320,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
             $row = $wpdb->get_row($query, ARRAY_A);
             if ( is_array($row) && !empty($row) && intval( $row['cnt'] ) != 0) {
                 $error = true;
-                $this->errors[] = __('You can\'t delete this department. Department is assigned to batch. Please delete batch first to delete this department', $this->TD);
+                $this->errors[] = __('You can\'t delete this department. Class is assigned to batch. Please delete batch first to delete this department', $this->TD);
             }
 
             //check department id is used with any student
@@ -345,7 +345,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
 
 	            if ( is_array( $result ) && ! empty( $result ) ) {
 		            $error          = true;
-		            $this->errors[] = __( 'You can\'t delete this department. Department is assigned to Students. Please delete assigned Students or reassign Students to another department first to delete this department', $this->TD );
+		            $this->errors[] = __( 'You can\'t delete this department. Class is assigned to Students. Please delete assigned Students or reassign Students to another class first to delete this department', $this->TD );
 	            }
             }
 
@@ -372,7 +372,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
 	            $result = $wpdb->get_row( $query, ARRAY_A );
 	            if ( is_array( $result ) && ! empty( $result ) ) {
 		            $error          = true;
-		            $this->errors[] = __( 'You can\'t delete this department. Department is assigned to Courses. Please delete assigned Courses or reassign Courses to another department first to delete this department', $this->TD );
+		            $this->errors[] = __( 'You can\'t delete this department. Class is assigned to Courses. Please delete assigned Courses or reassign Courses to another class first to delete this department', $this->TD );
 	            }
             }
 
@@ -382,7 +382,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
 	            $result = $wpdb->get_row( $query, ARRAY_A );
 	            if ( is_array( $result ) && ! empty( $result ) ) {
 		            $error          = true;
-		            $this->errors[] = __( 'You can\'t delete this department. Department is assigned to Exams. Please delete assigned Exams or reassign Exams to another department first to delete this department', $this->TD );
+		            $this->errors[] = __( 'You can\'t delete this class. Class is assigned to Exams. Please delete assigned Exams or reassign Exams to another class first to delete this department', $this->TD );
 	            }
             }
 
@@ -402,7 +402,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
 		            define(RPS_Result_Management::PLUGIN_SLUG . '_delete_transient', true);
 		            RPS_Helper_Function::delete_transient();
 
-		            $this->messages[] = __('Department/Class deleted successfully.', $this->TD);
+		            $this->messages[] = __('Class deleted successfully.', $this->TD);
 
 	            }
             }
@@ -442,21 +442,21 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
         <div id="col-left">
             <div class='col-wrap'>
                 <div class='form-wrap'>
-                    <h3><?php _e( 'Add New Department/Class', $this->TD ) ?></h3>
+                    <h3><?php _e( 'Add New Class', $this->TD ) ?></h3>
                     <form method="post" action="">
                         <?php echo $nonce; echo $hidden_field; ?>
 
                         <div class="form-field form-required">
-                            <label for="name"><?php _e( 'Department/Class Name', $this->TD) ?> (*)</label>
+                            <label for="name"><?php _e( 'Class Name', $this->TD) ?> (*)</label>
                             <input name="name" id="name" type="text" size="40" aria-required="true" value="<?php echo $data['name'];   ?>" />
-                            <p><?php _e( 'The short name of department or class, use Uppercase letters with no space. eg CSE', $this->TD ) ?></p>
+                            <p><?php _e( 'The short name of class or class, use Uppercase letters with no space. eg CSE', $this->TD ) ?></p>
                             <?php if(isset($this->error['name'])) echo '<p style="color:red;"><strong>' . $this->error['name'] . '</strong></p>';  ?>
                         </div>
                 
                         <div class="form-field">
-                            <label for="slug"><?php _e('Department/Class Slug', $this->TD ) ?> (*)</label>
+                            <label for="slug"><?php _e('Class Slug', $this->TD ) ?> (*)</label>
                             <input name="slug" id="slug" type="text" size="40" aria-required="false" value="<?php echo $data['slug'];   ?>" <?php echo $readonly; ?> />
-                            <p><?php _e('The "slug" is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and underscore. <strong>Leave blank for lowercase version of your department name.</strong> eg. cse', $this->TD ) ?></p>
+                            <p><?php _e('The "slug" is the URL-friendly version of the name. It is usually all lowercase and contains only letters, numbers, and underscore. <strong>Leave blank for lowercase version of your class name.</strong> eg. cse', $this->TD ) ?></p>
                             <?php if(isset($this->error['slug'])) echo '<p style="color:red;"><strong>' . $this->error['slug'] . '</strong></p>';  ?>
                         </div>
                 
@@ -491,7 +491,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
                         </div>
                 
                         <p class="submit">
-                            <input type="submit" name="submit" id="submit" class="button button-primary" value="<?php if(isset($_REQUEST['edit'])) { echo __("Edit Department", $this->TD); } else { echo  __("Add New Department", $this->TD);} ?>"/>
+                            <input type="submit" name="submit" id="submit" class="button button-primary" value="<?php if(isset($_REQUEST['edit'])) { echo __("Edit Class", $this->TD); } else { echo  __("Add New Class", $this->TD);} ?>"/>
                             <?php if(isset($_REQUEST['edit'])) { echo '<a href="' . esc_url_raw( add_query_arg(array('page'=>$this->page),  admin_url('admin.php?')) ) .'" class="button button-secondary">' . __('Cancel', $this->TD). '</a>'; } ?>
                         </p>
                     </form>
@@ -533,7 +533,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
                             //print_r($departments);
                             if(  empty( $departments ) || $departments === NULL ) {
                         ?>
-                        <tr><td colspan="4"><?php _e('No Department/Class Found.', $this->TD) ?></td></tr>
+                        <tr><td colspan="4"><?php _e('No Class Found.', $this->TD) ?></td></tr>
                         <?php
                             }
                             else {
@@ -616,7 +616,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
 
     private function get_header() {
         $department_header_h2 = '<i class="dashicons dashicons-admin-page" style="line-height: 1.5em;"></i>';
-        $department_header_h2 .= __('Department/Class List', $this->TD);
+        $department_header_h2 .= __('Class List', $this->TD);
         $department_header_h2 = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_department_h2', $department_header_h2);
 
         $str = '<div class="wrap"><h2>' . $department_header_h2 . '</h2>';

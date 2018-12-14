@@ -143,16 +143,16 @@ class RPS_Admin_Menu_Settings  {
 
                 array(
                     'name'    => 'department_text',
-                    'label'   => __( 'Select Department Text', $this->TD ),
-                    'desc'    => __( 'First option to dispaly on Department Select box.', $this->TD ),
+                    'label'   => __( 'Select Class Text', $this->TD ),
+                    'desc'    => __( 'First option to display on Class Select box.', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Select Department', $this->TD)
+                    'default' => __('Select Class', $this->TD)
                 ),
                 array (
                     'name'    => 'department_error_text',
-                    'label'   => __( 'Department Error Text', $this->TD ),
+                    'label'   => __( 'Class Error Text', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Please Select a Department From List.', $this->TD)
+                    'default' => __('Please Select a Class From List.', $this->TD)
                 ),
 
                 array(
@@ -218,16 +218,16 @@ class RPS_Admin_Menu_Settings  {
 
                 array(
                     'name'    => 'department_text',
-                    'label'   => __( 'Select Department Text', $this->TD ),
-                    'desc'    => __( 'First option to dispaly on Department Select box.', $this->TD ),
+                    'label'   => __( 'Select Class Text', $this->TD ),
+                    'desc'    => __( 'First option to display on Class Select box.', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Department', $this->TD)
+                    'default' => __('Class', $this->TD)
                 ),
                 array (
                     'name'    => 'department_error_text',
-                    'label'   => __( 'Department Error Text', $this->TD ),
+                    'label'   => __( 'Class Error Text', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Please Select a Department From List.', $this->TD)
+                    'default' => __('Please Select a Class From List.', $this->TD)
                 ),
 
                 array(
@@ -264,7 +264,7 @@ class RPS_Admin_Menu_Settings  {
                     'desc'    => __( 'Enter which Students Information to display on result output in a key:value pair, seperated by <strong>,</strong> (comma).
                                     Key will be the available fields and value will be the label (title) text. eg:roll_no:Roll No.', $this->TD ),
                     'type'    => 'textarea',
-                    'default' => 'name:Name, roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Department, batch:Batch, semester:Semester'
+                    'default' => 'name:Name, roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Class, batch:Batch, semester:Semester'
                 ),
 
                 array(
@@ -398,16 +398,16 @@ class RPS_Admin_Menu_Settings  {
 
                 array(
                     'name'    => 'department_text',
-                    'label'   => __( 'Select Department Text', $this->TD ),
-                    'desc'    => __( 'First option to dispaly on Department Select box.', $this->TD ),
+                    'label'   => __( 'Select Class Text', $this->TD ),
+                    'desc'    => __( 'First option to display on Class Select box.', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Department', $this->TD)
+                    'default' => __('Class', $this->TD)
                 ),
                 array (
                     'name'    => 'department_error_text',
-                    'label'   => __( 'Department Error Text', $this->TD ),
+                    'label'   => __( 'Class Error Text', $this->TD ),
                     'type'    => 'text',
-                    'default' => __('Please Select a Department From List.', $this->TD)
+                    'default' => __('Please Select a Class From List.', $this->TD)
                 ),
 
                 array(
@@ -444,7 +444,7 @@ class RPS_Admin_Menu_Settings  {
                     'desc'    => __( 'Enter which Students Information to display on result output in a key:value pair, seperated by <strong>,</strong> (comma).
                                     Key will be the available fields and value will be the label (title) text. eg:roll_no:Roll No.', $this->TD ),
                     'type'    => 'textarea',
-                    'default' => 'name:Name, roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Department, batch:Batch, semester:Semester'
+                    'default' => 'name:Name, roll_no:Roll No, registration_no:Registration No, dob:Date of Birth, department:Class, batch:Batch, semester:Semester'
                 ),
 
                 array(

@@ -72,7 +72,7 @@ class RPS_Admin_Menu_Main {
     }
 
     public function departmentMenu() {
-        self::$slug['department'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Department", $this->TD), __("Department", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG, array($this,'department'));
+        self::$slug['department'] = add_submenu_page(RPS_Result_Management::PLUGIN_SLUG, __('Easy Student Results', $this->TD) . ' - ' . __("Class", $this->TD), __("Class", $this->TD), $this->role, RPS_Result_Management::PLUGIN_SLUG, array($this,'department'));
         add_action('load-' . self::$slug['department'] , array($this,'loadDepartment'));
 
         //self::$page_hook['department'] = RPS_Result_Management::PLUGIN_SLUG . '_department';
