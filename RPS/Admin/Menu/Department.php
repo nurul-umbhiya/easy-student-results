@@ -512,7 +512,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
                     <thead>
                         <tr>
                             <th scope="col"><?php _e('Name', $this->TD) ?></th>
-                            <th scope="col"><?php _e('Semesters/Section', $this->TD) ?></th>
+                            <th scope="col"><?php _e('Terms', $this->TD) ?></th>
                             <th scope="col"><?php _e('Active', $this->TD) ?></th>
                             <th scope="col">&nbsp;</th>
                         </tr>
@@ -521,7 +521,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
                     <tfoot>
                         <tr>
                             <th scope="col"><?php _e('Name', $this->TD) ?></th>
-                            <th scope="col"><?php _e('Semesters/Section', $this->TD) ?></th>
+                            <th scope="col"><?php _e('Terms', $this->TD) ?></th>
                             <th scope="col"><?php _e('Active', $this->TD) ?></th>
                             <th scope="col">&nbsp;</th>
                         </tr>
@@ -578,7 +578,7 @@ class RPS_Admin_Menu_Department extends RPS_Admin_Menu_MenuAbstract {
                                      ?>
                                  </td>
                                  <td><?php if($department['active']=="1"){ echo "Active"; } else { echo "Inactive"; } ?></td>
-                                 <td><a href="edit-tags.php?taxonomy=<?php echo $slug; ?>" class="button button-secondary"><?php _e( 'Configure Semester', $this->TD ); ?></a></td>
+                                 <td><a href="edit-tags.php?taxonomy=<?php echo $slug; ?>" class="button button-secondary"><?php _e( 'Configure Term', $this->TD ); ?></a></td>
                              </tr>
                                  
                                  

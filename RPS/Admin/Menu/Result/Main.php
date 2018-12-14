@@ -489,12 +489,12 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 				<!-- Semester Select Box -->
 				<tr valign="top">
 					<th scope="row">
-						<label for="semester_id"><?php _e('Semester/Section',$this->TD); ?></label>
+						<label for="semester_id"><?php _e('Term',$this->TD); ?></label>
 					</th>
 					<td>
 						<?php if ( !empty( $semesters ) ) : ?>
 							<select name="semester_id" id="semester_id" class="regular-text" <?php echo $disabled ?>>
-							<option><?php _e('Select Semester/Section', $this->TD); ?></option>
+							<option><?php _e('Select Term', $this->TD); ?></option>
 								<?php
 								if( $department_id != '' && RPS_Helper_Function::is_numeric($department_id) ) {
 									$semester = isset($semesters[$department_id]) ? $semesters[$department_id] : array();

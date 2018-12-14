@@ -143,7 +143,7 @@ final class RPS_Admin_Menu_Result_Marks {
 						</td>
 
 						<th>
-							<?php _e('Semester / Section', $this->TD); ?>:
+							<?php _e('Term', $this->TD); ?>:
 						</th>
 						<td>
 							<?php echo $semester_name; ?>
