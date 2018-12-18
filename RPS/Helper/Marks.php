@@ -11,6 +11,7 @@ class RPS_Helper_Marks {
 	protected $marks_table_headings, $results_table_headings;
 	protected $total_marks;
 	protected $option_general;
+	protected $summary_table_headings, $psychomotor_table_headings, $affective_table_headings;
 
 	public function __construct( $exam_record_id, $student_id = null, $slug = '', $page = '' ) {
 
@@ -137,14 +138,20 @@ class RPS_Helper_Marks {
 	public function marks_table_headings() {
 		//Table Headings
 		$this->marks_table_headings = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_marks_table_headings', array(
-			'sl'                => __('SL', $this->TD),
+			//'sl'                => __('SL', $this->TD),
 			'course_name'       => __('Subject Name', $this->TD),
 			'course_code'       => __('Subject Code', $this->TD),
-			'total_marks'       => __('Total Marks', $this->TD),
-			'marks_obtained'    => __('Marks Obtained', $this->TD),
-			'percentage'        => __('Percentage', $this->TD),
+			'ca1'               => __('Ca1', $this->TD),
+			'ca2'               => __('Ca2', $this->TD),
+			'ca3'               => __('Ca3', $this->TD),
+			'exams'             => __('Exams', $this->TD),
+			'marks_obtained'    => __('total', $this->TD),
+			'position'          => __('Pos', $this->TD),
+			'average'           => __('Avg', $this->TD),
+			'maximum'           => __('Max', $this->TD),
+			'minimum'           => __('Min', $this->TD),
 			'grade'             => __('Grade', $this->TD),
-			'grade_point'       => __('Grade Point', $this->TD)
+			'remark'            => __('Remark', $this->TD)
 		));
 	}
 
@@ -266,14 +273,15 @@ class RPS_Helper_Marks {
 
 	public function results_table_headings() {
 		//Table Headings
-		$this->results_table_headings = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_results_table_headings', array(
-			'total_marks'       => __('Total Marks', $this->TD),
+		//$this->results_table_headings = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_results_table_headings', array(
+		$this->results_table_headings = array(
+			'total_marks'          => __('Total Marks', $this->TD),
 			'total_marks_obtained' => __( 'Marks Obtained', $this->TD ),
-			'total_percentage'  => __('Percentage', $this->TD),
-			'final_grade'       => __('Final Grade', $this->TD),
-			'cgpa'              => __( 'CGPA', $this->TD ),
-			'result'            => __( 'Final Result', $this->TD )
-		));
+			//'total_percentage'     => __('Percentage', $this->TD),
+			'final_grade'          => __('Final Grade', $this->TD),
+			'cgpa'                 => __( 'CGPA', $this->TD ),
+			'result'               => __( 'Final Result', $this->TD )
+		);
 	}
 
 	public function results_table_header( ) {
@@ -372,6 +380,124 @@ class RPS_Helper_Marks {
 	public function results_table_footer( ) {
 		echo '</tbody></table>';
 	}
+
+	//summary
+    public function summary_table_header( ) {
+        $this->summary_table_headings = array(
+            'no_of_subjects'        => 'No of Subjects',
+            'no_in_class'           => 'No In Class',
+            'class_position'        => 'Class Position',
+            'student_average'       => 'Student Ave',
+            'class_average'         => 'Class Ave',
+            'next_term_begins'      => 'Next Term Begins',
+            'class_teacher_remark'  => 'Class Teacher Remark',
+            'head_teacher_remark'   => 'Head Teacher/Principle Remark',
+            'teacher_name'          => 'Teacher Name/Tel',
+        );
+	?>
+    <table class="table table-striped table-bordered results_table">
+    <tbody>
+	<?php
+}
+
+	public function summary_table_body( ) {
+
+		if ( !empty($this->summary_table_headings) ) {
+		    $i = 1;
+		    $count = 1;
+		    echo "<tr>";
+			foreach ( $this->summary_table_headings as $field_id => $field_name ) {
+                echo "<th>$field_name</th>";
+				echo "<td>";
+				do_action(RPS_Result_Management::PLUGIN_SLUG . '_results_table_data', $field_id, $this->result_metadata);
+				echo "</td>";
+
+				if ($i == 2) {
+				    $i = 0;
+				    echo "</tr>";
+				    if ( $count < 8  ) {
+				        echo '<tr>';
+                    }
+                }
+                $i++; $count++;
+
+			}
+		}
+		else {
+
+		}
+	}
+
+	public function summary_table_footer( ) {
+		echo '</tbody></table>';
+	}
+
+	//domain
+	//summary
+    public function domain_table_header( ) {
+	$this->summary_table_headings = array(
+		'appearance'        => 'Appearance',
+		'general_conduct'   => 'General Conduct',
+		'attendance'        => 'Attendance',
+		'leadership'        => 'Leadership',
+		'games_sports'      => 'Games/Sports',
+		'peer_relationship' => 'Peer Relationship',
+		'hand_writing'      => 'Hand Writing',
+		'punctuality'       => 'Punctuality',
+		'fluency'           => 'Fluency',
+		'neatness'          => 'Neatness',
+		'drawing'           => 'Drawing',
+		'honesty'           => 'Honesty',
+		'painting'          => 'Painting',
+		'attentiveness'     => 'Attentiveness',
+		'musical_skills'    => 'Musical Skills',
+		'health'            => 'Health',
+		'craft_work'        => 'Craft Work',
+		'perseverance'      => 'Perseverance',
+	);
+	?>
+<table class="table table-striped table-bordered results_table">
+    <thead>
+    <tr><th colspan="2">Psychomotor Domain</th><th colspan="2">Affective Domain</th></tr>
+    </thead>
+    <tbody>
+	<?php
+}
+
+	public function domain_table_body( ) {
+
+		if ( !empty($this->summary_table_headings) ) {
+			$i = 1;
+			$count = 1;
+			echo "<tr>";
+			foreach ( $this->summary_table_headings as $field_id => $field_name ) {
+				echo "<th>$field_name</th>";
+				echo "<td>";
+				do_action(RPS_Result_Management::PLUGIN_SLUG . '_results_table_data', $field_id, $this->result_metadata);
+				echo "</td>";
+
+				if ($i == 2) {
+					$i = 0;
+					echo "</tr>";
+					if ( $count <8  ) {
+						echo '<tr>';
+					}
+				}
+				$i++; $count++;
+
+			}
+		}
+		else {
+
+		}
+	}
+
+	public function domain_table_footer( ) {
+		echo '<tfoot><tr><td colspan="4">Keys to Affective & Psychomotor Domain: 5=excellent, 4=very good, 3=good, 2=fair, 1=poor</td></tr></tfoot></tbody></tfoot>';
+	}
+
+
+
 
 	public function get_submit_button() {
 		$back_url = esc_url_raw( add_query_arg( array( 'page' => $this->page, 'marks' => $this->exam_record_id ), 'admin.php' ) );
@@ -576,6 +702,26 @@ EOD;
 				$this->results_table_body();
 				$this->results_table_footer();
 			?>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="table-responsive">
+				<?php
+				$this->summary_table_header();
+				$this->summary_table_body();
+				$this->summary_table_footer();
+				?>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="table-responsive">
+				<?php
+				$this->domain_table_header();
+				$this->domain_table_body();
+				$this->summary_table_footer();
+				?>
             </div>
         </div>
 		<?php

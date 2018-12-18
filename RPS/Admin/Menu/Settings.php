@@ -63,10 +63,12 @@ class RPS_Admin_Menu_Settings  {
                 'id' => RPS_Result_Management::PLUGIN_SLUG . '_students',
                 'title' => __( 'Shortcode Student', $this->TD )
             ),
+            /*
             array(
                 'id' => RPS_Result_Management::PLUGIN_SLUG . '_results',
                 'title' => __( 'Shortcode Result', $this->TD )
             ),
+            */
             array(
                 'id' => RPS_Result_Management::PLUGIN_SLUG . '_api',
                 'title' => __( 'API', $this->TD )
@@ -137,6 +139,37 @@ class RPS_Admin_Menu_Settings  {
                     'desc'  => __( 'If you select this option, when you delete this plugin, all plugins data such as custom db table created by this plugin, all students data, all subjects data etc will be deleted. Select this option if you want to completely remove this plugin.', $this->TD ),
                     'type'  => 'checkbox'
                 ),
+	            array(
+		            'name'  => 'school_logo',
+		            'label' => __( 'Upload School Logo', $this->TD ),
+		            'desc'  => __( 'Upload school logo.', $this->TD ),
+		            'type'  => 'file',
+		            'default' => RPS_Result_Management::URL() . '/assets/img/logo-128.png'
+	            ),
+	            array(
+		            'name'    => 'result_header',
+		            'label'   => __( 'Result Header Section Data', $this->TD ),
+		            'desc'    => __( 'Enter your school name or other text you want to include in your result header/top section. You can use HTML Tags and CSS styling here. ', $this->TD ),
+		            'type'    => 'wysiwyg',
+		            'default' => '<h4>CLEVER ZONE ACADEMY</h4><h5>MAKURDI</h5>'
+	            ),
+	            array(
+		            'name'    => 'result_footer',
+		            'label'   => __( 'Result Footer Section Data', $this->TD ),
+		            'desc'    => __( 'You can use HTML Tags and CSS styling here. ', $this->TD ),
+		            'type'    => 'wysiwyg',
+		            'default' => '<h4>Keys to Affective & Psychomotor Domain:</h4><p>5=excellent, 4=very good, 3=good, 2=fair, 1=poor</p>'
+	            ),
+
+	            array(
+		            'name'    => 'result_custom_css',
+		            'label'   => __( 'Custom CSS', $this->TD ),
+		            'desc'    => __( 'If you want to change css styling of your result you can do it from here.', $this->TD ),
+		            'type'    => 'textarea',
+		            'default' => '#rps_result{}'
+	            ),
+
+	            //Leave this field blank if you don't want to include footer text for print version of result.
             ) ),
 
             RPS_Result_Management::PLUGIN_SLUG . '_students' => apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_settings_field_students', array(

@@ -42,7 +42,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 		$this->semester_id = $semester_id;
 		$this->student_id = $student_id;
 
-		$this->options = get_option( RPS_Result_Management::PLUGIN_SLUG . '_results', array() );
+		$this->options = get_option( RPS_Result_Management::PLUGIN_SLUG . '_basics', array() );
 
 		$this->department_data = $this->semester_data = $this->batch_data = array();
 		$this->student_section_data = $this->subject_section_data = $this->result_section_data = array();
@@ -125,83 +125,21 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 
 	public function get_student_info_section_data( $return = false ) {
 
-		$this->student_section_data = array();
+		$this->student_section_data = array(
+            'school_logo'       => $this->options['school_logo'],
+            'student_image'     => esc_url(get_the_post_thumbnail_url($this->student_info['id'], $this->options['image_size'])),
+            'result_header'     => $this->options['result_header'],
+            'result_footer'     => $this->options['result_footer'],
+            'result_custom_css' => $this->options['result_custom_css'],
+            'department' => isset( $this->department_data['full_name']) ? esc_attr( $this->department_data['full_name'] ) : '',
+            'batch' => isset( $this->batch_data['name'] ) ? esc_attr( $this->batch_data['name'] ) : '',
+            'semester' => isset( $this->semester_data['name'] ) ? esc_attr( $this->semester_data['name'] ) : '',
+            'name' => is_array( $this->student_info ) && array_key_exists( 'name', $this->student_info ) ? $this->student_info['name'] : '',
+            'roll_no' => is_array( $this->student_info ) && array_key_exists( 'roll_no', $this->student_info ) ? $this->student_info['roll_no'] : '',
+            'registration_no' => is_array( $this->student_info ) && array_key_exists( 'registration_no', $this->student_info ) ? $this->student_info['registration_no'] : '',
+            'dob' => is_array( $this->student_info ) && array_key_exists( 'dob', $this->student_info ) ? $this->student_info['dob'] : '',
 
-		$student_meta = $this->options['student_meta'];
-		$student_meta = trim( $student_meta );
-		$student_meta = trim( $student_meta, ',' );
-		$meta_array = explode(',', $student_meta);
-
-		foreach ( $meta_array as $meta) {
-			$meta = trim($meta);
-			$meta = explode(':', $meta);
-			$meta_key = isset($meta[0]) ? trim($meta[0]) : '';
-			$meta_value = isset($meta[1]) ? trim($meta[1]) : '';
-
-			if( $meta_key == 'department' ) {
-				$this->student_section_data[] = array(
-					'key' => $meta_value,
-					'value' => isset( $this->department_data['full_name']) ? esc_attr( $this->department_data['full_name'] ) : ''
-				);
-			} elseif ( $meta_key == 'batch' ) {
-				$this->student_section_data[] = array(
-					'key' => $meta_value,
-					'value' => isset( $this->batch_data['name'] ) ? esc_attr( $this->batch_data['name'] ) : ''
-				);
-			} elseif( $meta_key == 'semester' ) {
-				$this->student_section_data[] = array(
-					'key' => $meta_value,
-					'value' => isset( $this->semester_data['name'] ) ? esc_attr( $this->semester_data['name'] ) : ''
-				);
-
-			} elseif (is_array($this->metadata) && array_key_exists($meta_key, $this->metadata)) {
-				if ( $meta_key == 'total_percentage' ) {
-					$this->student_section_data[] = array(
-						'key' => $meta_value,
-						'value' => $this->metadata[ $meta_key ] . '%'
-					);
-				}
-                elseif ( $meta_key == 'highest_marks' ) {
-					global $wpdb;
-					$query = $wpdb->prepare("SELECT highest_total_marks FROM `{$wpdb->rps_exam_record}` WHERE id=%d LIMIT 1", array($this->exam_record_id));
-					$res = $wpdb->get_row($query, ARRAY_A);
-					if ( is_array($res) && !empty($res) ) {
-						$this->student_section_data[] = array(
-							'key' => $meta_value,
-							'value' => $res['highest_total_marks']
-						);
-					}
-
-				}
-				else {
-					$this->student_section_data[] = array(
-						'key' => $meta_value,
-						'value' => $this->metadata[ $meta_key ]
-					);
-                }
-
-
-
-
-			} elseif ( is_array( $this->student_info ) && array_key_exists( $meta_key, $this->student_info ) ) {
-				$this->student_section_data[] = array(
-					'key' => $meta_value,
-					'value' => isset( $this->student_info[ $meta_key ] ) ? esc_attr( $this->student_info[ $meta_key ] ) : ''
-				);
-			} else {
-			    //probably a hook to add other data
-                $hook_temp = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_result_student_section_meta_single', 'temp_string', $this->student_id, $meta_key );
-
-                if ( $hook_temp != 'temp_string' ) {
-	                $this->student_section_data[] = array(
-		                'key' => $meta_value,
-		                'value' => $hook_temp
-	                );
-                }
-            }
-		}
-
-		//echo "<pre>"; print_r($this->student_section_data); echo "</pre>";
+        );
 
 		if ( $return ) {
 			return $this->student_section_data;
@@ -211,31 +149,35 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 	public function get_subject_section_data( $return = false ) {
 
 		$subject_keys = array();
-		$subject_headings = array(); //need to return
+		$subject_headings = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_marks_table_headings', array(
+			'course_name'       => __('Subject Name', $this->TD),
+			'course_code'       => __('Subject Code', $this->TD),
+			'ca1'               => __('Ca1', $this->TD),
+			'ca2'               => __('Ca2', $this->TD),
+			'ca3'               => __('Ca3', $this->TD),
+			'exams'             => __('Exams', $this->TD),
+			'marks_obtained'    => __('total', $this->TD),
+			'position'          => __('Pos', $this->TD),
+			'average'           => __('Avg', $this->TD),
+			'maximum'           => __('Max', $this->TD),
+			'minimum'           => __('Min', $this->TD),
+			'grade'             => __('Grade', $this->TD),
+			'remark'            => __('Remark', $this->TD)
+		)); //need to return
+
+		$active_fields = RPS_Result_ResultFields::get_marks_fields_single();
+
+
+        foreach ( $subject_headings as $field_id => $field_value ) {
+            if ( !in_array($field_id, array( 'course_name', 'course_code', 'marks_obtained') ) && !array_key_exists($field_id, $active_fields) ) {
+                unset($subject_headings[ $field_id ]);
+            }
+        }
+
+
 		$subject_values = array(); //need to return
 
-
-		$subject_meta = $this->options['subject_meta'];
-		$subject_meta = trim($subject_meta);
-		$subject_meta = trim($subject_meta, ',');
-		$meta_array = explode(',', $subject_meta);
-
-
-		$i = 0;
-		foreach ( $meta_array as $meta) {
-			$meta       = trim( $meta );
-			$meta       = explode( ':', $meta );
-			if ( count($meta) <= 1 ) {
-				break;
-			}
-			$meta_key   = isset($meta[0]) ? trim($meta[0]) : '';
-			$meta_value = isset($meta[1]) ? trim($meta[1]) : '';
-			$subject_keys[ $i ] = esc_attr( $meta_key );
-			$subject_headings[ $i ] = esc_attr( $meta_value );
-			$i++;
-		}
-
-		if ( !empty( $subject_keys ) ) {
+		if ( !empty( $subject_headings ) ) {
 			if ( is_array($this->result_data) && !empty($this->result_data) ) {
 				$i = 0;
 				$grades = $this->result->getGradeList();
@@ -263,32 +205,32 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 
 					$temp = array();
 
-					foreach ($subject_keys as $key => $value) {
+					foreach ($subject_headings as $key => $value) {
 
-						switch ($value) {
+						switch ($key) {
 							case 'course_name':
-								$temp[] = esc_attr($course_name);
+								$temp[$key] = esc_attr($course_name);
 								break;
 							case 'course_code':
-								$temp[] = esc_attr($course_code);
+								$temp[$key] = esc_attr($course_code);
 								break;
 							case 'total_marks':
-								$temp[] = intval($total_marks);
+								$temp[$key] = intval($total_marks);
 								break;
 							case 'marks_obtained':
-								$temp[] = intval($marks_obtained);
+								$temp[$key] = intval($marks_obtained);
 								break;
 							case 'grade':
-								$temp[] = esc_attr($grade);
+								$temp[$key] = esc_attr($grade);
 								break;
 							case 'grade_point':
-								$temp[] = esc_attr($grade_point);
+								$temp[$key] = esc_attr($grade_point);
 								break;
                             case 'percentage':
-                                $temp[] = intval($percentage) . '%';
+                                $temp[$key] = intval($percentage) . '%';
                                 break;
 							default:
-								$temp[] = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_sc_subject_meta', '&nbsp;', $value, $row );
+								$temp[$key] = apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_sc_subject_meta', '&nbsp;', $key, $row );
 						}
 					}
 
@@ -313,59 +255,75 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 	}
 
 	public function get_result_section_data( $return = false ) {
-		//get student result values
-		$result_keys = array();
-		$result_values = array();
+		$result_section_headings = array(
+			'no_of_subjects'        => 'No of Subjects',
+			'no_in_class'           => 'No In Class',
+			'student_average'       => 'Student Ave',
+			'class_average'         => 'Class Ave',
+			'next_term_begins'      => 'Next Term Begins',
+			'class_teacher_remark'  => 'Class Teacher Remark',
+			'head_teacher_remark'   => 'Head Teacher/Principle Remark',
+			'teacher_name'          => 'Teacher Name/Tel',
+			'appearance'        => 'Appearance',
+			'general_conduct'   => 'General Conduct',
+			'attendance'        => 'Attendance',
+			'leadership'        => 'Leadership',
+			'games_sports'      => 'Games/Sports',
+			'peer_relationship' => 'Peer Relationship',
+			'hand_writing'      => 'Hand Writing',
+			'punctuality'       => 'Punctuality',
+			'fluency'           => 'Fluency',
+			'neatness'          => 'Neatness',
+			'drawing'           => 'Drawing',
+			'honesty'           => 'Honesty',
+			'painting'          => 'Painting',
+			'attentiveness'     => 'Attentiveness',
+			'musical_skills'    => 'Musical Skills',
+			'health'            => 'Health',
+			'craft_work'        => 'Craft Work',
+			'perseverance'      => 'Perseverance',
+		);
 
-		$result_meta = $this->options['result_meta'];
-		$result_meta = trim($result_meta);
-		$result_meta = trim($result_meta, ',');
-		$meta_array = explode(',', $result_meta);
+		$active_fields = RPS_Result_ResultFields::get_results_fields_single();
 
-		$i = 0;
-		foreach ( $meta_array as $meta) {
-			$meta       = trim( $meta );
-			$meta       = explode( ':', $meta );
-			if ( count($meta) <= 1 ) {
-				break;
+		foreach ( $result_section_headings as $field_id => $field_value ) {
+			if ( $field_id !== 'marks_obtained' && !array_key_exists($field_id, $active_fields) ) {
+				unset($result_section_headings[ $field_id ]);
 			}
-			$meta_key   = isset($meta[0]) ? trim($meta[0]) : '';
-			$meta_value = isset($meta[1]) ? trim($meta[1]) : '';
-			$result_keys[ $i ] = $meta_key;
-			$result_values[ $i ] = $meta_value;
-			$i++;
 		}
-		if ( !empty( $result_keys ) ) {
 
-			for( $i = 0; $i < count($result_keys); $i++ ) {
-				if ( is_array( $this->metadata ) && array_key_exists( $result_keys[ $i ], $this->metadata  )  ) {
-				    if ( $result_keys[ $i ] == 'total_percentage' ) {
-					    $this->result_section_data[] = array(
-						    'key' => $result_values[$i],
-						    'value' => $this->metadata[ $result_keys[ $i ] ] . '%'
-					    );
-                    }
-                    elseif ( $result_keys[ $i ] == 'highest_marks' ) {
+		//add default values
+        $result_section_headings['total_marks'] = __('Total Marks', $this->TD);
+		$result_section_headings['total_marks_obtained'] = __('Marks Obtained', $this->TD);
+		$result_section_headings['final_grade'] = __('Final Grade', $this->TD);
+		$result_section_headings['cgpa'] = __('CGPA', $this->TD);
+		$result_section_headings['result'] = __('Final Result', $this->TD);
+		$result_section_headings['highest_marks'] = __('Highest Marks', $this->TD);
+		$result_section_headings['class_position'] = __('Class Position', $this->TD);
+
+
+		$temp = array();
+
+		if ( !empty( $result_section_headings ) ) {
+
+			foreach( $result_section_headings as $result_key => $result_value ) {
+				if ( is_array( $this->metadata ) && array_key_exists( $result_key, $this->metadata  )  ) {
+				    if ( $result_key == 'highest_marks' ) {
 					    global $wpdb;
 					    $query = $wpdb->prepare("SELECT highest_total_marks FROM `{$wpdb->rps_exam_record}` WHERE id=%d LIMIT 1", array($this->exam_record_id));
 					    $res = $wpdb->get_row($query, ARRAY_A);
 					    if ( is_array($res) && !empty($res) ) {
-						    $this->result_section_data[] = array(
-							    'key' => $result_values[$i],
-							    'value' => $res['highest_total_marks']
-						    );
+						    $temp[ $result_key ] = $res['highest_total_marks'];
 					    }
-
 				    }
 					else {
-						$this->result_section_data[] = array(
-							'key' => $result_values[$i],
-							'value' => $this->metadata[ $result_keys[ $i ] ]
-						);
+						$temp[ $result_key ] = isset( $this->metadata[ $result_key ] ) ? $this->metadata[ $result_key ] : '';
                     }
 				}
 			}
 		}
+
+		$this->result_section_data = $temp;
 
 		if ( $return ) {
 			return $this->result_section_data;
@@ -376,12 +334,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 		ob_start();
 		?>
 		<div id="res_result_print_data">
-
-		<?php if ( isset($this->options['show_header_footer']) && $this->options['show_header_footer'] == 'on' ) { ?>
-			<header id="result_header" class="avoid-this">
-				<?php echo  $this->options['print_header']; ?>
-			</header>
-		<?php } ?>
+            <div class="rps_result">
 		<?php
 		$data = ob_get_clean();
 
@@ -395,12 +348,8 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 
 	public function result_footer( $echo = true ) {
 		ob_start();
-		if ( isset($this->options['show_header_footer']) && $this->options['show_header_footer'] == 'on' ) { ?>
-			<footer id="result_footer" class="avoid-this">
-				<?php echo  $this->options['print_footer']; ?>
-			</footer>
-		<?php } ?>
-		</div>
+		?>
+        </div></div>
 	<?php
 		$data = ob_get_clean();
 
@@ -414,14 +363,12 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 
 	public function result_print_button( $echo = true ) {
 		ob_start();
-		if ( $this->options['print_button'] == 'on' ): ?>
-            <button type="button" class="btn btn-primary" id="res_result_print"><?php echo $this->options['print_button_text']; ?></button>
-            <div class="visible-print-block" id="result_prepend"><?php echo $this->options['print_header'];  ?></div>
-            <div class="visible-print-block" id="result_append"><?php echo $this->options['print_footer'];  ?></div>
+		?>
+            <button type="button" class="btn btn-primary" id="res_result_print">Print</button>
             <script type="text/javascript">
-                var bs_url = '<?php echo $this->URL . '/assets/bootstrap-3.3.5/css/bootstrap.min.css'; ?>';
+                var bs_url = '<?php echo $this->URL . '/assets/bootstrap-3.3.5/css/bootstrap.css'; ?>';
             </script>
-        <?php endif;
+        <?php
         $data = ob_get_clean();
 
 		if ( $echo ) {
@@ -461,26 +408,45 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 
 		$this->get_student_info_section_data();
 		if ( is_array( $this->student_section_data ) && !empty( $this->student_section_data ) ):
-            //add student picture here
-            if ( isset($this->options['show_picture']) && $this->options['show_picture'] == 'on'
-                 && isset( $this->student_info['image']) && $this->student_info['image'] != '' ) {
-	            $featured_img_url = esc_url(get_the_post_thumbnail_url($this->student_info['id'], $this->options['image_size']));
-		        echo "<p><img class='img-rounded img-responsive' src='{$featured_img_url}' style='display: block; margin: 0 auto;'></p>";
-            }
-
-
-			//student section starts here
+            //top section
 			?>
-			<table class="table">
-				<tbody>
-				<?php
-				foreach ( $this->student_section_data as $data ) {
-					echo '<tr><th>' . $data['key'] . '</th><td>' . $data['value'] . '</td></tr>';
-				}
-				?>
-				</tbody>
-			</table>
-			<br>
+            <div class="row" id="result_top_section">
+                <div class="col-md-4">
+                    <?php
+                    if ( $this->student_section_data['school_logo'] != '' ) {
+                        echo "<img class='img-rounded img-responsive' width='150' height='250' src='{$this->student_section_data['school_logo']}' style='display: block; margin: 0 auto;'>";
+                    }
+                    ?>
+                </div>
+                <div class="col-md-4">
+                    <table class="table table-bordered">
+                        <tbody>
+                        <tr>
+                            <td style="text-align: center;"><?php echo $this->student_section_data['result_header']; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo $this->student_section_data['semester'] . ' <strong>Term</strong> ' . $this->student_section_data['batch'] . ' <strong>ACADEMIC SESSION</strong>'; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo '<strong>Admission No:</strong> ' . $this->student_section_data['registration_no']; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo '<strong>Name:</strong> ' . $this->student_section_data['name']; ?></td>
+                        </tr>
+                        <tr>
+                            <td><?php echo '<strong>Class:</strong> ' . $this->student_section_data['department']; ?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <?php
+                    if ( $this->student_section_data['student_image'] != '' ) {
+                     echo "<img class='img-rounded img-responsive' width='150' height='250' src='{$this->student_section_data['student_image']}' style='display: block; margin: 0 auto;'>";
+                    }
+                    ?>
+                </div>
+            </div>
 			<?php
 		endif;
 
@@ -498,7 +464,6 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 			<table class="table table-striped table-hover table-bordered">
 				<thead>
 				<tr>
-					<th><?php _e('SL', $this->TD); ?></th>
 					<?php
 					if ( is_array($this->subject_section_data['subject_headings']) && !empty( $this->subject_section_data['subject_headings'] ) )
 						foreach( $this->subject_section_data['subject_headings'] as $key => $value) {
@@ -511,10 +476,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 				<tbody>
 				<?php
 				if ( is_array($this->subject_section_data['subject_value']) && !empty($this->subject_section_data['subject_value']) ) {
-					$i = 0;
 					foreach ( $this->subject_section_data['subject_value'] as $key => $marks ) {
-						$i++;
-						echo "<tr><td>$i</td>";
 						foreach ( $marks as $mark ) {
 							echo '<td>' . $mark . '</td>';
 						}
@@ -537,28 +499,197 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 
 		if ( is_array( $this->result_section_data ) && !empty( $this->result_section_data ) ):
 			?>
+            <table class="table table-bordered">
+            <thead>
+                <th colspan="4">SUMMARY</th>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>No of Subjects</th>
+                    <td><?php echo $this->result_section_data['no_of_subjects']; ?></td>
+                    <th>No In Class</th>
+                    <td><?php echo $this->result_section_data['no_in_class']; ?></td>
+                </tr>
+                <tr>
+                    <th>Class Position</th>
+                    <td><?php echo $this->result_section_data['class_position']; ?></td>
+                    <th>Student Ave</th>
+                    <td><?php echo $this->result_section_data['student_average']; ?></td>
+                </tr>
+                <tr>
+                    <th>Class Ave</th>
+                    <td><?php echo $this->result_section_data['class_average']; ?></td>
+                    <th>Next Term Begins</th>
+                    <td><?php echo $this->result_section_data['next_term_begins']; ?></td>
+                </tr>
+                <tr>
+                    <th colspan="2">Class Teacher Remark</th>
+                    <td colspan="2"><?php echo $this->result_section_data['class_teacher_remark']; ?></td>
+                </tr>
+                <tr>
+                    <th colspan="2">Head Teacher/Principle Remark</th>
+                    <td colspan="2"><?php echo $this->result_section_data['head_teacher_remark']; ?></td>
+                </tr>
+                <tr>
+                    <th colspan="2">Teacher Name/Tel</th>
+                    <td colspan="2"><?php echo $this->result_section_data['teacher_name']; ?></td>
+                </tr>
+            </tbody>
+
+
 			<table class="table table-bordered">
+                <thead>
+                <th colspan="6">Psychomotor Domain</th>
+                <th colspan="6">Affective Domain</th>
+                </thead>
 				<tbody>
-					<?php
-                    $i = 1;
-                    $count = count( $this->result_section_data );
-                    echo '<tr>';
-					foreach ( $this->result_section_data as $row ) {
-						echo '<th>' . $row['key'] . '</th><td>' . $row['value'] . '</td>';
-					    if ( $i % 2 == 0  ) {
-					        echo '</tr>';
-					        if ( $i < $count ) {
-					            echo '<tr>';
-                            }
-                        }
-                        $i++;
-					}
-					if ( $i % 2 == 0 ) {
-					    echo '</tr>';
-                    }
-					?>
+                    <tr>
+                        <td>Appearance</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['appearance'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['appearance'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['appearance'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['appearance'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['appearance'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+
+                        <td>General Conduct</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['general_conduct'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['general_conduct'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['general_conduct'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['general_conduct'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['general_conduct'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                    </tr>
+
+                    <tr>
+                        <td>Attendance</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attendance'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attendance'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attendance'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attendance'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attendance'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+
+                        <td>Leadership</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['leadership'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['leadership'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['leadership'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['leadership'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['leadership'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                    </tr>
+
+                    <tr>
+                        <td>Games/Sports</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['games_sports'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['games_sports'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['games_sports'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['games_sports'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['games_sports'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+
+                        <td>Peer Relationship</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['peer_relationship'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['peer_relationship'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['peer_relationship'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['peer_relationship'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['peer_relationship'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                    </tr>
+
+                    <tr>
+                        <td>Hand Writing</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['hand_writing'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['hand_writing'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['hand_writing'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['hand_writing'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['hand_writing'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+
+                        <td>Punctuality</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['punctuality'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['punctuality'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['punctuality'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['punctuality'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['punctuality'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                    </tr>
+
+                    <tr>
+                        <td>Fluency</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['fluency'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['fluency'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['fluency'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['fluency'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['fluency'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+
+                        <td>Neatness</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['neatness'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['neatness'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['neatness'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['neatness'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['neatness'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                    </tr>
+
+                    <tr>
+                        <td>Drawing</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['drawing'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['drawing'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['drawing'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['drawing'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['drawing'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+
+                        <td>Honesty</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['honesty'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['honesty'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['honesty'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['honesty'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['honesty'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                    </tr>
+
+                    <tr>
+                        <td>Painting</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['painting'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['painting'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['painting'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['painting'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['painting'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+
+                        <td>Attentiveness</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attentiveness'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attentiveness'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attentiveness'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attentiveness'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attentiveness'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                    </tr>
+
+                    <tr>
+                        <td>Musical Skills</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['musical_skills'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['musical_skills'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['musical_skills'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['musical_skills'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['musical_skills'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+
+                        <td>Health</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['health'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['health'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['health'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['health'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['health'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                    </tr>
+
+                    <tr>
+                        <td>Craft Work</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['craft_work'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['craft_work'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['craft_work'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['craft_work'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['craft_work'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+
+                        <td>Perseverance</td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['perseverance'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['perseverance'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['perseverance'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['perseverance'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td style="width: 20px !important;"><?php if( $this->result_section_data['perseverance'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                    </tr>
+
 				</tbody>
 			</table>
+			<?php echo '<div style="text-align: center;">' . $this->student_section_data['result_footer'] . '</div>'; ?>
 		<?php
 		endif;
 

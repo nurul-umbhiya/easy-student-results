@@ -30,7 +30,10 @@ class RPS_DefaultOptions {
 			'bootstrap_js'      => '',
 			'marks_js'          => 'on',
 			'percentage_js'     => 'on',
-			'delete_data'		=> ''
+			'delete_data'		=> '',
+			'result_header'     => '<h4>CLEVER ZONE ACADEMY</h4><h5>MAKURDI</h5>',
+			'result_footer'     => '<h4>Keys to Affective & Psychomotor Domain:</h4><p>5=excellent, 4=very good, 3=good, 2=fair, 1=poor</p>',
+			'school_logo'       => RPS_Result_Management::URL() . '/assets/img/logo-128.png'
 		);
 
 		if( get_option( RPS_Result_Management::PLUGIN_SLUG . '_basics', '') == '' ) {
