@@ -262,7 +262,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 			'class_average'         => 'Class Ave',
 			'next_term_begins'      => 'Next Term Begins',
 			'class_teacher_remark'  => 'Class Teacher Remark',
-			'head_teacher_remark'   => 'Head Teacher/Principle Remark',
+			'head_teacher_remark'   => 'Head Teacher/Principal Remark',
 			'teacher_name'          => 'Teacher Name/Tel',
 			'appearance'        => 'Appearance',
 			'general_conduct'   => 'General Conduct',
@@ -419,22 +419,22 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
                     ?>
                 </div>
                 <div class="col-md-4">
-                    <table class="table table-bordered">
+                    <table class="table border">
                         <tbody>
                         <tr>
-                            <td style="text-align: center;"><?php echo $this->student_section_data['result_header']; ?></td>
+                            <td style="text-align: center; border:none;"><?php echo $this->student_section_data['result_header']; ?></td>
                         </tr>
                         <tr>
-                            <td><?php echo $this->student_section_data['semester'] . ' <strong>Term</strong> ' . $this->student_section_data['batch'] . ' <strong>ACADEMIC SESSION</strong>'; ?></td>
+                            <td style="border:none;"><?php echo $this->student_section_data['semester'] . ' <strong>Term</strong> ' . $this->student_section_data['batch'] . ' <strong>ACADEMIC SESSION</strong>'; ?></td>
                         </tr>
                         <tr>
-                            <td><?php echo '<strong>Admission No:</strong> ' . $this->student_section_data['registration_no']; ?></td>
+                            <td style="border:none;"><?php echo '<strong>Admission No:</strong> ' . $this->student_section_data['registration_no']; ?></td>
                         </tr>
                         <tr>
-                            <td><?php echo '<strong>Name:</strong> ' . $this->student_section_data['name']; ?></td>
+                            <td style="border:none;"><?php echo '<strong>Name:</strong> ' . $this->student_section_data['name']; ?></td>
                         </tr>
                         <tr>
-                            <td><?php echo '<strong>Class:</strong> ' . $this->student_section_data['department']; ?></td>
+                            <td style="border:none;"><?php echo '<strong>Class:</strong> ' . $this->student_section_data['department']; ?></td>
                         </tr>
                         </tbody>
                     </table>
@@ -527,7 +527,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
                     <td colspan="2"><?php echo $this->result_section_data['class_teacher_remark']; ?></td>
                 </tr>
                 <tr>
-                    <th colspan="2">Head Teacher/Principle Remark</th>
+                    <th colspan="2">Head Teacher/Principal Remark</th>
                     <td colspan="2"><?php echo $this->result_section_data['head_teacher_remark']; ?></td>
                 </tr>
                 <tr>
@@ -545,146 +545,74 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 				<tbody>
                     <tr>
                         <td>Appearance</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['appearance'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['appearance'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['appearance'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['appearance'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['appearance'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['appearance']); ?></td>
 
                         <td>General Conduct</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['general_conduct'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['general_conduct'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['general_conduct'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['general_conduct'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['general_conduct'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['general_conduct']); ?></td>
                     </tr>
 
                     <tr>
                         <td>Attendance</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attendance'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attendance'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attendance'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attendance'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attendance'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['attendance']); ?></td>
 
                         <td>Leadership</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['leadership'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['leadership'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['leadership'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['leadership'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['leadership'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['leadership']); ?></td>
                     </tr>
 
                     <tr>
                         <td>Games/Sports</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['games_sports'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['games_sports'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['games_sports'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['games_sports'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['games_sports'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['games_sports']); ?></td>
 
                         <td>Peer Relationship</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['peer_relationship'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['peer_relationship'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['peer_relationship'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['peer_relationship'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['peer_relationship'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['peer_relationship']); ?></td>
                     </tr>
 
                     <tr>
                         <td>Hand Writing</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['hand_writing'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['hand_writing'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['hand_writing'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['hand_writing'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['hand_writing'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['hand_writing']); ?></td>
 
                         <td>Punctuality</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['punctuality'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['punctuality'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['punctuality'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['punctuality'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['punctuality'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['punctuality']); ?></td>
                     </tr>
 
                     <tr>
                         <td>Fluency</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['fluency'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['fluency'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['fluency'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['fluency'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['fluency'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['fluency']); ?></td>
 
                         <td>Neatness</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['neatness'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['neatness'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['neatness'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['neatness'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['neatness'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['neatness']); ?></td>
                     </tr>
 
                     <tr>
                         <td>Drawing</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['drawing'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['drawing'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['drawing'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['drawing'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['drawing'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['drawing']); ?></td>
 
                         <td>Honesty</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['honesty'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['honesty'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['honesty'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['honesty'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['honesty'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['honesty']); ?></td>
                     </tr>
 
                     <tr>
                         <td>Painting</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['painting'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['painting'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['painting'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['painting'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['painting'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['painting']); ?></td>
 
                         <td>Attentiveness</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attentiveness'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attentiveness'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attentiveness'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attentiveness'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['attentiveness'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['attentiveness']); ?></td>
                     </tr>
 
                     <tr>
                         <td>Musical Skills</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['musical_skills'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['musical_skills'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['musical_skills'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['musical_skills'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['musical_skills'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['musical_skills']); ?></td>
 
                         <td>Health</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['health'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['health'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['health'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['health'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['health'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['health']); ?></td>
                     </tr>
 
                     <tr>
                         <td>Craft Work</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['craft_work'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['craft_work'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['craft_work'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['craft_work'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['craft_work'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['craft_work']); ?></td>
 
                         <td>Perseverance</td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['perseverance'] >= 1 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['perseverance'] >= 2 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['perseverance'] >= 3 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['perseverance'] >= 4 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
-                        <td style="width: 20px !important;"><?php if( $this->result_section_data['perseverance'] >= 5 ) { echo '<span class="glyphicon glyphicon-star" aria-hidden="true"></span>'; } else { echo '&nbsp;'; }  ?></td>
+                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['perseverance']); ?></td>
                     </tr>
 
 				</tbody>

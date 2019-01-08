@@ -3,12 +3,34 @@ jQuery(function($) {
         var marks = $(this).parent().parent().parent().find('.rps_marks');
         var total = 0.00;
         $.each( marks, function(index, value) {
-            total += parseFloat($(this).val());
+            var value = $.trim( $(this).val() );
+            if ( value != ''  ) {
+                total += parseFloat($(this).val());
+            }
         });
 
         $(this).closest('table').next('table.results_table').find('.total_marks_obtained').first().val(total);
     });
 
+
+    $('.marks_table').on('change', '.auto_calc', function () {
+        var marks = $(this).parent().parent().find('.auto_calc');
+        //console.log(marks);
+
+        var total = 0.00;
+        $.each( marks, function(index, value) {
+            var value = $.trim( $(this).val() );
+            if ( value != ''  ) {
+                total += parseFloat($(this).val());
+            }
+        });
+
+        $(this).closest('tr').find('.rps_marks').first().val(total);
+        $('.rps_marks').trigger('change');
+    });
+
+
+    /*
     $('.marks_table').on('change', '.grades', function () {
         var grade = $(this).val();
         var grade_point = change_grade_point(grade);
@@ -41,4 +63,5 @@ jQuery(function($) {
     }
 
     change_all_grade_point();
+    */
 });

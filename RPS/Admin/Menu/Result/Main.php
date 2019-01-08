@@ -711,7 +711,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 
 	public function load_scripts() {
 		if( isset($_REQUEST['student_id'], $_REQUEST['marks']) || (isset($_REQUEST['extends']) && $_REQUEST['extends'] == '1' ) ) {
-
+            wp_enqueue_script( 'rps_marks' );
 		}
 		elseif( !isset($_REQUEST['extends']) ) {
 		    wp_enqueue_script( 'rps_result' );

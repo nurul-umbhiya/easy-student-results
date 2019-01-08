@@ -8,6 +8,26 @@ class RPS_Helper_Function {
         //nothing here
     }
 
+    public static function returnDomain( $point  ) {
+        $ret = '';
+        if ( $point >= 5 ) {
+	        $ret = 'Very good';
+        }
+        elseif( $point >= 4 && $point < 5) {
+	        $ret = 'Good';
+        }
+        elseif( $point >= 3 && $point < 4) {
+	        $ret = 'Fair';
+        }
+        elseif( $point >= 2 && $point < 3) {
+	        $ret = 'Poor';
+        }
+        elseif( $point >= 1 && $point < 2) {
+	        $ret = 'Very poor';
+        }
+        return $ret;
+    }
+
 	function generate_random($length, $keyspace = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ')
 	{
 		$keyspace = str_shuffle($keyspace );

@@ -141,6 +141,7 @@ class RPS_Helper_Marks {
 			//'sl'                => __('SL', $this->TD),
 			'course_name'       => __('Subject Name', $this->TD),
 			'course_code'       => __('Subject Code', $this->TD),
+			'total_marks'       => __('Total Marks', $this->TD),
 			'ca1'               => __('Ca1', $this->TD),
 			'ca2'               => __('Ca2', $this->TD),
 			'ca3'               => __('Ca3', $this->TD),
@@ -237,7 +238,7 @@ class RPS_Helper_Marks {
 
 						case 'total_marks':
 							$total = isset ( $course_info['total_marks'] ) && $course_info['total_marks'] != '' ? $course_info['total_marks'] : 'N/A';
-							echo "{$total}<input type='hidden' class='total_marks' value='{$total}' />";
+							echo "{$total}<input type='hidden' name='results[{$row['id']}][total_marks]' class='total_marks' value='{$total}' />";
 							break;
 
 						case 'marks_obtained':

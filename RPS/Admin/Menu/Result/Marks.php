@@ -274,6 +274,7 @@ final class RPS_Admin_Menu_Result_Marks {
                     <?php $marks_obj->exam_table_html(); ?>
                     <form method="post">
                         <?php echo $nonce; ?>
+                        <input type="hidden" name="student_id" value="<?php echo $student_id; ?>">
                         <?php $marks_obj->get_marks_html(); ?>
                     </form>
 			    </div>
