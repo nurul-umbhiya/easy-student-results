@@ -74,6 +74,11 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 			$course_ids             = ( isset( $_POST['course_id'] ) )      ? $_POST['course_id'] : array();
 			$student_ids             = ( isset( $_POST['student_ids'] ) )   ? array_map('intval', $_POST['student_ids']) : array();
 
+			$data['teacher_name']       = ( isset( $_POST['teacher_name'] ) )       ? wp_strip_all_tags( $_POST['teacher_name'] ) : '';
+			$data['next_term_begins']   = ( isset( $_POST['next_term_begins'] ) )   ? wp_strip_all_tags( $_POST['next_term_begins'] ) : '';
+
+            $temp_course_ids = array();
+
 			$flag = false;
 			//check exam_id
 			if ( ! $data['exam_id'] ) {
@@ -113,6 +118,10 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 			if ( empty( $student_ids ) ) {
 				$this->messages[] = __( 'Please select at least one <strong>Student</strong>.', $this->TD );
 			}
+			else {
+			    //calculate no of students
+			    $data['no_in_class'] = count($student_ids);
+			}
 
 			if ( empty( $course_ids ) ) {
 				$this->messages[] = __( 'Please Select at least one <strong>Subject</strong>.', $this->TD );
@@ -123,7 +132,7 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 
 			if ( empty( $this->messages ) && empty( $this->error ) ) {
 				$data['added'] = time();
-				$format = array('%d', '%d', '%d', '%d', '%d', '%d', '%d');
+				$format = array('%d', '%d', '%d', '%d', '%d', '%d', '%d', '%s', '%s', '%d');
 
 
 				if ( $wpdb->insert( $wpdb->rps_exam_record, apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_result_main_data', $data, $_POST), apply_filters(RPS_Result_Management::PLUGIN_SLUG . '_result_main_format', $format, $_POST ) ) ) {
@@ -204,9 +213,12 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 		if ( ! empty( $_POST ) && check_admin_referer( 'edit_result_nonce_' . $id, 'edit_result' ) ) {
 			$data['display']        = ( isset( $_POST['display'] ) )        ? intval( $_POST['display'] ) : 1;
 			$data['active']         = ( isset( $_POST['active'] ) )         ? intval( $_POST['active'] ) : 1;
+			$data['teacher_name']       = ( isset( $_POST['teacher_name'] ) )       ? wp_strip_all_tags( $_POST['teacher_name'] ) : '';
+			$data['next_term_begins']   = ( isset( $_POST['next_term_begins'] ) )   ? wp_strip_all_tags( $_POST['next_term_begins'] ) : '';
 
-			$student_ids             = ( isset( $_POST['student_ids'] ) )  ? array_map('intval', $_POST['student_ids']) : array();
-			$course_ids             = ( isset( $_POST['course_id'] ) )      ? $_POST['course_id'] : array();
+
+			$student_ids                = ( isset( $_POST['student_ids'] ) )  ? array_map('intval', $_POST['student_ids']) : array();
+			$course_ids                 = ( isset( $_POST['course_id'] ) )      ? $_POST['course_id'] : array();
 
 			if ( empty( $student_ids ) ) {
 				$this->messages[] = __( 'Please select at least one <strong>Student</strong>.', $this->TD );
@@ -216,8 +228,11 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 				$this->messages[] = __( 'Please Select at least one <strong>Subject</strong>.', $this->TD );
 			}
 
+			//calculate no of students
+			$data['no_in_class'] = count($student_ids);
+
 			if ( empty($this->messages) && empty($this->error) ) {
-				$format = array( '%d', '%d');
+				$format = array( '%d', '%d', '%s', '%s', '%d');
 				$where = array( 'id' => $id );
 				$format_where = array( '%d' );
 
@@ -350,6 +365,10 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 			$data['active'] = '1';
 			$data['student_ids'] = array();
 			$data['course_ids'] = array();
+
+			//new fields
+			$data['teacher_name'] = '';
+			$data['next_term_begins'] = '';
 		}
 
 		//get exam id
@@ -510,6 +529,26 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 						<?php else:
 							echo __('No semester/section found.', $this->TD);
 						endif; ?>
+					</td>
+				</tr>
+
+                <!--  Teacher Name/Tel  -->
+				<tr valign="top">
+					<th scope="row">
+						<label for="teacher_name"><?php _e('Teacher Name/Tel',$this->TD); ?></label>
+					</th>
+					<td>
+						<input type="text" name="teacher_name" id="teacher_name" class="regular-text" value="<?php echo $data['teacher_name']; ?>">
+					</td>
+				</tr>
+
+				<!--  Next Term Begins  -->
+				<tr valign="top">
+					<th scope="row">
+						<label for="next_term_begins"><?php _e('Next Term Begins',$this->TD); ?></label>
+					</th>
+					<td>
+						<input type="text" name="next_term_begins" id="next_term_begins" class="regular-text" value="<?php echo $data['next_term_begins']; ?>">
 					</td>
 				</tr>
 

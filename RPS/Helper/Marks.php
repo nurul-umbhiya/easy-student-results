@@ -706,15 +706,6 @@ EOD;
             </div>
         </div>
 
-        <div class="panel panel-default">
-            <div class="table-responsive">
-				<?php
-				$this->summary_table_header();
-				$this->summary_table_body();
-				$this->summary_table_footer();
-				?>
-            </div>
-        </div>
 
         <div class="panel panel-default">
             <div class="table-responsive">
@@ -725,6 +716,17 @@ EOD;
 				?>
             </div>
         </div>
+
+        <div class="panel panel-default">
+            <div class="table-responsive">
+				<?php
+				$this->summary_table_header();
+				$this->summary_table_body();
+				$this->summary_table_footer();
+				?>
+            </div>
+        </div>
+
 		<?php
 		$this->get_submit_button();
 	}

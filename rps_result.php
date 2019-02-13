@@ -4,7 +4,7 @@ Plugin Name: Easy Student Results
 Plugin URI: https://www.nurul.me/
 Description: Edited of  CLEVER ZONE LTD. Result Management System for School, College and University. Use [esr_results] to display result and [esr_students] to display student list.
 Text Domain: easy-student-results
-Version: 2.2.7
+Version: 3.0
 Author: Nurul Umbhiya
 Author URI: https://www.nurul.me/
 */
@@ -308,6 +308,38 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
 
 		        //update current version
 		        $version = '2.2.4';
+		        update_option(self::PLUGIN_SLUG . '_version', $version);
+	        }
+
+	        if ( $version == '2.2.4' ) {
+		        //delete cache
+		        RPS_Helper_Function::delete_transient();
+
+		        //add new fields for result table
+		        global $wpdb;
+
+		        $table = RPS_Result_Management::getTablePrefix() . 'exam_records';
+
+		        $query1 = "SHOW COLUMNS FROM {$table} LIKE 'teacher_name'";
+
+		        $row = $wpdb->get_row( $query1, ARRAY_A );
+
+		        if ( is_array($row) && !empty($row) ) {
+			        //do nothing
+		        }
+		        else {
+			        $query = "ALTER TABLE {$table}  ADD teacher_name varchar(250) AFTER semester_id";
+			        $wpdb->query($query);
+
+			        $query = "ALTER TABLE {$table}  ADD next_term_begins varchar(250) AFTER semester_id";
+			        $wpdb->query($query);
+
+			        $query = "ALTER TABLE {$table}  ADD no_in_class int(10) AFTER semester_id";
+			        $wpdb->query($query);
+		        }
+
+		        //update current version
+		        $version = '3.0';
 		        update_option(self::PLUGIN_SLUG . '_version', $version);
 	        }
         }
