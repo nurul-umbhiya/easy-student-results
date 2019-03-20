@@ -6897,8 +6897,24 @@
     flex: 1;
   }
 
+  #sycomotor_div {
+    display: -webkit-flex; /* Safari */
+    display: flex;
+  }
+
+  #sycomotor_div div {
+    -webkit-flex: 1;  /* Safari 6.1+ */
+    -ms-flex: 1;  /* IE 10 */
+    flex: 1;
+  }
+
   #res_result_print_data table td, #res_result_print_data table th {
     padding: 0px 8px !important;
+    font-size: 14px !important;
+  }
+
+  #sycomotor_table {
+    font-size: 10px !important;
   }
 }
 

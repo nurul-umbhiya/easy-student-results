@@ -9,6 +9,9 @@ class RPS_Helper_Function {
     }
 
     public static function returnDomain( $point  ) {
+
+        return $point;
+
         $ret = '';
         if ( $point >= 5 ) {
 	        $ret = 'Very good';

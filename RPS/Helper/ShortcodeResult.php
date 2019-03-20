@@ -499,124 +499,132 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 
 		if ( is_array( $this->result_section_data ) && !empty( $this->result_section_data ) ):
 			?>
-            <table class="table table-bordered">
-            <thead>
-                <th colspan="4">SUMMARY</th>
-            </thead>
-            <tbody>
-                <tr>
-                    <th>No of Subjects</th>
-                    <td><?php echo $this->result_section_data['no_of_subjects']; ?></td>
-                    <th>No In Class</th>
-                    <td><?php echo $this->result_section_data['no_in_class']; ?></td>
-                </tr>
-                <tr>
-                    <th>Class Position</th>
-                    <td><?php echo $this->result_section_data['class_position']; ?></td>
-                    <th>Student Ave</th>
-                    <td><?php echo $this->result_section_data['student_average']; ?></td>
-                </tr>
-                <tr>
-                    <th>Class Ave</th>
-                    <td><?php echo $this->result_section_data['class_average']; ?></td>
-                    <th>Next Term Begins</th>
-                    <td><?php echo $this->result_section_data['next_term_begins']; ?></td>
-                </tr>
-                <tr>
-                    <th colspan="2">Class Teacher Remark</th>
-                    <td colspan="2"><?php echo $this->result_section_data['class_teacher_remark']; ?></td>
-                </tr>
-                <tr>
-                    <th colspan="2">Head Teacher/Principal Remark</th>
-                    <td colspan="2"><?php echo $this->result_section_data['head_teacher_remark']; ?></td>
-                </tr>
-                <tr>
-                    <th colspan="2">Teacher Name/Tel</th>
-                    <td colspan="2"><?php echo $this->result_section_data['teacher_name']; ?></td>
-                </tr>
-            </tbody>
+            <div class="row" id="sycomotor_div">
+                <div class="col-md-8">
+                    <table class="table table-bordered" id="sycomotor_table">
+                        <thead>
+                        <th colspan="6">Psychomotor Domain</th>
+                        <th colspan="6">Affective Domain</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Appearance</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['appearance']); ?></td>
+
+                            <td>General Conduct</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['general_conduct']); ?></td>
+                        </tr>
+
+                        <tr>
+                            <td>Attendance</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['attendance']); ?></td>
+
+                            <td>Leadership</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['leadership']); ?></td>
+                        </tr>
+
+                        <tr>
+                            <td>Games/Sports</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['games_sports']); ?></td>
+
+                            <td>Peer Relationship</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['peer_relationship']); ?></td>
+                        </tr>
+
+                        <tr>
+                            <td>Hand Writing</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['hand_writing']); ?></td>
+
+                            <td>Punctuality</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['punctuality']); ?></td>
+                        </tr>
+
+                        <tr>
+                            <td>Fluency</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['fluency']); ?></td>
+
+                            <td>Neatness</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['neatness']); ?></td>
+                        </tr>
+
+                        <tr>
+                            <td>Drawing</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['drawing']); ?></td>
+
+                            <td>Honesty</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['honesty']); ?></td>
+                        </tr>
+
+                        <tr>
+                            <td>Painting</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['painting']); ?></td>
+
+                            <td>Attentiveness</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['attentiveness']); ?></td>
+                        </tr>
+
+                        <tr>
+                            <td>Musical Skills</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['musical_skills']); ?></td>
+
+                            <td>Health</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['health']); ?></td>
+                        </tr>
+
+                        <tr>
+                            <td>Craft Work</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['craft_work']); ?></td>
+
+                            <td>Perseverance</td>
+                            <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['perseverance']); ?></td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-4">
+                    <table class="table table-bordered">
+                        <thead>
+                        <th colspan="4">SUMMARY</th>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th>No of Subjects</th>
+                            <td><?php echo $this->result_section_data['no_of_subjects']; ?></td>
+                            <th>No In Class</th>
+                            <td><?php echo $this->result_section_data['no_in_class']; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Class Position</th>
+                            <td><?php echo $this->result_section_data['class_position']; ?></td>
+                            <th>Student Ave</th>
+                            <td><?php echo $this->result_section_data['student_average']; ?></td>
+                        </tr>
+                        <tr>
+                            <th>Class Ave</th>
+                            <td><?php echo $this->result_section_data['class_average']; ?></td>
+                            <th>Next Term Begins</th>
+                            <td><?php echo $this->result_section_data['next_term_begins']; ?></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Class Teacher Remark</th>
+                            <td colspan="2"><?php echo $this->result_section_data['class_teacher_remark']; ?></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Head Teacher/Principal Remark</th>
+                            <td colspan="2"><?php echo $this->result_section_data['head_teacher_remark']; ?></td>
+                        </tr>
+                        <tr>
+                            <th colspan="2">Teacher Name/Tel</th>
+                            <td colspan="2"><?php echo $this->result_section_data['teacher_name']; ?></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
 
-			<table class="table table-bordered">
-                <thead>
-                <th colspan="6">Psychomotor Domain</th>
-                <th colspan="6">Affective Domain</th>
-                </thead>
-				<tbody>
-                    <tr>
-                        <td>Appearance</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['appearance']); ?></td>
 
-                        <td>General Conduct</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['general_conduct']); ?></td>
-                    </tr>
-
-                    <tr>
-                        <td>Attendance</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['attendance']); ?></td>
-
-                        <td>Leadership</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['leadership']); ?></td>
-                    </tr>
-
-                    <tr>
-                        <td>Games/Sports</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['games_sports']); ?></td>
-
-                        <td>Peer Relationship</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['peer_relationship']); ?></td>
-                    </tr>
-
-                    <tr>
-                        <td>Hand Writing</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['hand_writing']); ?></td>
-
-                        <td>Punctuality</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['punctuality']); ?></td>
-                    </tr>
-
-                    <tr>
-                        <td>Fluency</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['fluency']); ?></td>
-
-                        <td>Neatness</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['neatness']); ?></td>
-                    </tr>
-
-                    <tr>
-                        <td>Drawing</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['drawing']); ?></td>
-
-                        <td>Honesty</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['honesty']); ?></td>
-                    </tr>
-
-                    <tr>
-                        <td>Painting</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['painting']); ?></td>
-
-                        <td>Attentiveness</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['attentiveness']); ?></td>
-                    </tr>
-
-                    <tr>
-                        <td>Musical Skills</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['musical_skills']); ?></td>
-
-                        <td>Health</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['health']); ?></td>
-                    </tr>
-
-                    <tr>
-                        <td>Craft Work</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['craft_work']); ?></td>
-
-                        <td>Perseverance</td>
-                        <td colspan="5"><?php echo RPS_Helper_Function::returnDomain($this->result_section_data['perseverance']); ?></td>
-                    </tr>
-
-				</tbody>
-			</table>
 			<?php echo '<div style="text-align: center;">' . $this->student_section_data['result_footer'] . '</div>'; ?>
 		<?php
 		endif;
