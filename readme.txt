@@ -3,9 +3,9 @@ Contributors: zikubd
 Donate link: https://www.nurul.me/product/easy-student-results-needs-support/
 Tags: academic, academic result, student, student result, student result management system, result management system, education, result system, create marksheet online, online marksheet, online marksheet creator, result, easy student result, school, college, university, school result, college result, university result, create marksheet online, emarksheet
 Requires at least: 4.0.0
-Tested up to: 4.9.6
-Stable tag: 2.2.6
-Version: 2.2.6
+Tested up to: 5.1.1
+Stable tag: 2.2.7
+Version: 2.2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -104,6 +104,10 @@ It is hard to continue development and support for this free plugin without cont
 
 
 == Changelog ==
+
+= 2.2.7 =
+* Fixed database limit issue for some fields
+* Updated codebase
 
 = 2.2.6 =
 * Fixed a notice on shortcode display
