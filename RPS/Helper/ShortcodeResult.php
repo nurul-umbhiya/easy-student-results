@@ -141,7 +141,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 			if( $meta_key == 'department' ) {
 				$this->student_section_data[] = array(
 					'key' => $meta_value,
-					'value' => isset( $this->department_data['full_name']) ? esc_attr( $this->department_data['full_name'] ) : ''
+					'value' => trim( $this->department_data['full_name']) != '' ? esc_attr( $this->department_data['full_name'] ) : esc_attr( $this->department_data['name'] )
 				);
 			} elseif ( $meta_key == 'batch' ) {
 				$this->student_section_data[] = array(
@@ -375,7 +375,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
 	public function result_header( $echo = true ) {
 		ob_start();
 		?>
-		<div id="res_result_print_data">
+		<div id="res_result_print_data" class="rps_result">
 
 		<?php if ( isset($this->options['show_header_footer']) && $this->options['show_header_footer'] == 'on' ) { ?>
 			<header id="result_header" class="avoid-this">
@@ -419,7 +419,7 @@ class RPS_Helper_ShortcodeResult extends RPS_Shortcodes_Abstract {
             <div class="visible-print-block" id="result_prepend"><?php echo $this->options['print_header'];  ?></div>
             <div class="visible-print-block" id="result_append"><?php echo $this->options['print_footer'];  ?></div>
             <script type="text/javascript">
-                var bs_url = '<?php echo $this->URL . '/assets/bootstrap-3.3.5/css/bootstrap.min.css'; ?>';
+                var bs_url = '<?php echo $this->URL . '/assets/bootstrap-3.3.5/css/bootstrap.css'; ?>';
             </script>
         <?php endif;
         $data = ob_get_clean();
