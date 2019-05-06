@@ -310,6 +310,15 @@ if( !class_exists( 'RPS_Result_Management' ) ) {
 		        $version = '2.2.4';
 		        update_option(self::PLUGIN_SLUG . '_version', $version);
 	        }
+
+	        if ( $version == '2.2.4') {
+		        $db_class = RPS_InstallDb::getInstance();
+		        $db_class->createDB();
+
+		        //update current version
+		        $version = '2.2.7';
+		        update_option(self::PLUGIN_SLUG . '_version', $version);
+	        }
         }
 
         // Register Custom Status
