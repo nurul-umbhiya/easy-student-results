@@ -3,9 +3,9 @@ Contributors: zikubd
 Donate link: https://www.nurul.me/product/easy-student-results-needs-support/
 Tags: academic, academic result, student, student result, student result management system, result management system, education, result system, create marksheet online, online marksheet, online marksheet creator, result, easy student result, school, college, university, school result, college result, university result, create marksheet online, emarksheet
 Requires at least: 4.0.0
-Tested up to: 5.1.1
-Stable tag: 2.2.9
-Version: 2.2.9
+Tested up to: 5.3
+Stable tag: 2.2.8
+Version: 2.2.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
