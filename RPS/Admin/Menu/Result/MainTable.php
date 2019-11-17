@@ -64,6 +64,7 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
                 $actions = array (
                     'edit'      => sprintf(__('<a href="?page=%s&edit=%s" class="edit">Edit</a>', $this->TD),$this->page,$item->id),
                     //'add_marks' => sprintf(__('<a href="?page=%s&marks=%s" class="edit">Add Marks</a>', $this->TD),$this->page,$item->id),
+	                'view_results' => sprintf(__('<a href="?page=%s&view_results=%s" class="edit">View Results</a>', $this->TD),$this->page,$item->id),
                 );
 
                 $actions = apply_filters(RPS_Result_Management::PLUGIN_SLUG .'_exam_record_row_actions', $actions, $this->page, $item->id);
@@ -122,11 +123,17 @@ class RPS_Admin_Menu_Result_MainTable extends \WP_List_Table {
 
             case 'actions':
                 $name = __( 'Add Marks', $this->TD );
+	            $name2 = __( 'View Results', $this->TD );
                 $delete = __( 'Delete', $this->TD );
                 $exam_name = $this->exam_table_data['name'] . ' - ' . $this->exam_table_data['exam_year'];
                 $link = sprintf('<strong><a href="?page=%s&marks=%d" class="button button-primary action_button">%s</a></strong>',$this->page,$item->id, $name);
+	            $link .= sprintf('<strong><a href="?page=%s&view_results=%d" class="button button-primary action_button">%s</a></strong>',$this->page,$item->id, $name2);
+
+
                 $link2 = wp_nonce_url ( admin_url( sprintf( 'admin.php?page=%s&delete=%d', $this->page,$item->id ) ), 'delete_result_' . $item->id, 'delete_result' );
                 $link .= sprintf('<br><strong><a href="%s" class="button button-default action_button delete_marks exam_record_id_%d" data-exam_name="%s" data-exam_id="%d">%s</a></strong>',$link2, $item->id, $exam_name, $item->id, $delete);
+
+
                 return sprintf( '%s', apply_filters(RPS_Result_Management::PLUGIN_SLUG .'_exam_record_list_actions', $link, $this->page, $item->id));
 
             default:

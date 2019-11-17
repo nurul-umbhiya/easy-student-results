@@ -38,6 +38,9 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 			elseif ( isset ( $_REQUEST['edit'] ) ) {
 				$this->edit();
 			}
+			elseif ( isset($_REQUEST['view_results'] ) ) {
+			    $this->viewResults();
+			}
 			elseif ( isset( $_REQUEST['delete'] ) ) {
 				$this->delete();
 			}
@@ -326,6 +329,10 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 
 		}
 
+	}
+
+	private function viewResults() {
+        RPS_Admin_Menu_Result_ViewResults::getInstance('rps_result_results');
 	}
 
 	private function formTable($data = array() ) {
@@ -651,7 +658,11 @@ class RPS_Admin_Menu_Result_Main extends RPS_Admin_Menu_MenuAbstract {
 			$title = __('Add Marks', $this->TD);
 
 		} elseif ( isset($_REQUEST['marks'] ) && RPS_Helper_Function::is_numeric($_REQUEST['marks']) ) {
-			$title = __('Student List', $this->TD);
+		    $link2 = ' <a href="' . esc_url_raw( add_query_arg( array('page' => $this->page, 'view_results' => intval($_REQUEST['marks']) ),  admin_url('admin.php?') ) ) .'" class="add-new-h2">' . __('View Results', $this->TD) . '</a>';
+			$title = __('Student List', $this->TD) . $link2;
+
+		} elseif ( isset($_REQUEST['view_results'] ) && RPS_Helper_Function::is_numeric($_REQUEST['view_results']) ) {
+			$title = __('Results', $this->TD);
 
 		} else {
 

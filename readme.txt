@@ -4,8 +4,8 @@ Donate link: https://www.nurul.me/product/easy-student-results-needs-support/
 Tags: academic, academic result, student, student result, student result management system, result management system, education, result system, create marksheet online, online marksheet, online marksheet creator, result, easy student result, school, college, university, school result, college result, university result, create marksheet online, emarksheet
 Requires at least: 4.0.0
 Tested up to: 5.1.1
-Stable tag: 2.2.8
-Version: 2.2.8
+Stable tag: 2.2.9
+Version: 2.2.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -41,6 +41,20 @@ Roll no (by default) or by Registration no [esr_results2 search_by='reg']. Note 
 *   Plugin is translation ready
 *   Used WordPress Transients API for complex mysql queries
 *   WordPress Multi site support
+
+= Available Shortcodes =
+
+1.  [esr_results]
+    View Student Result with a detailed search form
+    <img src="https://ps.w.org/easy-student-results/assets/screenshot-1.png" alt="Search Student Result Shortcode 1" />
+
+2.  [esr_results2]
+    By this shortcode result can be searched by Roll no (by default) or by Registration no [esr_results2 search_by=’reg’].
+    <img src="https://ps.w.org/easy-student-results/assets/screenshot-13.png" alt="Search Student Result Shortcode 2" />
+
+3.  [esr_students]
+    By this shortcode, you can search all available students
+    <img src="https://ps.w.org/easy-student-results/assets/screenshot-3.png" alt="Search Students" />
 
 
 = Premium AddOns =
@@ -104,6 +118,9 @@ It is hard to continue development and support for this free plugin without cont
 
 
 == Changelog ==
+
+= 2.2.8 =
+* Added result view feature under Result Section
 
 = 2.2.8 =
 * Fixed displaying department full name issue on result shortcode

@@ -71,8 +71,8 @@ final class RPS_Shortcodes_Result2 extends RPS_Shortcodes_Abstract
         <form class="form-horizontal" method="post">
             <?php echo $nonce; ?>
             <div class="form-group">
-                <label for="exam_name" class="col-sm-2 control-label"><?php _e('Examination', $this->TD); ?></label>
-                <div class="col-sm-10">
+                <label for="exam_name" class="col-sm-4 control-label"><?php _e('Examination', $this->TD); ?></label>
+                <div class="col-sm-8">
                     <select name="exam_id" id="exam_id" class="form-control">
                         <?php if ( !empty($exam_ids) ) {
                             foreach ( $exam_ids as $exam_data ) {
@@ -87,14 +87,14 @@ final class RPS_Shortcodes_Result2 extends RPS_Shortcodes_Abstract
             </div>
 
             <div class="form-group">
-                <label for="exam_roll" class="col-sm-2 control-label"><?php $this->atts['search_by'] == 'roll' ? _e('Roll No', $this->TD) : _e('Registration No', $this->TD); ?></label>
-                <div class="col-sm-10">
+                <label for="exam_roll" class="col-sm-4 control-label"><?php $this->atts['search_by'] == 'roll' ? _e('Roll No', $this->TD) : _e('Registration No', $this->TD); ?></label>
+                <div class="col-sm-8">
                     <input type="text" class="form-control" id="exam_roll" name="exam_roll" placeholder="Enter <?php $this->atts['search_by'] == 'roll' ? _e('Roll No', $this->TD) : _e('Registration No', $this->TD); ?>" value="<?php echo $this->exam_roll ? $this->exam_roll : ''; ?>">
                 </div>
             </div>
 
             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
+                <div class="col-sm-offset-4 col-sm-8">
                     <button type="submit" class="btn btn-primary"><?php _e('Submit', $this->TD); ?></button>
                     <button type="reset" class="btn btn-default"><?php _e('Reset', $this->TD); ?></button>
                 </div>
